@@ -1,11 +1,39 @@
-import React from 'react'
+// App.jsx
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-const App = () => {
+import PublicLayout from "./layouts/PublicLayout";
+import DashboardLayout from "./layouts/DashboardLayout";
+
+// Public pages
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+
+// Dashboard pages
+// import DashboardHome from "./pages/dashboard/Home";
+// import Users from "./pages/dashboard/Users";
+// import Settings from "./pages/dashboard/Settings";
+
+export default function App() {
   return (
-    <div className='mx-5'>
-      <h1 className='text-red-700'>Hello World!</h1>
-    </div>
-  )
-}
+    <BrowserRouter>
+      <Routes>
 
-export default App
+        {/*  Public Website */}
+        <Route path="/" element={<PublicLayout />}>
+          <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+        </Route>
+
+        {/*  Dashboard */}
+        {/* <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route index element={<DashboardHome />} />
+          <Route path="users" element={<Users />} />
+          <Route path="settings" element={<Settings />} />
+        </Route> */}
+
+      </Routes>
+    </BrowserRouter>
+  );
+}
