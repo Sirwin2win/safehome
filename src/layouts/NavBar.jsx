@@ -28,29 +28,29 @@ const NavBar = () => {
   // Array containing navigation items
   const navItems = [
     { id: 1, to: "/", txt: "Home" },
-    { id: 2, to: "/about", txt: "About" },
-    { id: 3, to: "/contact", txt: "Contact" },
-    // { id: 4, to: "/rooms", txt: "Rooms" },
-    // { id: 5, to: "/manageRooms", txt: "Manage" },
+    { id: 2, to: "/about", txt: "About Us" },
+    { id: 3, to: "/listings", txt: "Listings" },
+    { id: 4, to: "/services", txt: "Services" },
+    { id: 5, to: "/contact", txt: "Contact Us" },
     // { id: 6, to: "/blog", txt: "Blog" },
     // { id: 6, to: "/login", txt: "Login" },
     // { id: 7, to: "/register", txt: "Register" },
   ];
   return (
-         <div className="bg-[rgba(0,0,0,0.2)]">
+         <div className="bg-[rgba(0,0,0,0.2)] z-50">
          {/* <div className="bg-[rgba(0,0,0,0.2)] z-50"> */}
       <nav className="relative md:mb-0 border-gray-200 dark:bg-gray-900">
-        <div className="max-w-screen-xl flex flex-wrap bg-white-0 items-center justify-evenly mx-auto p-4 mt-[20px]">
+        <div className="max-w-screen-xl flex flex-wrap bg-white-0 items-center justify-between mx-[10px] mt-[20px]">
           <Link
-            href={"/"}
+            to={"/"}
             className="items-center space-x-1 rtl:space-x-reverse no-underline"
           >
             <img
               src={logo}
-              height={80}
-              width={80}
+              height={50}
+              width={50}
               alt="Logo"
-              // className="rounded-full"
+              className="rounded-lg"
             />
           </Link>
           <button
@@ -76,15 +76,18 @@ const NavBar = () => {
               ))}
             </ul>
           </div>
+          <div>
+            <button className='bg-omaOrange text-white h-10 w-50 rounded-full'>Get Started</button>
+          </div>
         </div>
       </nav>
       {/* Mobile Navigation Icon */}
       <div className="relative z-[20px]">
         <div
           onClick={handleNav}
-          className=" block ml-[300px] mb-1 mt-[-55px] md:hidden"
+          className=" block ml-[250px] mb-1 mt-[-55px] md:hidden"
         >
-          {nav ? <BiX size={50} /> : <BiMenu size={50} />}
+          {nav ? <BiX size={40} color='#fff' /> : <BiMenu size={40} color='#fff'/>}
         </div>
         {/* Mobile Navigation Menu */}
         <ul

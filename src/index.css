@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+
+@theme {
+    --color-omaOrange: #FF6700C9;
+  --color-foreground: #FF6700C9;
+  /* --background-image-hero-home: url('/assets/vectors/background.jpg'); */
+  --background-image-hero-home: linear-gradient(
+      rgba(0,0,0,0.5),
+      rgba(0,0,0,0.5)
+    ),
+    url('/src/assets/vectors/background.jpg');
+}
