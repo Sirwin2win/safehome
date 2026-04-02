@@ -3,9 +3,14 @@ import background from '../assets/vectors/background.jpg'
 import house_key from '../assets/vectors/key.png'
 import key2 from '../assets/vectors/key2.png'
 import { Link } from 'react-router-dom'
-import { IoLocationOutline, IoChevronDownSharp , IoIosArrowRoundForward  } from "react-icons/io5";
+import { IoLocationOutline, IoChevronDownSharp, IoSearchOutline    } from "react-icons/io5";
 import { FiHome } from "react-icons/fi";
 import { TbCurrencyNaira, TbAdjustmentsHorizontal  } from "react-icons/tb";
+import { MdOutlineArrowRightAlt } from "react-icons/md";
+import { BsStars } from "react-icons/bs";
+
+
+
 
 
 
@@ -13,6 +18,7 @@ import { TbCurrencyNaira, TbAdjustmentsHorizontal  } from "react-icons/tb";
 
 const Home = () => {
   return (
+    <div>
     <div className='static'>
       <div class="bg-hero-home bg-cover bg-center h-screen mt-[-130px] -z-100"></div>
       <div className='flex justify-between'>
@@ -21,7 +27,7 @@ const Home = () => {
         <span className='block'>property management software</span>
         <span className='block'>for <span className='text-white'>Landlords</span></span></p>
 
-        <button className='bg-[#EF6700C9] my-5 p-2 rounded-lg'>EXPLORE NOW <IoIosArrowRoundForward className='text-white' /></button>
+        <button className='flex justify-evenly bg-[#EF6700C9] my-5 p-2 rounded-lg'><p>EXPLORE NOW</p> <MdOutlineArrowRightAlt className='text-white mt-1 ms-2' /></button>
 
         <p className='text-[#C8C8C8]'>Discover a lifestyle where elegance meets comfort, blending
           <span className='block'>timeless design with modern sophistication</span>
@@ -48,6 +54,17 @@ const Home = () => {
               <div className='flex justify-evenly bg-[#223B7E99] text-white p-2'> <p className='mt-1 me-3'><TbAdjustmentsHorizontal  /></p>  <p>Target Filters </p><p className='mt-1 ms-5'><IoChevronDownSharp /></p></div>
             </div>
           </div>
+          <button className='absolute flex justify-evenly bg-[#EF6700C9] text-white bottom-20 px-3 py-1 rounded-lg'> <IoSearchOutline className='mt-1 me-2' />search</button>
+    </div>
+    <button className='flex justify-evenly bg-[#223B7E99] p-3 rounded-full mx-auto my-10 font-[600]'><BsStars className='me-2 size-8' /> Discover our key features</button>
+    <div className='mx-auto'>
+
+    <p>Simplifying Living Experiences Across the World</p>
+    <p>SafeHomes helps residents, admins, and security personnel stay connected and in 
+      control is the ultimate digital solution for managing modern residential estates and 
+      gated communities. Whether you're a resident, admin, or security guard, SafeHomes 
+      brings simplicity, transparency, and security to everyday living — all in one place</p>
+    </div>
     </div>
   )
 }
