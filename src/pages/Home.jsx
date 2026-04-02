@@ -8,11 +8,10 @@ import { FiHome } from "react-icons/fi";
 import { TbCurrencyNaira, TbAdjustmentsHorizontal  } from "react-icons/tb";
 import { MdOutlineArrowRightAlt } from "react-icons/md";
 import { BsStars } from "react-icons/bs";
-
-
-
-
-
+import HomeCard1 from '../components/HomeCard1'
+import HomeCard2 from '../components/HomeCard2'
+import HomeCard3 from '../components/HomeCard3'
+import HomeCard4 from '../components/HomeCard4'
 
 
 
@@ -57,14 +56,20 @@ const Home = () => {
           <button className='absolute flex justify-evenly bg-[#EF6700C9] text-white bottom-20 px-3 py-1 rounded-lg'> <IoSearchOutline className='mt-1 me-2' />search</button>
     </div>
     <button className='flex justify-evenly bg-[#223B7E99] p-3 rounded-full mx-auto my-10 font-[600]'><BsStars className='me-2 size-8' /> Discover our key features</button>
-    <div className='mx-auto'>
+    <div className='mb-5'>
 
-    <p>Simplifying Living Experiences Across the World</p>
-    <p>SafeHomes helps residents, admins, and security personnel stay connected and in 
-      control is the ultimate digital solution for managing modern residential estates and 
-      gated communities. Whether you're a resident, admin, or security guard, SafeHomes 
-      brings simplicity, transparency, and security to everyday living — all in one place</p>
+    <p className='text-center font-bold text-2xl my-5'>Simplifying Living Experiences Across the World</p>
+    <p className='text-center'>SafeHomes helps residents, admins, and security personnel stay connected and in 
+      <span className='block'>control is the ultimate digital solution for managing modern residential estates and </span>
+      <span className='block'>gated communities. Whether you're a resident, admin, or security guard, SafeHomes</span> 
+      <span className='block'>brings simplicity, transparency, and security to everyday living — all in one place</span>
+      </p>
     </div>
+
+    <HomeCard1 />
+    <HomeCard2 />
+    <HomeCard3 />
+    <HomeCard4 />
     </div>
   )
 }
