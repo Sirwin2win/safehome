@@ -12,6 +12,8 @@ import HomeCard1 from '../components/HomeCard1'
 import HomeCard2 from '../components/HomeCard2'
 import HomeCard3 from '../components/HomeCard3'
 import HomeCard4 from '../components/HomeCard4'
+import HomePhoneCard from '../components/HomePhoneCard'
+import LatestProperties from '../components/LatestProperties'
 
 
 
@@ -70,6 +72,11 @@ const Home = () => {
     <HomeCard2 />
     <HomeCard3 />
     <HomeCard4 />
+
+    <button className='bg-[#223B7E99] px-4 py-2 rounded-full block text-xl font-[500] mx-auto my-10'>Join the best!</button>
+    <p className='text-center font-[700] text-6xl'>Start Living Smarter Today</p>
+    <HomePhoneCard />
+    <LatestProperties />
     </div>
   )
 }
