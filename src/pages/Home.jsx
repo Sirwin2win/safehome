@@ -14,6 +14,7 @@ import HomeCard3 from '../components/HomeCard3'
 import HomeCard4 from '../components/HomeCard4'
 import HomePhoneCard from '../components/HomePhoneCard'
 import LatestProperties from '../components/LatestProperties'
+import PropertyCard from '../components/PropertyCard'
 
 
 
@@ -77,6 +78,7 @@ const Home = () => {
     <p className='text-center font-[700] text-6xl'>Start Living Smarter Today</p>
     <HomePhoneCard />
     <LatestProperties />
+    <PropertyCard />
     </div>
   )
 }
