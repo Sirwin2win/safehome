@@ -15,6 +15,7 @@ import HomeCard4 from '../components/HomeCard4'
 import HomePhoneCard from '../components/HomePhoneCard'
 import LatestProperties from '../components/LatestProperties'
 import PropertyCard from '../components/PropertyCard'
+import Testimonials from '../components/Testimonials'
 
 
 
@@ -58,7 +59,7 @@ const Home = () => {
           </div>
           <button className='absolute flex justify-evenly bg-[#EF6700C9] text-white bottom-20 px-3 py-1 rounded-lg'> <IoSearchOutline className='mt-1 me-2' />search</button>
     </div>
-    <button className='flex justify-evenly bg-[#223B7E99] p-3 rounded-full mx-auto my-10 font-[600]'><BsStars className='me-2 size-8' /> Discover our key features</button>
+    <button className='flex justify-evenly bg-[#223B7E99] p-2 rounded-full mx-auto my-10 font-[600]'><BsStars className='me-2 size-8' /> Discover our key features</button>
     <div className='mb-5'>
 
     <p className='text-center font-bold text-2xl my-5'>Simplifying Living Experiences Across the World</p>
@@ -79,6 +80,7 @@ const Home = () => {
     <HomePhoneCard />
     <LatestProperties />
     <PropertyCard />
+    <Testimonials />
     </div>
   )
 }

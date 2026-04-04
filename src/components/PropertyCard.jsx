@@ -32,7 +32,7 @@ const PropertyCard = () => {
   <div className='flex justify-center'>
     <IoLocationOutline className='text-[#C8C8C8]' size={30}/> <p className='ms-3 text-[#C8C8C8]'>{product.location}</p>
   </div>
-  <Link to={`/product/${product.id}`} >
+  
   <div className="p-4">
     <div className='flex justify-evenly'>
 
@@ -43,10 +43,12 @@ const PropertyCard = () => {
     <div className="flex justify-evenly"><FaBed className='text-[#C8C8C8] size-5' /> <p className='text-[#C8C8C8] ms-3'> {product.features.bed}</p></div>
     <div className="flex justify-evenly"><IoWaterOutline className='text-[#C8C8C8] size-5' /> <p className='text-[#C8C8C8] ms-3'>{product.features.bath}</p> </div>
     <div className="flex justify-evenly"><PiRectangleDashedLight className='text-[#C8C8C8] size-5' /> <p className='text-[#C8C8C8] ms-3'>{product.features.size} sqft</p></div>
-      
+      <Link to={`/product/${product.id}`} className='text-[#C8C8C8] underline' >
+      View Details
+      </Link>
     </div>
   </div>
-  </Link>
+  
 </div>          
         ))}
           {/* <p className='text-center'>No Products found</p> */}
