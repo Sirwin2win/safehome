@@ -18,6 +18,7 @@ import PropertyCard from '../components/PropertyCard'
 import Testimonials from '../components/Testimonials'
 import FAQ from '../components/FAQ'
 import HomeLastCard from '../components/HomeLastCard'
+import ContactCard from '../components/ContactCard'
 
 
 
@@ -85,6 +86,7 @@ const Home = () => {
     <Testimonials />
     <FAQ />
     <HomeLastCard />
+    <ContactCard />
     </div>
   )
 }
