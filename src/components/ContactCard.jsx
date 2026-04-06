@@ -48,7 +48,14 @@ const ContactCard = () => {
 
         <div className='bg-[#F4F4F4] my-20'>
             <p className='font-bold p-10'>Let's Find Your Property</p>
-            <form></form>
+            <div className='mx-10'>
+            <form>
+               <div> <input type="text" className='bg-white w-full rounded-lg' name="" id="" placeholder='Name' /></div>
+               <div> <input type="text" className='bg-white my-5 w-full rounded-lg' name="" id="" placeholder='Email' /></div>
+               <div><textarea name="" className='bg-white w-full rounded-lg' id="" placeholder='Message'></textarea></div>
+               <button className='bg-[#223B7EC9] text-white px-5 w-full rounded-full my-8'>Send Message</button>
+            </form>
+            </div>
         </div>
 
     </div>
