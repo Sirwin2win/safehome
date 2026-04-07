@@ -1,5 +1,8 @@
 import React from 'react'
 import { BsStars } from "react-icons/bs";
+import { IoEyeOffOutline } from "react-icons/io5";
+import card1 from '../assets/images/safe_home_properties_card1.png'
+
 
 
 const FeaturesCard = () => {
@@ -21,6 +24,23 @@ const FeaturesCard = () => {
                              access power purchase and consumption reports. 
                              Our platform work with any STS-compliant meter such
                               as Conlog, Momas, Hexing, Miraton Rose.</p>
+                                    {/* Debit Card */}
+                              <div className='bg-[#9979C3] mt-10 p-5'>
+
+                                <div className='bg-[#FED180] rounded-lg flex justify-evenly'>
+                                    <div>
+                                    <div className='flex justify-between'>
+                                        <p className='text-2xl font-[500]'>#23,000,000</p>
+                                        <IoEyeOffOutline className='size-5 mt-2' />
+                                    </div>
+                                    <p>Receivables Currently Past Due</p>
+                                    </div>
+                                    <div className='w-40 h-40 overflow-hidden'>
+                                    <img src={card1} alt="" className='rotate-180 mt-15' />
+                                    </div>
+                                </div>
+
+                              </div>
                     </div>
                     <div className='bg-white px-20 border boder-purple-300 ms-10'>
                         <p className='text-2xl font-bold'>Online Bill & Utility Payments</p>
