@@ -77,7 +77,9 @@ const NavBar = () => {
             </ul>
           </div>
           <div>
+            <Link to='/get-started'>
             <button className='bg-omaOrange text-white h-10 w-50 rounded-full'>Get Started</button>
+            </Link>
           </div>
         </div>
       </nav>

@@ -10,6 +10,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Listings from "./pages/Listings";
 import Services from "./pages/Services";
+import GetStarted from "./components/GetStarted";
 
 // Dashboard pages
 // import DashboardHome from "./pages/dashboard/Home";
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="listings" element={<Listings /> } />
           <Route path="services" element={<Services />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="get-started" element={<GetStarted />} />
         </Route>
 
         {/*  Dashboard */}
