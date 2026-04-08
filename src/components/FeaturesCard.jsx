@@ -3,6 +3,8 @@ import { BsStars } from "react-icons/bs";
 import { IoEyeOffOutline } from "react-icons/io5";
 import card1 from '../assets/images/safe_home_properties_card1.png'
 import card2 from '../assets/images/safe_home_properties_card2.png'
+import { BsLightningChargeFill } from "react-icons/bs";
+
 
 
 
@@ -36,7 +38,7 @@ const FeaturesCard = () => {
                                     </div>
                                     <p>Receivables Currently Past Due</p>
                                     </div>
-                                    <div className='w-40 h-40 overflow-hidden -me-12'>
+                                    <div className='w-40 h-40 overflow-hidden -me-15'>
                                     <img src={card1} alt="" className='rotate-180 mt-15' />
                                     </div>
                                 </div>
@@ -49,8 +51,8 @@ const FeaturesCard = () => {
                                     </div>
                                     <p>Total Pending Receivables</p>
                                     </div>
-                                    <div className='w-40 h-40 overflow-hidden -me-12'>
-                                    <img src={card1} alt="" className='rotate-180 mt-15' />
+                                    <div className='w-40 h-40 overflow-hidden -me-20'>
+                                    <img src={card2} alt="" className='rotate-180 mt-15' />
                                     </div>
                                 </div>
 
@@ -69,8 +71,13 @@ const FeaturesCard = () => {
 
                         {/* Debit Card 1*/}
                               <div className='bg-[#9979C3] mt-10 p-5'>
-                                    <div className='flex justify-evenly bg-white'>
-                                        <div>1</div>
+                                    <div className='flex justify-around bg-white rounded-lg'>
+                                        <div className='flex justify-evenly'>
+                                            {/* <div> */}
+                                            <BsLightningChargeFill  className='size-20 text-[#FF6700] bg-[#FF670066] p-5 rounded-lg' />
+                                            {/* </div> */}
+
+                                        </div>
                                         <div>2</div>
                                         <div>3</div>
 
