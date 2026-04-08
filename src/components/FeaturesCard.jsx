@@ -4,15 +4,24 @@ import { IoEyeOffOutline } from "react-icons/io5";
 import card1 from '../assets/images/safe_home_properties_card1.png'
 import card2 from '../assets/images/safe_home_properties_card2.png'
 import { BsLightningChargeFill } from "react-icons/bs";
+import { TbReceipt } from "react-icons/tb";
+import { HiMiniSignal } from "react-icons/hi2";
+import Testimonials from '../components/Testimonials'
+import FAQ from '../components/FAQ'
+import HomeLastCard from '../components/HomeLastCard'
+import ContactCard from '../components/ContactCard'
+
+
 
 
 
 
 const FeaturesCard = () => {
   return (
-    <div className='my-10 bg-[#F5F5F5] mx-20'>
+    <div className='my-10  mx-20'>
 
-        
+                <div className='bg-[#F5F5F5]'>
+
             <button className='flex justify-center bg-[#223B7E99] rounded-full mx-auto py-2 px-4'>
                 <BsStars className='size-5'/>
                 <p className='ms-2'>Features</p>
@@ -22,8 +31,8 @@ const FeaturesCard = () => {
 
                 <div className='flex justify-between mt-10'>
                     <div className='bg-white border boder-[#8A38F5]'>
-                        <p className='text-2xl font-bold px-10'>Smart Utility Vending</p>
-                        <p className='px-10 text-lg'>Automate utility vending, purchase pre-paid energy meters,
+                        <p className='text-2xl font-bold px-20'>Smart Utility Vending</p>
+                        <p className='px-20 text-lg'>Automate utility vending, purchase pre-paid energy meters,
                              access power purchase and consumption reports. 
                              Our platform work with any STS-compliant meter such
                               as Conlog, Momas, Hexing, Miraton Rose.</p>
@@ -70,22 +79,72 @@ const FeaturesCard = () => {
                         </p>
 
                         {/* Debit Card 1*/}
-                              <div className='bg-[#9979C3] mt-10 p-5'>
-                                    <div className='flex justify-around bg-white rounded-lg'>
-                                        <div className='flex justify-evenly'>
+                              <div className='bg-[#9979C3] mt-5 p-5'>
+                                    <div className='flex justify-between bg-white rounded-lg'>
+                                        <div className='flex justify-between p-5'>
                                             {/* <div> */}
                                             <BsLightningChargeFill  className='size-20 text-[#FF6700] bg-[#FF670066] p-5 rounded-lg' />
                                             {/* </div> */}
 
                                         </div>
-                                        <div>2</div>
-                                        <div>3</div>
+                                        <div className='ms-5'>
+                                            <p className='text-2xl font-bold my-5'>Electricity Bills</p>
+                                            <p className='text-[#223B7E]'>1000 Tokens</p>
+                                        </div>
+                                        <div className='mx-5 my-5'>
+                                            <p className='ms-15'>IBDC</p>
+                                            <button className='bg-[#7EFD9B] py-3  px-5 rounded-full text-2xl mt-3'>Meter</button>
+                                        </div>
+
+                                    </div>
+                                    {/* Second card */}
+                                    <div className='flex justify-between bg-white rounded-lg my-10'>
+                                        <div className='flex justify-between p-5'>
+                                            {/* <div> */}
+                                            <TbReceipt  className='size-20 bg-[#223B7E66] p-5 rounded-lg' />
+                                            {/* </div> */}
+
+                                        </div>
+                                        <div className='ms-5'>
+                                            <p className='text-2xl font-bold my-5'>Pay Community Bills</p>
+                                            <p className='text-[#223B7E]'>#40,000</p>
+                                        </div>
+                                        <div className='mx-5 my-5'>
+                                            {/* <p className='ms-15'>IBDC</p> */}
+                                            <button className='bg-[#7EFD9B] py-3  px-5 rounded-full text-2xl mt-3'>Water</button>
+                                        </div>
+
+                                    </div>
+                                    {/* Second card */}
+                                    <div className='flex justify-between bg-white rounded-lg my-5'>
+                                        <div className='flex justify-between p-5'>
+                                            {/* <div> */}
+                                            <HiMiniSignal   className='size-20 bg-[#AAEBB980] p-5 rounded-lg' />
+                                            {/* </div> */}
+                                            <p className='text-2xl font-bold my-5 ms-10'>Internet Purchases</p>
+
+                                            
+                                            {/* <p className='text-[#223B7E]'>1000 Tokens</p> */}
+                                        </div>
+                                        {/* <div className='mx-5 my-5'>
+                                            <p className='ms-15'>IBDC</p>
+                                            <button className='bg-[#7EFD9B] py-3  px-5 rounded-full text-2xl mt-3'>Meter</button>
+                                        </div> */}
 
                                     </div>
 
                               </div>
                     </div>
                 </div>
+                </div>
+        
+                {/* Testimonials */}
+                <Testimonials />
+                {/* FAQ */}
+                <FAQ />
+                <HomeLastCard />
+                <ContactCard />
+
         
 
     </div>
