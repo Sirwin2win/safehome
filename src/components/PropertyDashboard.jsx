@@ -26,7 +26,7 @@ const PropertyDashboard = () => {
                                   reports, and more.
                             </p>
                                         {/* Debit Card 1*/}
-                                  <div className='bg-[#9979C3] pt-5 mt-5 pb-5 px-5'>
+                                  <div className='bg-[#9979C3] pt-5 mt-5 pb-8 px-5'>
                                     {/* Doughnu Charts details Started */}
                                     <div className='bg-white rounded-lg p-5'>
                                         <div className='flex justify-evenly'>
@@ -58,7 +58,7 @@ const PropertyDashboard = () => {
                                     {/* Doughnu Charts details Ended */}
 
                                     {/* Bar Charts Started */}
-                                    <div className='bg-[#FFFFD2] rounded-lg mt-5 px-15 pt-5 h-80'>
+                                    <div className='bg-[#FFFFD2] rounded-lg mt-5 px-15 pt-5 pb-10 h-80'>
                                         <button className='flex justify-center bg-[#223B7E99] rounded-full p-3'>
                                                 <select name="" id="" className='text-white'>
                                                     <option value="">Last 30 days</option>
@@ -89,15 +89,15 @@ const PropertyDashboard = () => {
                                   <div className='bg-[#9979C3] mt-5 p-5 w-full h-inherit'>
                                         <div className='flex justify-center bg-white rounded-lg w-full'>
                                             <form className='w-full p-5'>
-                                                <fieldset className='border border-gray-400 p-3 '>
+                                                <fieldset className='border border-gray-400 p-3 rounded-lg h-30'>
                                                     <legend htmlFor="select">Select issues</legend>
                                                     <select name="" id="select" className='w-full'></select>
                                                 </fieldset>
-                                                <fieldset className='border border-gray-400 p-3'>
+                                                <fieldset className='border border-gray-400 p-3 rounded-lg h-30 my-5'>
                                                     <legend htmlFor="subject">Subject</legend>
                                                     <input type="text" id='subject' className='w-full'/>
                                                 </fieldset>
-                                                <fieldset className='border border-gray-400 p-3'>
+                                                <fieldset className='border border-gray-400 p-3 rounded-lg h-80'>
                                                     <legend htmlFor="description">Description</legend>
                                                     <textarea name="description" id="description" className='w-full'></textarea>
                                                 </fieldset>
