@@ -11,6 +11,7 @@ import Contact from "./pages/Contact";
 import Listings from "./pages/Listings";
 import Services from "./pages/Services";
 import GetStarted from "./components/GetStarted";
+import Login from "./forms/Login";
 
 // Dashboard pages
 // import DashboardHome from "./pages/dashboard/Home";
@@ -30,6 +31,7 @@ export default function App() {
           <Route path="services" element={<Services />} />
           <Route path="contact" element={<Contact />} />
           <Route path="get-started" element={<GetStarted />} />
+          <Route path="/login" element={<Login />} />
         </Route>
 
         {/*  Dashboard */}

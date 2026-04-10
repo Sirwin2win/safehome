@@ -40,8 +40,11 @@ const PropertyDashboard = () => {
                                             </button>
                                         </div>
                                         <div className='flex justify-evenly my-5'>
-                                            <DoughnutCharts  className='size-40'/>
-                                            <div>
+                                            <div className='size-50'>
+                                            <DoughnutCharts />
+                                            </div>
+                                            {/* <div> */}
+                                                <div>
 
                                             <div>
                                                 <p>Available to purchase</p>
@@ -51,7 +54,9 @@ const PropertyDashboard = () => {
                                                 <p>Available to purchase</p>
                                                 <li>#1,987,345.00</li>
                                             </div>
-                                            </div>
+                                                </div>
+
+                                            {/* </div> */}
                                         </div>
                                         
                                     </div>
@@ -67,7 +72,7 @@ const PropertyDashboard = () => {
                                                 </select>
                                             </button>
 
-                                        <BarCharts className='size-60'/>
+                                        <BarCharts />
                                     </div>
                                     {/* Bar Charts Ended */}
     
