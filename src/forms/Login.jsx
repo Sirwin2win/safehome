@@ -3,6 +3,10 @@ import bot from '../assets/vectors/safe_home_properties_loginBot.png'
 import { FaArrowRightLong } from "react-icons/fa6";
 import { Link } from 'react-router-dom';
 import { PiWalletBold } from "react-icons/pi";
+import { BsTools } from "react-icons/bs";
+import { GiFamilyHouse } from "react-icons/gi";
+
+
 
 
 
@@ -33,35 +37,39 @@ const Login = () => {
                 </form>
         </div>
         {/* Right Div */}
-        <div className='bg-[#223B7EC9] ms-3 rounded-lg'>
-            <p className='pt-20 px-10 text-white'>Let’s help you with smarter living.</p>
+        <div className='bg-[#223B7EC9] ms-3 rounded-lg px-8 pb-20'>
+            <p className='pt-20 px-10 text-center text-3xl font-500 text-white'>Let’s help you with <span className='block'>smarter living.</span> </p>
             {/* Make Payments Div */}
-            <div className='flex justify-between'>
-                <PiWalletBold className='size-10 text-[#223B7EC9] bg-gray-300 rounded-full p-2 shadow-lg'/>
-                <div className='flex justify-center'>
-                    <p className='text-lg font-bold'>Make Payments</p>
-                    <p>Pay online, track payment status, and view your payment history with ease.</p>
+            <div className='flex justify-between my-10'>
+                <PiWalletBold className='size-20 text-[#223B7EC9] bg-gray-300 rounded-full p-2 shadow-lg'/>
+                <div className='ms-5'>
+                    <p className='text-lg font-bold text-white'>Make Payments</p>
+                    <p className='text-white'>Pay online, track payment <span className='block'>status, and view your payment</span> history with ease.</p>
                 </div>
 
             </div>
             {/* Maintenance Requests Div */}
-            <div className='flex justify-between'>
-                <PiWalletBold className='size-10 text-[#223B7EC9] bg-gray-300 rounded-full p-2 shadow-lg'/>
-                <div className='flex justify-center'>
-                    <p className='text-lg font-bold'>Make Payments</p>
-                    <p>Pay online, track payment status, and view your payment history with ease.</p>
+            <div className='flex justify-between my-10'>
+                <BsTools className='size-20 text-[#223B7EC9] bg-gray-300 rounded-full p-2 shadow-lg'/>
+                <div className='ms-5'>
+                    <p className='text-lg font-bold text-white'>Maintenance Requests</p>
+                    <p className='text-white'>Submit and manage 
+                        <span className='block'>maintenance requests directly </span> 
+                        online.</p>
                 </div>
 
             </div>
             {/* Renter Essentials Div */}
-            <div className='flex justify-between'>
-                <PiWalletBold className='size-10 text-[#223B7EC9] bg-gray-300 rounded-full p-2 shadow-lg'/>
-                <div className='flex justify-center'>
-                    <p className='text-lg font-bold'>Make Payments</p>
-                    <p>Pay online, track payment status, and view your payment history with ease.</p>
+           <div className='flex justify-between my-10'>
+                <GiFamilyHouse className='size-20 text-[#223B7EC9] bg-gray-300 rounded-full p-2 shadow-lg'/>
+                <div className='ms-5'>
+                    <p className='text-lg font-bold text-white'>Renter Essentials</p>
+                    <p className='text-white'>Easily set up and handle your
+                        <span className='block'>utilities, services, and important </span>documents.</p>
                 </div>
 
             </div>
+              {/* Renter Essentials Div End */}
 
         </div>
 
