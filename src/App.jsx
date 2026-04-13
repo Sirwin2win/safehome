@@ -35,11 +35,12 @@ export default function App() {
         </Route>
 
         {/*  Dashboard */}
-        {/* <Route path="/dashboard" element={<DashboardLayout />}>
-          <Route index element={<DashboardHome />} />
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          {/* <Route index element={<DashboardHome />} />
           <Route path="users" element={<Users />} />
-          <Route path="settings" element={<Settings />} />
-        </Route> */}
+          <Route path="settings" element={<Settings />} /> */}
+          {/* <Route path="" */}
+        </Route>
 
       </Routes>
     </BrowserRouter>
