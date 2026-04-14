@@ -12,6 +12,14 @@ import Listings from "./pages/Listings";
 import Services from "./pages/Services";
 import GetStarted from "./components/GetStarted";
 import Login from "./forms/Login";
+import Dashboard from './components/Dashboard'
+import LeaseDocs from './components/LeaseDocs'
+import LeaseInfo from './components/LeaseInfo'
+import Mentenance from './components/Mentenance'
+import PaymentAccount from './components/PaymentAccount'
+import PaymentHistory from './components/PaymentHistory'
+import ProfileSettings from './components/ProfileSettings'
+import SetAutoplay from './components/SetAutoplay'
 
 // Dashboard pages
 // import DashboardHome from "./pages/dashboard/Home";
@@ -36,10 +44,14 @@ export default function App() {
 
         {/*  Dashboard */}
         <Route path="/dashboard" element={<DashboardLayout />}>
-          {/* <Route index element={<DashboardHome />} />
-          <Route path="users" element={<Users />} />
-          <Route path="settings" element={<Settings />} /> */}
-          {/* <Route path="" */}
+        <Route index element={<Dashboard />} />
+        <Route path="lease-docs" element={<LeaseDocs />} />
+        <Route path="lease-info" element={<LeaseInfo />} />
+        <Route path="mentenance" element={<Mentenance />} />
+        <Route path="payment-account" element={<PaymentAccount />} />
+        <Route path="payment-history" element={<PaymentHistory />} />
+        <Route path="profile-settings" element={<ProfileSettings />} />
+        <Route path="set-autoplay" element={<SetAutoplay />} />
         </Route>
 
       </Routes>
