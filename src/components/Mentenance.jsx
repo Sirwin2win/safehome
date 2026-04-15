@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { IoIosCloudUpload } from "react-icons/io";
 import upload from '../assets/vectors/upload.png'
+import ActivityReqHistory from './ActivityReqHistory';
  
 
 const Mentenance = () => {
@@ -10,7 +11,7 @@ const Mentenance = () => {
         <p className='text-2xl font-bold'>Maintenance Requests</p>
         <p className='text-gray-500'>Submit and track maintenance request for your property</p>
           {/* Two Splitted Divs */}
-        <div className='flex justify-between my-10'>
+        <div className='flex justify-between my-10 rounded-lg'>
           <form className='bg-[#F5F5F5] py-5 px-3'>
             <p className='text-xl font-bold'>Submit a New Request</p>
               <p className='text-gray-500 mt-3 mb-10'>Please fill out the form below. Provide as much details as 
@@ -62,7 +63,11 @@ const Mentenance = () => {
   </div>
   <button className='bg-[#FF6700C9] w-full font-bold rounded-lg py-2 my-5 text-[#223B7E]'>Submit Request</button>
           </form>
+
+           {/* Second Div By the Right  */}
+        <ActivityReqHistory />
         </div>
+       
     </div>
   )
 }
