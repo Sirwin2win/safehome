@@ -22,6 +22,8 @@ import ProfileSettings from './components/ProfileSettings'
 import SetAutoplay from './components/SetAutoplay'
 import SignUp from "./forms/SignUp";
 import ConfirmPayment from "./components/ConfirmPayment";
+import PaymentSuccess from "./components/PaymentSuccess";
+import PaymentDeclined from "./components/PaymentDeclined";
 
 // Dashboard pages
 // import DashboardHome from "./pages/dashboard/Home";
@@ -56,6 +58,8 @@ export default function App() {
         <Route path="profile-settings" element={<ProfileSettings />} />
         <Route path="set-autoplay" element={<SetAutoplay />} />
         <Route path="confirm-payment" element={<ConfirmPayment />} />
+        <Route path="payment-success" element={<PaymentSuccess />} />
+        <Route path="payment-decline" element={<PaymentDeclined />} />
         </Route>
 
       </Routes>
