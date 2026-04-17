@@ -99,7 +99,7 @@ const ProfileSettings = () => {
               <p className='text-2xl font-bold mt-5'>Notification</p>
               <p className='text-[#999999]'>Manage how and when you receive alerts</p>
 
-              <div className='bg-[#F5F5F5] flex justify-between p-5 mt-5'>
+              <div className='bg-[#F5F5F5] flex justify-between p-5 mt-5+'>
                 <div>
                   <p className='text-xl font-bold'>All Notifications</p>
                   <p className='text-[#999999]'>Enable or Disable notifications with a single switch</p>

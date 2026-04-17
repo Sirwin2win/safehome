@@ -6,7 +6,7 @@ const PaymentHistory = () => {
   return (
     <div>
         <p className='text-2xl font-bold'>Payment History</p>
-        <div className='flex justify-center my-10'>
+        <div className='md:flex justify-center my-10'>
           <button className='bg-[#223B7E] text-white rounded-lg py-10 pe-20 w-full'>
             <p>Total paid(This year)</p>
             <p className='text-2xl font-bold'>$5,000.00</p>

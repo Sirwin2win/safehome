@@ -3,7 +3,7 @@ import React from 'react'
 const PaymentHistoryTbl = () => {
   return (
     <div className="rounded-lg">
-  <table className="min-w-full border border-gray-200 rounded-lg">
+  <table className="md:w-full border border-gray-200 rounded-lg">
     <thead className="bg-gray-100 rounded-lg">
       <tr className='bg-[#9B9B9BCC] text-[#000000]'>
         <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">PAYMENT DATE</th>

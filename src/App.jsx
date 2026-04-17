@@ -20,6 +20,7 @@ import PaymentAccount from './components/PaymentAccount'
 import PaymentHistory from './components/PaymentHistory'
 import ProfileSettings from './components/ProfileSettings'
 import SetAutoplay from './components/SetAutoplay'
+import SignUp from "./forms/SignUp";
 
 // Dashboard pages
 // import DashboardHome from "./pages/dashboard/Home";
@@ -40,6 +41,7 @@ export default function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="get-started" element={<GetStarted />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
         </Route>
 
         {/*  Dashboard */}

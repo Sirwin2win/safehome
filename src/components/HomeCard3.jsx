@@ -4,15 +4,16 @@ import aiAgent from '../assets/vectors/aiAgent.png'
 
 const HomeCard3 = () => {
   return (
-      <div className='flex justify-evenly bg-[#AAEBB980] mx-20 mt-10 rounded-md'>
-          <img src={aiAgent} alt="payment card" className='h-100 w-100' />
-          <div className='mt-20'>
-              <p className='text-3xl font-bold mb-5'>Simplified Payments</p>
-              <p>Automated billing, collections and 
-                 <span className='block'> reconciliation functionality on our apps means</span>
-                   <span className='block'>that late or no-payment of communal dues are </span>
-                   <span className='block'>a thing of the past. We’ve built in revenue</span> 
-                   <span className='block'>assurance features that reduce defaults in </span>
+    //   <div className='flex justify-evenly bg-[#AAEBB980] mx-20 mt-10 rounded-md'>
+      <div className='flex justify-center bg-[#AAEBB980] mx-5 md:mx-20 md:justify-evenly mt-10 rounded-md md:h-120'>
+          <img src={aiAgent} alt="payment card" className='w-40 bg-[#AAEBB9] md:w-150' />
+          <div className='mt-0 w-50 md:w-150 md:ms-5'>
+              <p className='md:text-3xl font-bold mb-5 md:mb-1 md:mt-15'>Simplified Payments</p>
+              <p className='md:mt-10'>Automated billing, collections and 
+                 <span className='md:block'> reconciliation functionality on our apps means</span>
+                   <span className='md:block'>that late or no-payment of communal dues are </span>
+                   <span className='md:block'>a thing of the past. We’ve built in revenue</span> 
+                   <span className='md:block'>assurance features that reduce defaults in </span>
                    payments.</p>
           </div>
   
