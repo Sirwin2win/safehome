@@ -62,26 +62,64 @@ const NavBar = () => {
           ></button>
           <div className="hidden w-full md:block md:w-auto" id="navbar-default">
             <ul className="bg-white-0 flex ml-[200px]">
-              {navItems.map((item) => (
-                <div key={item.id} className="bg-white-0">
+
                   <li className="p-4 bg-white-0 rounded-xl m-2 cursor-pointer duration-300 hover:text-[#000835]">
                     <Link
-                      to={item.to}
+                      to={'/'}
                       className="text-white no-underline font-serif font-bold bg-white-0"
                     >
-                      {item.txt}
+                      Home
                     </Link>
                   </li>
-                </div>
-              ))}
+
+                  <li className="p-4 bg-white-0 rounded-xl m-2 cursor-pointer duration-300 hover:text-[#000835]">
+                    <Link
+                      to={'/about'}
+                      className="text-white no-underline font-serif font-bold bg-white-0"
+                    >
+                     About Us
+                    </Link>
+                  </li>
+
+                  <li className="p-4 bg-white-0 rounded-xl m-2 cursor-pointer duration-300 hover:text-[#000835]">
+                    <Link
+                      to={'/listings'}
+                      className="text-white no-underline font-serif font-bold bg-white-0"
+                    >
+                     Listings
+                    </Link>
+                  </li>
+
+                  <li className="p-4 bg-white-0 rounded-xl m-2 cursor-pointer duration-300 hover:text-[#000835]">
+                    <Link
+                      to={'/services'}
+                      className="text-white no-underline font-serif font-bold bg-white-0"
+                    >
+                     Services
+                    </Link>
+                  </li>
+
+                  <li className="p-4 bg-white-0 rounded-xl m-2 cursor-pointer duration-300 hover:text-[#000835]">
+                    <Link
+                      to={'/contact'}
+                      className="text-white no-underline font-serif font-bold bg-white-0"
+                    >
+                     Contact Us
+                    </Link>
+                  </li>
+                  
+                
             </ul>
+            
           </div>
-          <div>
-            <Link to='/get-started'>
-            <button className='bg-omaOrange text-white h-10 w-50 rounded-full'>Get Started</button>
-            </Link>
-          </div>
+          {/* <div>
+            
+          </div> */}
         </div>
+        {/* Get Started Button */}
+        <Link to='/get-started'>
+            <button className='bg-omaOrange text-white h-10 w-50 rounded-full mt-3'>Get Started</button>
+            </Link>
       </nav>
       {/* Mobile Navigation Icon */}
       <div className="relative z-[20px]">
@@ -103,19 +141,54 @@ const NavBar = () => {
 
           {/* Mobile Navigation Items */}
 
-          {navItems.map((item) => (
-            <li
-              key={item.id}
-              className="relative p-2 font-extrabold duration-300 h-8"
-            >
-              <Link
-                to={item.to}
-                className="no-underline text-white ml-[260px]"
-              >
-                {item.txt}
-              </Link>
-            </li>
-          ))}
+            <li className="p-4 bg-white-0 rounded-xl m-2 cursor-pointer duration-300 hover:text-[#000835]">
+                    <Link
+                      to={'/'}
+                      className="text-white no-underline font-serif font-bold bg-white-0"
+                    >
+                      Home
+                    </Link>
+                  </li>
+
+                  <li className="p-4 bg-white-0 rounded-xl m-2 cursor-pointer duration-300 hover:text-[#000835]">
+                    <Link
+                      to={'/about'}
+                      className="text-white no-underline font-serif font-bold bg-white-0"
+                    >
+                     About Us
+                    </Link>
+                  </li>
+
+                  <li className="p-4 bg-white-0 rounded-xl m-2 cursor-pointer duration-300 hover:text-[#000835]">
+                    <Link
+                      to={'/listings'}
+                      className="text-white no-underline font-serif font-bold bg-white-0"
+                    >
+                     Listings
+                    </Link>
+                  </li>
+
+                  <li className="p-4 bg-white-0 rounded-xl m-2 cursor-pointer duration-300 hover:text-[#000835]">
+                    <Link
+                      to={'/services'}
+                      className="text-white no-underline font-serif font-bold bg-white-0"
+                    >
+                     Services
+                    </Link>
+                  </li>
+
+                  <li className="p-4 bg-white-0 rounded-xl m-2 cursor-pointer duration-300 hover:text-[#000835]">
+                    <Link
+                      to={'/contact'}
+                      className="text-white no-underline font-serif font-bold bg-white-0"
+                    >
+                     Contact Us
+                    </Link>
+                  </li>
+                  <Link to='/get-started'>
+            <button className='bg-omaOrange text-white h-10 w-50 rounded-full mt-3'>Get Started</button>
+            </Link>
+                
         </ul>
       </div>
     </div>
