@@ -38,13 +38,13 @@ const NavBar = () => {
   ];
   const [isOpen, setIsOpen] = useState(false);
   return (
-         <nav className="bg-gray-900 text-white">
+         <nav className="bg-gray-500 text-white z-100">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         
         {/* Logo */}
         {/* <div className="text-xl font-bold">MyApp</div> */}
         <Link to={'/'}>
-        <img src={logo} alt=""  className='size-10'/>
+        <img src={logo} alt=""  className='size-10 ms-8'/>
         </Link>
 
         {/* Desktop Menu */}

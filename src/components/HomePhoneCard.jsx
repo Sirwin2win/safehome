@@ -4,7 +4,7 @@ import phone from '../assets/vectors/phonePng.png'
 
 const HomePhoneCard = () => {
   return (
-    <div className='flex justify-spaced my-10 ms-80'>
+    <div className='md:flex md:justify-spaced md:my-10 md:ms-80 px-5'>
         <div className='relative'>
             <img src={makingCall} alt="makingCall" className='opacity-30 h-80 w-80' />
                 <p className='absolute bottom-30 text-xl'>Easily pay bills and get instant value for 

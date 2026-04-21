@@ -20,6 +20,7 @@ import FAQ from '../components/FAQ'
 import HomeLastCard from '../components/HomeLastCard'
 import ContactCard from '../components/ContactCard'
 import HomeAnimation from '../components/HomeAnimation'
+import TestSlider from '../components/TestSlider'
 
 
 
@@ -31,8 +32,8 @@ const Home = () => {
         <HomeAnimation /> 
           
     
-    <button className='flex justify-evenly bg-[#223B7E99] p-2 rounded-full mx-auto my-10 font-[600]'><BsStars className='me-2 size-8' /> Discover our key features</button>
-    <div className='mb-5'>
+    <button className='flex justify-evenly bg-[#223B7E99] hidden md:block p-2 rounded-full mx-auto my-10 font-[600]'><BsStars className='me-2 size-8' /> Discover our key features</button>
+    <div className='mb-5 hidden md:block'>
 
     <p className='text-center font-bold text-2xl my-5'>Simplifying Living Experiences Across the World</p>
     <p className='text-center'>SafeHomes helps residents, admins, and security personnel stay connected and in 
@@ -50,11 +51,12 @@ const Home = () => {
     <button className='bg-[#223B7E99] px-4 py-2 hidden md:block rounded-full block text-xl font-[500] mx-auto my-10'>Join the best!</button>
     <p className='text-center font-[700] md:text-6xl '>Start Living Smarter Today</p>
         <button className='bg-[#223B7E99] px-4 md:hidden py-2 rounded-full block text-xl font-[500] mx-auto my-10'>Join the best!</button>
-
+      <br />
     <HomePhoneCard />
     <LatestProperties />
     <PropertyCard />
     <Testimonials />
+    <TestSlider />
     <FAQ />
     <HomeLastCard />
     <ContactCard />
