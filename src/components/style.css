@@ -1,0 +1,18 @@
+@keyframes safeHome {
+    0%{background-image: url('../assets/images/safe_home_properties_garden1.jpg');}
+    20%{background-image: url('../assets/images/safe_home_properties_garden2.jpg');}
+    40%{background-image: url('../assets/images/safe_home_properties_garden3.jpg');}
+    60%{background-image: url('../assets/images/safe_home_properties_garden4.jpg');}
+    80%{background-image: url('../assets/images/safe_home_properties_garden5.jpg');}
+    100%{background-image: url('../assets/images/safe_home_properties_garden1.jpg');}
+}
+
+.hero{
+    border-radius: 25px;
+    width: 100%;
+    background-size: 80%;
+    height: 600px;
+    animation-name: safeHome;
+    animation-duration: 15s;
+    animation-iteration-count: infinite;
+}

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import logo from '../assets/images/logo.jpg'
+import logo from '../assets/images/safehome_logo.png'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import { BiMenu, BiX } from "react-icons/bi";
 import { IoIosArrowDown } from "react-icons/io";
