@@ -21,6 +21,7 @@ import HomeLastCard from '../components/HomeLastCard'
 import ContactCard from '../components/ContactCard'
 import HomeAnimation from '../components/HomeAnimation'
 import TestSlider from '../components/TestSlider'
+import Accordion from '../components/Accordion'
 
 
 

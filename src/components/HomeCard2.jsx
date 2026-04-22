@@ -7,8 +7,8 @@ const HomeCard2 = () => {
       <div className='flex justify-center bg-[#AAD7EB80] mx-5 md:mx-20 md:justify-evenly mt-10 rounded-md md:h-120'>
           {/* Left side */}
           <div className='mt-0 w-50 md:w-150'>
-              <p className='md:text-3xl font-bold mb-5 text-right md:my-10'>Simplified Payments</p>
-              <p className='text-right '>Automated billing, collections and 
+              <p className='md:text-3xl font-bold mb-5 text-right md:my-10 px-2'>Simplified Payments</p>
+              <p className='text-right px-2'>Automated billing, collections and 
                  <span className='md:block'> reconciliation functionality on our apps means</span>
                    <span className='md:block'>that late or no-payment of communal dues are </span>
                    <span className='md:block'>a thing of the past. We’ve built in revenue</span> 

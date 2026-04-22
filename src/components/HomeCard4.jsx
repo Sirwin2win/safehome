@@ -7,8 +7,8 @@ const HomeCard4 = () => {
         <div className='flex justify-center bg-[#F4A97780] mx-5 md:mx-20 md:justify-evenly mt-10 rounded-md md:h-120'>
             
             <div className='mt-0 w-50 md:w-150'>
-                <p className='md:text-3xl font-bold mb-5 text-right md:my-10'>Smart Alerts & Notifications</p>
-                <p className='text-right'>Our Smart Alerts & Notifications feature keeps 
+                <p className='md:text-3xl font-bold mb-5 text-right md:my-10 px-2'>Smart Alerts & Notifications</p>
+                <p className='text-right px-2'>Our Smart Alerts & Notifications feature keeps 
                    <span className='md:block'> you informed and up to date with everything </span>
                      <span className='md:block'>that matters to you. Receive real-time </span>
                      <span className='md:block'>notifications on new property listings that </span> 

@@ -3,7 +3,6 @@ import { useState } from "react";
 const AccordionItem = ({ title, content, isOpen, onClick }) => {
   return (
     <div className="bg-gray-100 mb-2 rounded-lg overflow-hidden">
-        
       <button
         onClick={onClick}
         className="w-full text-left flex justify-between items-center py-4 px-4 focus:outline-none"
@@ -23,7 +22,7 @@ const AccordionItem = ({ title, content, isOpen, onClick }) => {
   );
 };
 
-export default function FAQ() {
+export default function Accordion() {
   const [activeIndex, setActiveIndex] = useState(null);
 
   const items = [
@@ -42,8 +41,7 @@ export default function FAQ() {
   };
 
   return (
-    <div className="md:px-20 my-10 rounded-lg shadow w-full">
-        <p className="my-5 text-center font-bold md:text-2xl">Frequently Asked Questions</p>
+    <div className="px-20 mt-10 rounded-lg shadow w-full">
       {items.map((item, index) => (
         <AccordionItem
           key={index}

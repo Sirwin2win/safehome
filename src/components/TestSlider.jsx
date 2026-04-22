@@ -72,7 +72,7 @@ export default function TestSlider() {
       <AnimatePresence mode="wait">
         <motion.div
           key={index}
-          className="flex flex-col md:flex-row items-center gap-6"
+          className="flex flex-row items-center gap-6"
           
           // ✅ Swipe support
           drag="x"

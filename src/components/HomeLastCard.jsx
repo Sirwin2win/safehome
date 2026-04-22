@@ -1,6 +1,7 @@
 import React from 'react'
 import smart from '../assets/images/safe_home_properties_smart.jpg'
 import woman from '../assets/images/safe_home_properties_woman.png'
+import { Link } from 'react-router-dom'
 
 const HomeLastCard = () => {
   return (
@@ -14,8 +15,8 @@ const HomeLastCard = () => {
                      </p>
                 <div className='flex justify-evenly mt-10'>
 
-                <button className='bg-omaOrange py-2 px-5 rounded-2xl'>Get Started</button>
-                <button className='border-2 py-2 px-5 rounded-2xl'>See Property Listings</button>
+                <button className='bg-omaOrange py-2 px-5 rounded-2xl'><Link to={'/get-started'}>Get Started</Link></button>
+                <button className='border-2 py-2 px-5 rounded-2xl'><Link to={'/listings'}>See Property Listings</Link></button>
                 </div>
             </div>
             <img src={woman} alt="safe home properties" className='size-100 -ms-30' />
