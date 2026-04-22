@@ -6,15 +6,33 @@ const AboutCard1 = () => {
   return (
     <div>
         {/* Welcome note started */}
-        <div className='relative'>
-        <img src={aboutImg} className='mx-auto opacity-50' alt="" />
-        <div className='absolute bottom-50 mx-80'>
-            <p className='text-3xl font-bold text-center my-5'>Welcome  to SafeHomes</p>
-            <p className='text-center'>Your trusted partner in redefining living experiences across residential and commercial 
-                communities in Africa. At SafeHomes, we’re committed to streamlining property
-                management with our innovative technology platform.</p>
-        </div>
-        </div>
+        <div className="relative w-full">
+
+{/* Background Image */}
+<img
+  src={aboutImg}
+  className="w-full h-[500px] object-cover opacity-40"
+  alt="About SafeHomes"
+/>
+
+{/* Overlay Content */}
+<div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
+
+  <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+    Welcome to SafeHomes
+  </h2>
+
+  <p className="max-w-3xl text-gray-900 text-sm md:text-base leading-relaxed">
+    Built on a foundation of structure, accountability and long-term vision,
+    SafeHomes exists to solve one of the biggest problems in real estate 
+    the uncertainty and stress that comes with managing valuable property assets.
+    We understand that every property is more than just a building;
+    it is a financial asset, a legacy, and a source of consistent income when properly managed.
+    Our approach is simple but powerful: professional asset management with uncompromising standards.
+  </p>
+
+</div>
+</div>
         {/* welcome note ended */}
         {/* Members First Image */}
         <img src={members} alt="members" className='h-200 w-full px-10' />
