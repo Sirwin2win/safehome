@@ -19,7 +19,7 @@ const ContactCard = () => {
                 <p>safehomepropertymanagerltd@gmail.com</p>
                        </div>
                 </div>
-                <div className='flex justify-spaced ms-50'>
+                <div className='md:flex md:justify-spaced ms-50'>
                        <MdOutlinePhone />
                 <div className='-mt-1'>
                     <p className='ms-1'>Phone</p>
@@ -29,7 +29,7 @@ const ContactCard = () => {
                
             </div>
             {/* Location */}
-            <div className='flex justify-spaced my-5'>
+            <div className='md:flex md:justify-spaced my-5'>
             <IoLocationOutline  />
             <p className='-mt-1 ms-2'>Location</p>
             </div>

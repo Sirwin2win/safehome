@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const AccordionItem = ({ title, content, isOpen, onClick }) => {
   return (
-    <div className="bg-gray-100 mb-2 rounded-lg overflow-hidden">
+    <div className="bg-gray-100 mb-2 rounded-lg overflow-hidden md:px-20">
         
       <button
         onClick={onClick}

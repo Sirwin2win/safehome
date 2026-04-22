@@ -56,7 +56,7 @@ const Home = () => {
     <HomePhoneCard />
     <LatestProperties />
     <PropertyCard />
-    <Testimonials />
+    {/* <Testimonials /> */}
     <TestSlider />
     <FAQ />
     <HomeLastCard />

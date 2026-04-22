@@ -7,7 +7,7 @@ const Footer = () => {
     <div className='relative bg-[#F1F1F1CC]'>
         <img src={logo} className='absolute size-20 top-5 left-5' alt="Logo Image" />
         <p className='ml-50 mt-10'>Coastal living & timeless comfort in Abuja</p>
-        <div className='flex mx-25 my-10 justify-evenly'>
+        <div className='md:flex mx-25 my-10 md:justify-evenly'>
             <div>
                 <p className='font-bold mb-2'>Phone</p>
                 <p className='text-gray-700'>+2347041005315</p>
@@ -24,7 +24,7 @@ const Footer = () => {
             </div>
             
         </div>
-        <div className='flex mx-25 mt-10 mb-20 justify-evenly'>
+        <div className='md:flex mx-25 mt-10 mb-20 md:justify-evenly'>
             <div>
                 <p className='font-bold mb-2'>Email</p>
                 <p className='text-gray-700'>safehomepropertymanagerltd<span className='block'>@gmail.com</span></p>
