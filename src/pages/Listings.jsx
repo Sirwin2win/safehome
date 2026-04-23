@@ -8,6 +8,9 @@ import RentBuyTab from '../components/RentBuyTab';
 const Listings = () => {
   return (
     <div className='flex justify-evenly'>
+      {/* Mobile only area started */}
+      
+      {/* Mobile only area ended */}
       {/* Lef Div Started */}
       <div>
         <RentBuyTab />
@@ -18,7 +21,7 @@ const Listings = () => {
           <div className='relative'>
           <input type="search" placeholder='City,neighborhood or city'
            className='w-full rounded-full bg-gray-100 p-3 mt-5 mb-8' />
-           <BiSearch className='absolute bottom-12 left-180'/>
+           <BiSearch className='absolute bottom-12 md:left-180 left-80'/>
 
           </div>
         <Map />
