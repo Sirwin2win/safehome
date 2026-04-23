@@ -17,13 +17,13 @@ const HomeAnimation = () => {
       <div class="hero h-200 bg-cover w-full"></div>
       {/* <div class="hero bg-cover bg-center h-screen mt-[-130px] -z-100"></div> */}
     <div className='absolute text-white bottom-100 ms-5 top-30 px-5'>
-        <p className='text-3xl text-[#C8C8C8] '>All-in-one real estate and 
+        <p className='text-3xl text-white '>All-in-one real estate and 
                 <span className='block'>property management software</span>
                 <span className='block'>for Landlords</span></p>
         
                 <button className='flex justify-evenly bg-[#EF6700C9] my-5 p-2 rounded-lg'><p>EXPLORE NOW</p> <MdOutlineArrowRightAlt className='text-white mt-1 ms-2' /></button>
         
-                <p className='text-[#C8C8C8]'>Discover a lifestyle where elegance meets comfort, blending
+                <p className='text-white text-lg'>Discover a lifestyle where elegance meets comfort, blending
                   <span className='block'>timeless design with modern sophistication</span>
                 </p>
     {/* Buy/Rent Desktop started */}
