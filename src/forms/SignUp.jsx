@@ -56,11 +56,18 @@ const SignUp = () => {
             
                             <form>
                                 <div className='bg-white  my-10'>
-                                    <input type="text" placeholder='example@name.com' className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2' />
+                                    <input type="text" placeholder='Full Name' name='name' className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2' />
+                                </div>
+                                <div className='bg-white  my-10'>
+                                    <input type="text" placeholder='Phone Number' name='phone' className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2' />
+                                </div>
+                                <div className='bg-white  my-10'>
+                                    <input type="text" placeholder='example@name.com' name='email' className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2' />
                                 </div>
                                 <div className='bg-white my-10'>
-                                    <input type="text" placeholder='Enter your password' className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2' />
+                                    <input type="text" placeholder='Enter your password' name='password' className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2' />
                                 </div>
+                                 <p className='my-3'>Already have an account?<Link to={'/login'} className='ms-2 text-blue-500'>login</Link> </p>
                                 <button className='bg-[#FF6700C9] rounded-lg w-full text-white flex justify-evenly py-2 border-r border-r-gray-300'>
                                     <p>
                                     Continue with Email

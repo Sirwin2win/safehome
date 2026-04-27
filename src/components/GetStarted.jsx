@@ -1,6 +1,8 @@
 import React from 'react'
 import landlord from '../assets/images/safe_home_properties_landlord.jpg'
 import resident from '../assets/images/safe_home_properties_resident.jpg'
+import { Link } from 'react-router-dom'
+
 
 const GetStarted = () => {
   return (
@@ -14,7 +16,7 @@ const GetStarted = () => {
                 <p className='text-2xl mt-5 text-[#8B8B8B]'>Continue and get started with
                      <span className='block'>SafeHomes to seamless living</span>
                       experiences.</p>
-                      <button className='w-full h-10 bg-omaOrange text-white text-xl rounded-full mt-5'>Continue</button>
+                      <button className='w-full h-10 bg-omaOrange text-white text-xl rounded-full mt-5'><Link to={'/signup'}>Continue</Link></button>
             </div>
             <div className='bg-[#F1F1F1] p-5 border rounded-lg ms-10'>
                 <img src={resident} alt=""  className='h-100 w-100 rounded-lg'/>
@@ -22,7 +24,7 @@ const GetStarted = () => {
                 <p className='text-2xl mt-5 text-[#8B8B8B]'>Continue and get started with
                      <span className='block'>SafeHomes to seamless living</span>
                       experiences.</p>
-                      <button className='w-full h-10 bg-omaOrange text-white text-xl rounded-full mt-5'>Continue</button>
+                      <button className='w-full h-10 bg-omaOrange text-white text-xl rounded-full mt-5'> <Link to={'/signup'}>Continue</Link></button>
             </div>
         </div>
     </div>
