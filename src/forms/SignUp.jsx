@@ -11,23 +11,31 @@ import { register } from '../features/auth/authSlice';
 
 const SignUp = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
   const auth = useSelector((state) => state.auth)
 
   const [form, setForm] = useState({
     name: '',
     email: '',
     phone: '',
+    role: 'user',
     password: '',
   })
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value })
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+ const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    dispatch(register(form))
-  } 
+  try {
+  const res = await dispatch(register(form)).unwrap();
+  console.log('SUCCESS:', res);
+  navigate('/login');
+} catch (err) {
+  console.error('ERROR:', err);
+}
+};
 
   return (
             <div className='flex justify-center my-5'>
@@ -113,7 +121,6 @@ const SignUp = () => {
                                 </div>
                                  <p className='my-3'>Already have an account?<Link to={'/login'} className='ms-2 text-blue-500'>login</Link> </p>
                                 <button 
-                                type="submit"
                                  disabled={auth.status === 'loading'}
                                 onClick={handleSubmit}
                                 className='bg-[#FF6700C9] rounded-lg w-full text-white flex justify-evenly py-2 border-r border-r-gray-300'

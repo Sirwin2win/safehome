@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 import {jwtDecode} from 'jwt-decode';
 
-const API_URL = 'https://api.safehomeproperties.com/api/auth/' 
+const API_URL = 'https://api.safehomeproperties.com/api/auth' 
 
 // Get user from localStorage     http://api.safehomeproperties.com/
 const token = localStorage.getItem('token');
@@ -57,12 +57,13 @@ export const updateRole = createAsyncThunk(
 // 🔐 Register
 export const register = createAsyncThunk(
   'auth/register',
-  async ({ name,phone, email, password}, thunkAPI) => {
+  async ({ name,phone, email,role, password}, thunkAPI) => {
     try {
       const res = await axios.post(`${API_URL}/register`, {
         name,
         phone,
         email,
+        role,
         password,
       })
 
