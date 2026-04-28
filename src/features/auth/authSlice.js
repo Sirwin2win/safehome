@@ -91,9 +91,6 @@ export const login = createAsyncThunk(
       // Store token (and possibly user info) in localStorage
       localStorage.setItem('token', res.data.token);
 
-      // Optional: if your backend sends user data, store it too
-      // localStorage.setItem('user', JSON.stringify(res.data.user));
-
       return res.data; // Should contain: { user, token }
     } catch (err) {
       // Better safe fallback error message

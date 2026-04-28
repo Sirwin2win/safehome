@@ -25,20 +25,9 @@ const NavBar = () => {
     setNav(!nav);
   };
 
-  // Array containing navigation items
-  const navItems = [
-    { id: 1, to: "/", txt: "Home" },
-    { id: 2, to: "/about", txt: "About Us" },
-    { id: 3, to: "/listings", txt: "Listings" },
-    { id: 4, to: "/services", txt: "Services" },
-    { id: 5, to: "/contact", txt: "Contact Us" },
-    // { id: 6, to: "/blog", txt: "Blog" },
-    // { id: 6, to: "/login", txt: "Login" },
-    // { id: 7, to: "/register", txt: "Register" },
-  ];
   const [isOpen, setIsOpen] = useState(false);
   return (
-         <nav className="bg-gray-500 text-white z-100">
+         <nav className="bg-gray-500 text-white relative z-50">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         
         {/* Logo */}
@@ -71,7 +60,7 @@ const NavBar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <ul className="md:hidden px-4 pb-4 space-y-2">
+        <ul className="md:hidden absolute top-full left-0 w-full bg-gray-500 px-4 pb-4 space-y-2 z-50">
           <li>
           <Link to={'/'} className="hover:text-gray-300">Home</Link>
           </li>

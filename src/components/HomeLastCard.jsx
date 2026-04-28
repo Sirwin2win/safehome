@@ -19,7 +19,7 @@ const HomeLastCard = () => {
                 <button className='border-2 py-2 px-5 rounded-2xl'><Link to={'/listings'}>See Property Listings</Link></button>
                 </div>
             </div>
-            <img src={woman} alt="safe home properties" className='size-40 md:size-100 md:-ms-30' />
+            <img src={woman} alt="safe home properties" className='size-40 md:size-100 -ms-[25px] md:-ms-30' />
         </div>
 
     </div>

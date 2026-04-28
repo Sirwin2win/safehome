@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+import { login } from "../features/auth/authSlice";
+import { useLocation } from 'react-router-dom';
 import bot from '../assets/vectors/safe_home_properties_loginBot.png'
 import { FaArrowRightLong } from "react-icons/fa6";
-import { Link } from 'react-router-dom';
 import { PiWalletBold } from "react-icons/pi";
 import { BsTools } from "react-icons/bs";
 import { GiFamilyHouse } from "react-icons/gi";
@@ -11,6 +14,35 @@ import { GiFamilyHouse } from "react-icons/gi";
 
 
 const Login = () => {
+    const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+    const auth = useSelector((state) => state.auth)
+     const { user, loading, error } = useSelector((state) => state.auth);
+
+// Handle redirects
+const location = useLocation();
+const from = location.state?.from?.pathname || '/dashboard';
+     useEffect(() => {
+      if (user) {
+        navigate(from, { replace: true });
+      }
+    }, [user, navigate, from]);
+
+  
+    const [form, setForm] = useState({
+      email: '',
+      password: '',
+    })
+  
+    const handleChange = (e) =>
+      setForm({ ...form, [e.target.name]: e.target.value })
+  
+    const handleSubmit = (e) => {
+      e.preventDefault()
+      // console.log(form)
+      dispatch(login(form))
+    }
   return (
     <div className='flex justify-center my-5'>
         {/* Left Div */}
@@ -19,20 +51,41 @@ const Login = () => {
                 <p className='text-[#999999] text-3xl font-lg mt-5'>Login to SafeHome</p>
 
                 <form>
+                    {auth.error && <p style={{ color: 'red' }}>{auth.error}</p>}
                     <div className='bg-white  my-10'>
-                        <input type="text" placeholder='example@name.com' className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2' />
+                        <input type="text"
+                         placeholder='example@name.com'
+                          className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2'
+                          name="email"
+                          onChange={handleChange}
+                          required
+                          />
                     </div>
                     <div className='bg-white my-10'>
-                        <input type="text" placeholder='Enter your password' className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2' />
+                        <input type="text" 
+                        placeholder='Enter your password'
+                         className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2'
+                         onChange={handleChange}
+                         name="password"
+                         required
+                         />
                     </div>
-                    <button className='bg-[#223B7EC9] rounded-lg w-full text-white flex justify-evenly py-2 border-r border-r-gray-300'>
-                        <p>
-                        Continue with Email
-                        </p>
+                    <div className='my-5'>
+                         <Link to='#' className="text-blue-500">Forgot your password?</Link>
+                        </div>
+                    <button
+                    disabled={auth.status === 'loading'}
+                    onClick={handleSubmit}
+                     className='bg-[#223B7EC9] rounded-lg w-full text-white flex justify-evenly py-2 border-r border-r-gray-300'
+                     
+                     >
+                        <span> {auth.status === 'loading' ? 'Login you in...' : 'Continue with Email'}</span>
+                        
                         <FaArrowRightLong />
                         </button>
-                        <div className='my-5'>
-                         <Link to='#'>Forgot your password?</Link>
+                        <div className='my-5 flex justify-center'>
+                            <p>Don't have an account?</p>
+                         <Link to='/register' className="text-blue-500">Sign Up</Link>
                         </div>
                 </form>
         </div>
