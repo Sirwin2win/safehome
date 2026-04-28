@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = 'https://api.buywaterh2o.com/api/auth/'
+const API_URL = 'http://api.safehomeproperties.com/api/auth/'
 
 
 // Get users

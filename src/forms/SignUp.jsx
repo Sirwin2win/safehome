@@ -1,13 +1,34 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
 import bot from '../assets/vectors/safe_home_properties_loginBot.png'
 import { FaArrowRightLong } from "react-icons/fa6";
-import { Link } from 'react-router-dom';
 import { PiWalletBold } from "react-icons/pi";
 import { BsTools } from "react-icons/bs";
 import { GiFamilyHouse } from "react-icons/gi";
+import { register } from '../features/auth/authSlice';
 
 
 const SignUp = () => {
+    const dispatch = useDispatch()
+  const auth = useSelector((state) => state.auth)
+
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    password: '',
+  })
+
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value })
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    dispatch(register(form))
+  } 
+
   return (
             <div className='flex justify-center my-5'>
                     
@@ -55,23 +76,52 @@ const SignUp = () => {
                             <p className='text-[#999999] text-3xl font-lg mt-5'>Login to SafeHome</p>
             
                             <form>
+                                 {auth.error && <p style={{ color: 'red' }}>{auth.error}</p>}
                                 <div className='bg-white  my-10'>
-                                    <input type="text" placeholder='Full Name' name='name' className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2' />
+                                    <input type="text" placeholder='Full Name'
+                                      name='name'
+                                      onChange={handleChange}
+                                       className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2' 
+                                       required
+                                       />
                                 </div>
                                 <div className='bg-white  my-10'>
-                                    <input type="text" placeholder='Phone Number' name='phone' className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2' />
+                                    <input type="text" 
+                                    placeholder='Phone Number'
+                                     name='phone' 
+                                     onChange={handleChange}
+                                     className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2'
+                                     required
+                                     />
                                 </div>
                                 <div className='bg-white  my-10'>
-                                    <input type="text" placeholder='example@name.com' name='email' className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2' />
+                                    <input type="text"
+                                     placeholder='example@name.com' 
+                                     onChange={handleChange}
+                                     name='email' className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2'
+                                     required
+                                     />
                                 </div>
                                 <div className='bg-white my-10'>
-                                    <input type="text" placeholder='Enter your password' name='password' className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2' />
+                                    <input type="password" 
+                                    placeholder='Enter your password'
+                                     name='password' 
+                                     onChange={handleChange}
+                                     className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2' 
+                                     required
+                                     />
                                 </div>
                                  <p className='my-3'>Already have an account?<Link to={'/login'} className='ms-2 text-blue-500'>login</Link> </p>
-                                <button className='bg-[#FF6700C9] rounded-lg w-full text-white flex justify-evenly py-2 border-r border-r-gray-300'>
-                                    <p>
-                                    Continue with Email
-                                    </p>
+                                <button 
+                                type="submit"
+                                 disabled={auth.status === 'loading'}
+                                onClick={handleSubmit}
+                                className='bg-[#FF6700C9] rounded-lg w-full text-white flex justify-evenly py-2 border-r border-r-gray-300'
+                                
+                                >
+                                    <span> {auth.status === 'loading' ? 'Registering...' : 'Continue with Email'}</span>
+                                    
+                                    
                                     <FaArrowRightLong />
                                     </button>
                                     <div className='my-5'>

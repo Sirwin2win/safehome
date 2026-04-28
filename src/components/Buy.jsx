@@ -44,6 +44,8 @@ const Buy = () => {
         </div>
         </div>
 
+         <p className='text-2xl font-bold my-5'>Price Range</p>
+
     </form>
   )
 }

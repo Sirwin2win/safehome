@@ -1,18 +1,18 @@
    import { configureStore } from '@reduxjs/toolkit';
-    import productReducer from "../features/productSlice"
+    // import productReducer from "../features/productSlice"
     // import cartSlice from "../features/cartSlice"
-    import detailSlice from "../features/detailReducer";
+    // import detailSlice from "../features/detailReducer";
     // import storage from 'redux-persist/lib/storage'
     // import { persistReducer } from 'redux-persist';
     // import {combineReducers} from 'redux'
-   import filterReducer  from '../features/filtersSlice'
+  //  import filterReducer  from '../features/filtersSlice'
    import authReducer  from '../features/auth/authSlice'
-   import categoryReducer from '../features/category/categorySlice';
-   import mailReducer from '../features/mail/mailSlice'
-import payReducer from '../features/pay/paySlice';
-import orderReducer from '../features/orders/orderSlice'
+  //  import categoryReducer from '../features/category/categorySlice';
+  //  import mailReducer from '../features/mail/mailSlice'
+// import payReducer from '../features/pay/paySlice';
+// import orderReducer from '../features/orders/orderSlice'
 // import { version } from 'react';
-import cartSlice from '../features/carts/cartSlice'
+// import cartSlice from '../features/carts/cartSlice'
 
 
 
@@ -29,16 +29,16 @@ import cartSlice from '../features/carts/cartSlice'
 
     const store = configureStore({
         reducer: {
-         pay:payReducer,
+        //  pay:payReducer,
          auth: authReducer,
-        products: productReducer,
-        cart : cartSlice,
+        // products: productReducer,
+        // cart : cartSlice,
          // product: detailSlice,
-         filter: filterReducer,
-         categories:categoryReducer,
-         mails: mailReducer,
+        //  filter: filterReducer,
+        //  categories:categoryReducer,
+        //  mails: mailReducer,
         //  carts:cartReducer
-        orders:orderReducer,
+        // orders:orderReducer,
         }
     });
 
