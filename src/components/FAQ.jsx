@@ -43,7 +43,7 @@ export default function FAQ() {
 
   return (
     <div className="md:px-20 my-10 rounded-lg shadow w-full">
-        <p className="my-5 text-center font-bold md:text-2xl">Frequently Asked Questions</p>
+        <p className="my-5 text-center font-bold text-lg md:text-2xl">Frequently Asked Questions</p>
       {items.map((item, index) => (
         <AccordionItem
           key={index}

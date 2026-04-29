@@ -50,7 +50,7 @@ const Home = () => {
     <HomeCard4 />
 {/* Join he best button  */}
     <button className='bg-[#223B7E99] px-4 py-2 hidden md:block rounded-full block text-xl font-[500] mx-auto my-10'>Join the best!</button>
-    <p className='text-center font-[700] md:text-6xl '>Start Living Smarter Today</p>
+    <p className='text-center font-[700] md:text-6xl my-10'>Start Living Smarter Today</p>
         <button className='bg-[#223B7E99] px-4 md:hidden py-2 rounded-full block text-xl font-[500] mx-auto my-10'>Join the best!</button>
       <br />
     <HomePhoneCard />

@@ -72,7 +72,7 @@ export default function TestSlider() {
       <AnimatePresence mode="wait">
         <motion.div
           key={index}
-          className="flex flex-row items-center gap-6"
+          className="flex flex-row items-center gap-6 px-5"
           
           // ✅ Swipe support
           drag="x"
@@ -92,7 +92,7 @@ export default function TestSlider() {
           <motion.img
             src={testimonials[index].image}
             alt="testimonial"
-            className="h-110 w-30 md:w-50 md:h-80 rounded-lg object-cover"
+            className="h-80 w-50 md:w-50 md:h-80 rounded-lg object-cover"
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.4 }}
