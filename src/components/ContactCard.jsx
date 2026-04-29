@@ -8,10 +8,10 @@ import { IoLocationOutline } from "react-icons/io5";
 
 const ContactCard = () => {
   return (
-    <div className='md:flex md:justify-evenly'>
+    <div className='md:flex md:justify-evenly -mt-20'>
         <div>
-            <p className='text-4xl font-bold my-10'>Contact Us</p>
-            <div className='md:flex md:justify-betweeen my-5'>
+            <p className='text-4xl font-bold md:mb-10 text-center'>Contact Us</p>
+            <div className='md:flex justify-betweeen my-5'>
                 <div className='flex justify-spaced'>
                        <TfiEmail className=''/>
                        <div className='-mt-1'>
