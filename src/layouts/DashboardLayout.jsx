@@ -38,7 +38,9 @@ const DashboardLayout = () => {
          `} >
          <div className='flex justify-between item-center p-4'>
           <div className='flex justify-evenly'>
+            <Link to={'/'}>
             <img src={logo} alt="safehome logo" className='size-8 me-3' />
+            </Link>
          <h2 className={`text-xl font-bold  text-black md:block ${isOpen?"block":"hidden"}`}>SafeHome</h2>
           </div>
          <button className='block text-black md:hidden' onClick={()=> setIsOpen(!isOpen)}>
@@ -111,6 +113,15 @@ const DashboardLayout = () => {
         <span className={`ml-4 md:block ${isOpen?"block":"hidden"}`}> 
           <Link to={'profile-settings'}>
           Profile Settings
+          </Link>
+         </span>  
+      </li>
+    
+      <li className='flex items-center p-4 m-3 text-black cursor-pointer'>
+        <FaCog size={24} />
+        <span className={`ml-4 md:block ${isOpen?"block":"hidden"}`}> 
+          <Link to={'category'}>
+         Manage Category
           </Link>
          </span>  
       </li>

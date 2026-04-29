@@ -6,8 +6,8 @@
     // import { persistReducer } from 'redux-persist';
     // import {combineReducers} from 'redux'
   //  import filterReducer  from '../features/filtersSlice'
-   import authReducer  from '../features/auth/authSlice'
-  //  import categoryReducer from '../features/category/categorySlice';
+   import authReducer  from '../features/auth/authSlice';
+   import categoryReducer from '../features/category/categorySlice';
   //  import mailReducer from '../features/mail/mailSlice'
 // import payReducer from '../features/pay/paySlice';
 // import orderReducer from '../features/orders/orderSlice'
@@ -35,7 +35,7 @@
         // cart : cartSlice,
          // product: detailSlice,
         //  filter: filterReducer,
-        //  categories:categoryReducer,
+         categories:categoryReducer,
         //  mails: mailReducer,
         //  carts:cartReducer
         // orders:orderReducer,

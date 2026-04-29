@@ -12,8 +12,7 @@ import HomeLastCard from '../components/HomeLastCard'
 import ContactCard from '../components/ContactCard'
 import UtilityVending from './UtilityVending';
 import PropertyDashboard from './PropertyDashboard';
-
-
+import TestSlider from './TestSlider';
 
 
 
@@ -40,7 +39,8 @@ const FeaturesCard = () => {
                 </div>
         
                 {/* Testimonials */}
-                <Testimonials />
+                {/* <Testimonials /> */}
+                <TestSlider />
                 {/* FAQ */}
                 <FAQ />
                 <HomeLastCard />

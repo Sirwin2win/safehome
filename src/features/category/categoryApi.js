@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-const API_BASE = 'https://api.buywaterh2o.com/api/category';
+const API_BASE = 'https://api.safehomeproperties.com/api/categories';
 
 export const fetchCategoriesAPI = () => axios.get(API_BASE);
 export const fetchCategoryByIdAPI = (id) => axios.get(`${API_BASE}/${id}`);

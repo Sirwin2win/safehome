@@ -24,6 +24,7 @@ import SignUp from "./forms/SignUp";
 import ConfirmPayment from "./components/ConfirmPayment";
 import PaymentSuccess from "./components/PaymentSuccess";
 import PaymentDeclined from "./components/PaymentDeclined";
+import CategoryForm from "./forms/CategoryForm";
 
 // Dashboard pages
 // import DashboardHome from "./pages/dashboard/Home";
@@ -60,6 +61,7 @@ export default function App() {
         <Route path="confirm-payment" element={<ConfirmPayment />} />
         <Route path="payment-success" element={<PaymentSuccess />} />
         <Route path="payment-decline" element={<PaymentDeclined />} />
+        <Route path="category" element={<CategoryForm />} />
         </Route>
 
       </Routes>

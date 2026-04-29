@@ -6,6 +6,7 @@ import Testimonials from '../components/Testimonials'
 import FAQ from '../components/FAQ'
 import HomeLastCard from '../components/HomeLastCard'
 import ContactCard from '../components/ContactCard'
+import TestSlider from '../components/TestSlider'
 
 const About = () => {
   return (
@@ -13,7 +14,8 @@ const About = () => {
         <AboutCard1 />
         <OurStory />
         <VisionAndMission />
-        <Testimonials />
+        {/* <Testimonials /> */}
+        <TestSlider />
         <FAQ />
         <HomeLastCard />
         <ContactCard />
