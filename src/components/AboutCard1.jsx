@@ -35,7 +35,7 @@ const AboutCard1 = () => {
 </div>
         {/* welcome note ended */}
         {/* Members First Image */}
-        <img src={members} alt="members" className='h-200 w-full px-10' />
+        <img src={members} alt="members" className='md:h-200 md:w-full px-10' />
 
 
 

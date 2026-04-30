@@ -25,7 +25,7 @@ const OurStory = () => {
 </p>
 
 </div>
-        <img src={members2} alt="" />
+        <img src={members2} alt="" className='px-5'/>
         {/* Our Story Ended */}
     </div>
   )
