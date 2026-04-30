@@ -6,7 +6,7 @@ import { TbSquareLetterAFilled, TbSquareLetterBFilled  } from "react-icons/tb";
 
 const Contact = () => {
   return (
-    <div>
+    <div className='px-5'>
         <p className='text-xl md:text-5xl text-center font-bold my-10'>Let’s Talk</p>
         <p className='text-center'>We’re here to help you find your perfect property. Reach out via the form or schedule a tour directly</p>
 
@@ -14,19 +14,19 @@ const Contact = () => {
           <form>
             <div className='relative'>
               <input type="text" placeholder='Full Name' className='border-1 border-gray-400 w-full h-20 md:h-30 placeholder:text-3xl placeholder:p-5' />
-              <FaAsterisk className='absolute bottom-15 md:bottom-26 left-76 md:left-232 bg-gray-300 p-3 rounded-full size-10' />
+              <FaAsterisk className='absolute bottom-15 md:bottom-26 md:left-310 left-69 bg-gray-300 p-3 rounded-full size-10' />
             </div>
             <div className='relative my-10'>
               <input type="text" placeholder='Organization' className='border-1 border-gray-400 w-full h-20 md:h-30 placeholder:text-3xl placeholder:p-5' />
-              <FaAsterisk className='absolute bottom-15 md:bottom-26 left-76 md:left-232 bg-gray-300 p-3 rounded-full size-10' />
+              <FaAsterisk className='absolute bottom-15 md:bottom-26 left-69 md:left-310 bg-gray-300 p-3 rounded-full size-10' />
             </div>
             <div className='relative'>
               <input type="text" placeholder='Email Address' className='border-1 border-gray-400 w-full h-20 md:h-30 placeholder:text-3xl placeholder:p-5' />
-              <FaAsterisk className='absolute bottom-15 md:bottom-26 left-76 md:left-232 bg-gray-300 p-3 rounded-full size-10' />
+              <FaAsterisk className='absolute bottom-15 md:bottom-26 left-69 md:left-310 bg-gray-300 p-3 rounded-full size-10' />
             </div>
             <div className='relative my-10'>
               <input type="text" placeholder='Mobile Number' className='border-1 border-gray-400 w-full h-20 md:h-30 placeholder:text-3xl placeholder:p-5' />
-              <FaAsterisk className='absolute bottom-15 md:bottom-26 left-76 md:left-232 bg-gray-300 p-3 rounded-full size-10' />
+              <FaAsterisk className='absolute bottom-15 md:bottom-26 left-69 md:left-310 bg-gray-300 p-3 rounded-full size-10' />
             </div>
             <div className='relative'>
               <p className='mb-5 text-2xl font-bold'>Select Your Region</p>
@@ -41,14 +41,14 @@ const Contact = () => {
 
                 <div className='flex justify-between my-5'>
               <div className='relative'>
-                <input type="text" placeholder='Schedule a Tour' className='border border-gray-500 w-40 md:w-100 h-18 text-2xl ps-20' readonly />
-                <TbSquareLetterAFilled  className='absolute bottom-5 ms-8 size-8'/>
+                <input type="text" placeholder='Schedule a Tour' className='border border-gray-500 w-35 md:w-100 h-18 text-2xl ps-20' readonly />
+                <TbSquareLetterAFilled  className='absolute bottom-5 ms-2 md:ms-8 md:size-8'/>
 
               </div>
 
               <div className='relative'>
-                <input type="text" placeholder='Make an Inquiry' className='border border-gray-500 w-40 md:w-100 h-18 text-2xl md:ps-20' readonly />
-                <TbSquareLetterBFilled className='absolute bottom-5 ms-8 size-8' />
+                <input type="text" placeholder='Make Inquiry' className='border border-gray-500 w-35 md:w-100 h-18 text-2xl md:ps-20' readonly />
+                <TbSquareLetterBFilled className='absolute bottom-5 ms-2 md:ms-8 md:size-8' />
 
               </div>
 

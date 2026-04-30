@@ -40,14 +40,6 @@ const FeaturesCard = () => {
         
                 {/* Testimonials */}
                 {/* <Testimonials /> */}
-                <TestSlider />
-                {/* FAQ */}
-                <FAQ />
-                <HomeLastCard />
-                <ContactCard />
-
-        
-
     </div>
   )
 }

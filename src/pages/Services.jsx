@@ -5,6 +5,11 @@ import { TbBuildingCommunity } from "react-icons/tb";
 import { PiUsers } from "react-icons/pi";
 import HomeCard1 from '../components/HomeCard1';
 import FeaturesCard from '../components/FeaturesCard';
+import FAQ from '../components/FAQ';
+import HomeLastCard from '../components/HomeLastCard';
+import ContactCard from '../components/ContactCard';
+import TestSlider from '../components/TestSlider';
+
 
 
 
@@ -38,35 +43,42 @@ const Services = () => {
       <img src={memebers} alt="membesr" className='my-10 px-20' />
       {/* Counts Started */}
 
-      <div className='flex justify-evenly'>
+      <div className='flex justify-evenly px-2'>
           <div className='flex justify-center'>
-            <TbBuildingCommunity  className='size-20 bg-[#223B7EC9] text-white rounded-full p-5' />
+            <TbBuildingCommunity  className='size-10 md:size-20 bg-[#223B7EC9] text-white rounded-full p-1 md:p-5' />
             <div className='ms-3 mt-4'>
-              <p className='text-2xl font-bold'>14 Cities</p>
+              <p className='text-md md:text-2xl font-bold'>14 Cities</p>
               <p>Across Africa</p>
             </div>
 
           </div>
           <div className='flex justify-center'>
-            <MdOutlineHomeWork className='size-20 bg-[#223B7EC9] text-white rounded-full p-5'/>
+            <MdOutlineHomeWork className='size-10 md:size-20 bg-[#223B7EC9] text-white rounded-full p-1 md:p-5'/>
             <div className='ms-3 mt-4'>
-              <p className='text-2xl font-bold'>20,000</p>
-              <p>roperty Units</p>
+              <p className='text-md md:text-2xl font-bold'>20,000</p>
+              <p>Property Units</p>
             </div>
 
           </div>
           <div className='flex justify-center'>
-            <PiUsers  className='size-20 bg-[#223B7EC9] text-white rounded-full p-5'/>
+            <PiUsers  className='size-10 md:size-20 bg-[#223B7EC9] text-white rounded-full p-1 md:p-5'/>
             <div className='ms-3 mt-4'>
-              <p className='text-2xl font-bold'>22,000</p>
+              <p className='text-md md:text-2xl font-bold'>22,000</p>
               <p>Residents</p>
             </div>
 
           </div>
       </div>
-      {/* Counts Ended */}
       <HomeCard1 />
       <FeaturesCard />
+      {/* Counts Ended */}
+       <TestSlider />
+                {/* FAQ */}
+                <FAQ />
+                <HomeLastCard />
+                <ContactCard />
+      
+      
     </div>
   )
 }
