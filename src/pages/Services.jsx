@@ -9,6 +9,8 @@ import FAQ from '../components/FAQ';
 import HomeLastCard from '../components/HomeLastCard';
 import ContactCard from '../components/ContactCard';
 import TestSlider from '../components/TestSlider';
+import UtilityVending from '../components/UtilityVending';
+import PropertyDashboard from '../components/PropertyDashboard';
 
 
 
@@ -71,6 +73,13 @@ const Services = () => {
       </div>
       <HomeCard1 />
       <FeaturesCard />
+                      {/* Utility Vending and Payments Started */}
+                {/* <UtilityVending /> */}
+                {/* Utility Vending and Payments Ended */}
+
+                {/* Property Daashboard and vending started */}
+                {/* <PropertyDashboard /> */}
+                {/* Property Daashboard and vending ended */}
       {/* Counts Ended */}
        <TestSlider />
                 {/* FAQ */}

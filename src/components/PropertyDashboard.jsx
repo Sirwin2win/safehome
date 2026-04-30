@@ -15,7 +15,7 @@ const PropertyDashboard = () => {
   return (
     <div>
             {/* Utility Vending and Payments Started */}
-                    <div className='flex justify-between mt-10'>
+                    <div className='md:flex md:justify-between mt-10'>
                         {/* First Div started */}
                         <div className='bg-white border boder-[#8A38F5]'>
                             <p className='text-2xl font-bold px-20'>Property Dashboard</p>

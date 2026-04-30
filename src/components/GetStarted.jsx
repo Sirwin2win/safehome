@@ -9,7 +9,7 @@ const GetStarted = () => {
     <div>
         <p className='text-3xl text-center font-bold mt-10'>Let’s help you get started.</p>
         <p className='text-center mt-5 text-2xl'>Choose your category</p>
-        <div className='flex justify-center my-10'>
+        <div className='md:flex md:justify-center my-10'>
             <div className='bg-[#F1F1F1] p-5 border rounded-lg'>
                 <img src={landlord} alt=""  className='h-100 w-100 rounded-lg'/>
                 <p className='font-bold mt-3 text-2xl'>Landlord?</p>

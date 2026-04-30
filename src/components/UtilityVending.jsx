@@ -12,7 +12,7 @@ const UtilityVending = () => {
   return (
     <div>
         {/* Utility Vending and Payments Started */}
-                <div className='flex justify-between mt-10'>
+                <div className='md:flex md:justify-between mt-10'>
                     <div className='bg-white border boder-[#8A38F5]'>
                         <p className='text-2xl font-bold px-20'>Smart Utility Vending</p>
                         <p className='px-20 text-lg'>Automate utility vending, purchase pre-paid energy meters,
