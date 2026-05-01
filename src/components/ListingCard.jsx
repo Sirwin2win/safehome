@@ -26,7 +26,9 @@ const ListingCard = () => {
         <div className='grid sm:grid-cols-2 md:grid-cols-2 pt-5 gap-6'>
                 {properties.map((product)=>(
             <div className="mx-auto mt-5 w-90 transform overflow-hidden rounded-lg bg-white dark:bg-slate-800 shadow-md duration-300 hover:scale-105 hover:shadow-lg" key={product.id}>
-          <img className="h-60 w-full bg-cover object-center p-5" src={product.image} />
+          <div className="p-5">
+          <img className="h-60 w-full object-cover rounded-t-lg" src={product.image} />
+          </div>
           <div className='flex justify-center'>
             <IoLocationOutline className='text-[#C8C8C8]' size={30}/> <p className='ms-3 text-[#C8C8C8]'>{product.location}</p>
           </div>

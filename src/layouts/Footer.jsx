@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom'
 
 const Footer = () => {
   return (
-    <div className='relative bg-[#F1F1F1CC] px-2'>
-        <img src={logo} className='absolute size-10 md:size-20 md:top-5 top-1 md:left-5' alt="Logo Image" />
-        <p className='ml-20 md:ml-50 mt-10'>Coastal living & timeless comfort in Abuja</p>
-        <div className='md:flex my-10 md:wjustify-evenly'>
+    <div className='relative bg-[#F1F1F1CC] px-2 '>
+        <img src={logo} className='absolute size-10 md:size-20 md:top-2 top-1 md:left-5' alt="Logo Image" />
+        <p className='ml-20 md:ml-50 mt-10 text-center pt-3'>Coastal living & timeless comfort in Abuja</p>
+        <div className='md:flex my-15 md:justify-evenly'>
             {/* Phone */}
             <div>
                 <p className='font-bold mb-2'>Phone</p>
@@ -18,7 +18,7 @@ const Footer = () => {
           
             </div>
             {/* Quick Links */}
-            <div className='my-20 md:my-0'>
+            <div className='my-20 md:my-0 mx-0 md:mx-50'>
                 <p className='font-bold mb-2'>Quick Links</p>
                 <p className='text-gray-700'> 
                     <Link to={'/'}>Home</Link> | <Link to={'/about'}>About Us</Link> |
@@ -39,6 +39,7 @@ const Footer = () => {
             </div>
             
         </div>
+        <marquee className="text-6xl text-gray-200">Safehome Properties</marquee>
       
     </div>
   )

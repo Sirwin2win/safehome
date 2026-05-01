@@ -81,7 +81,7 @@ const PropertyDashboard = () => {
     
                         </div>
                         {/* First Div ended */}
-                        <div className='bg-white border boder-purple-300 ms-10'>
+                        <div className='bg-white border boder-purple-300 md:ms-10 my-20 md:my-0'>
                             <p className='text-2xl px-20 font-bold'>Smart Utility Vending</p>
                             <p className='text-lg px-20'>
                             Automate utility vending, purchase pre-paid energy meters, 

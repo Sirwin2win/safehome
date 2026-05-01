@@ -60,7 +60,7 @@ const Contact = () => {
             </div>
             <div className='relative mb-20'>
             <button className='bg-[#223B7EC9] w-full rounded-lg text-white text-lg py-2'>Submit</button>
-            <FaArrowRight className='absolute bottom-3 left-130 text-white' />
+            <FaArrowRight className='absolute bottom-3 left-20 md:left-130 text-white' />
             </div>
           </form>
         </div>

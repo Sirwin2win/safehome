@@ -19,7 +19,7 @@ import TestSlider from './TestSlider';
 
 const FeaturesCard = () => {
   return (
-    <div className='my-10  mx-20'>
+    <div className='my-10 px-2 md:mx-20'>
 
                 <div className='bg-[#F5F5F5]'>
 
