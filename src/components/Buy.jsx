@@ -3,6 +3,7 @@ import React from 'react'
 const Buy = () => {
   return (
     <form >
+         {/* Home Type */}
         <p className='text-2xl font-bold my-5'>Home Type</p>
 
         <div className='inline md:block ps-2'>
@@ -24,6 +25,7 @@ const Buy = () => {
             <input type="checkbox" className='ms-1' />
             <label htmlFor="villa" className='ms-3 text-xl font-[400]'>Villa</label>
         </div>
+        {/* Home Status */}
 
          <p className='text-2xl font-bold my-5'>Home Status</p>
          
@@ -44,8 +46,31 @@ const Buy = () => {
             <label htmlFor="rent" className='ms-3 text-xl font-[400]'>Sold</label>
         </div>
         </div>
+                    {/* Price Range */}
+         
+         <div className='px-10'>
+            <p className='text-2xl font-bold my-5'>Price Range</p>
+            <p className='text-center text-blue-900 font-bold'>OK</p>
+            <input type="range" min='0' max='100' value='0' className='bg-blue-900 my-5 w-full' />
+            <div className='flex justify-between'>
+                <p className='text-blue-900'>Min Price</p>
+                <p className='text-blue-900'>Max Price</p>
+            </div>
 
-         <p className='text-2xl font-bold my-5'>Price Range</p>
+            <p className='text-2xl font-bold my-5'>Bedrooms</p>
+            <div className='flex justify-between'>
+                <p>1</p>
+                <p>6+</p>
+            </div>
+            <input type="range" min='0' max='6' step='1' className='w-full' />
+
+            <p className='text-2xl font-bold my-5'>Bathrooms</p>
+            <div className='flex justify-between'>
+                <p>1</p>
+                <p>4+</p>
+            </div>
+            <input type="range" min='0' max='6' step='1' className='w-full' />
+         </div>
 
     </form>
   )
