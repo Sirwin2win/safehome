@@ -6,7 +6,7 @@ const Map = () => {
     <MapContainer
       center={[9.0765, 7.3986]}
       zoom={13}
-      className="h-[400px] w-full rounded-xl"
+      className="h-[400px] w-full rounded-xl -z-50"
     >
       <TileLayer
         attribution='&copy; OpenStreetMap'

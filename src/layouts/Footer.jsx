@@ -9,7 +9,7 @@ const Footer = () => {
         <p className='ml-20 md:ml-50 mt-10 text-center pt-3'>Coastal living & timeless comfort in Abuja</p>
         <div className='md:flex my-15 md:justify-evenly'>
             {/* Phone */}
-            <div>
+            <div className='px-3'>
                 <p className='font-bold mb-2'>Phone</p>
                 <p className='text-gray-700'>+2347041005315</p>
                 
@@ -18,7 +18,7 @@ const Footer = () => {
           
             </div>
             {/* Quick Links */}
-            <div className='my-20 md:my-0 mx-0 md:mx-50'>
+            <div className='my-20 md:my-0 mx-0 md:mx-50 px-3'>
                 <p className='font-bold mb-2'>Quick Links</p>
                 <p className='text-gray-700'> 
                     <Link to={'/'}>Home</Link> | <Link to={'/about'}>About Us</Link> |
@@ -29,7 +29,7 @@ const Footer = () => {
            
             </div>
             {/* Stay Posted */}
-            <div>
+            <div className='px-3'>
                 <p className='font-bold mb-2'>Stay Posted</p>
                 <p className='text-gray-700'>Sign up to receive the newsletter to your inbox</p>
                 <form action="post" className='mt-10 relative'>
@@ -37,10 +37,8 @@ const Footer = () => {
                 <button className='bg-[#223B7EC9] text-white w-15 rounded-lg absolute left-25 md:left-[260px] md:right-0 right-4'>Sign Up</button>
             </form>
             </div>
-            
         </div>
         <marquee className="text-6xl text-gray-200">Safehome Properties</marquee>
-      
     </div>
   )
 }
