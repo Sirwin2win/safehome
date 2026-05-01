@@ -25,7 +25,7 @@ const ListingCard = () => {
     <div>
         <div className='grid sm:grid-cols-2 md:grid-cols-2 pt-5 gap-6'>
                 {properties.map((product)=>(
-            <div className="mx-auto mt-5 w-90 transform overflow-hidden rounded-lg bg-white dark:bg-slate-800 shadow-md duration-300 hover:scale-105 hover:shadow-lg" key={product.id}>
+            <div className="mx-auto mt-5 w-90 transform overflow-hidden rounded-lg bg-white shadow-md duration-300 hover:scale-105 hover:shadow-lg" key={product.id}>
           <div className="p-5">
           <img className="h-60 w-full object-cover rounded-t-lg" src={product.image} />
           </div>

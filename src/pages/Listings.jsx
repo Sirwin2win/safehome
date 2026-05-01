@@ -7,7 +7,7 @@ import RentBuyTab from '../components/RentBuyTab';
 
 const Listings = () => {
   return (
-    <div className='flex justify-evenly'>
+    <div className='md:flex justify-evenly'>
       {/* Mobile only area started */}
       
       {/* Mobile only area ended */}

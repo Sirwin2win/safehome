@@ -14,7 +14,7 @@ const RentBuyTab = () => {
   const ActiveComponent = activeTabData?.content;
 
   return (
-    <div className='hidden md:block'>
+    <div className=''>
       <div className="flex border-b">
         {tabs.map((tab) => (
           <button
