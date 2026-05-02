@@ -27,7 +27,7 @@ const CategoryForm = () => {
     };
     
     dispatch(addCategory(categoryData));
-    navigate("../product");
+    navigate("/dashboard");
     setFormData({
      name:""
     });
