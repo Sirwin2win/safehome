@@ -39,13 +39,29 @@ export const getUsers = createAsyncThunk(
 
 
 export const updateRole = createAsyncThunk(
-  'users/update',
+  'auth/update',
   async ({ id, role }, thunkAPI) => {
     try {
        const res = await axios.put(`${API_URL}/update-role`, {
         role,
         id
        })
+      return res.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  }
+);
+
+
+// Update user details using patch method
+export const updateUser = createAsyncThunk(
+  'auth/updateUser',
+  async ({ id, forms }, thunkAPI) => {
+    try {
+       const res = await axios.patch(`${API_URL}/${id}`, 
+        forms
+       )
       return res.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);
@@ -106,6 +122,31 @@ export const logout = createAsyncThunk('auth/logout', async () => {
   localStorage.removeItem('token')
 })
 
+// Get Single User
+export const getUserById = createAsyncThunk(
+  'auth/getUserById',
+  async (id, thunkAPI) => {
+    try {
+      // const token = localStorage.getItem('token');
+
+      const { data } = await axios.get(
+        `${API_URL}/${id}`,
+        {
+          headers: {
+            Authorization: token ? `Bearer ${token}` : ''
+          }
+        }
+      );
+
+      return data.user;
+
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || 'Failed to fetch user'
+      );
+    }
+  }
+);
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
@@ -211,6 +252,24 @@ const authSlice = createSlice({
         state.token = null
         state.status = 'idle'
       })
+// Get User By Id
+       // Pending
+      .addCase(getUserById.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+
+      // Success
+      .addCase(getUserById.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.user = action.payload;
+      })
+
+      // Error
+      .addCase(getUserById.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload;
+      });
   },
 })
 export const { setCredentials } = authSlice.actions;

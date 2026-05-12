@@ -1,10 +1,52 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdLogout, MdToggleOn, MdPayments   } from "react-icons/md";
 import photo from '../assets/images/safe_home_profile_photo.jpg'
+import { jwtDecode } from "jwt-decode";
+import { getUserById } from '../features/auth/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
+
 
 
 
 const ProfileSettings = () => {
+  // Get token from localStorage
+const token = localStorage.getItem("token");
+
+
+let userId = null;
+
+if (token) {
+  // Decode token
+  const decoded = jwtDecode(token);
+
+  console.log(decoded);
+
+  // Access user id
+  userId = decoded.id;
+
+  console.log("User ID:", userId);
+}
+
+// get auth info from the state
+const { user, status, error } = useSelector(
+  (state) => state.auth
+);
+
+// initialize dispatch
+const dispatch = useDispatch();
+
+// dispatch for the actual user
+useEffect(() => {
+  if (userId) {
+    dispatch(getUserById(userId));
+  }
+}, [dispatch, userId]);
+
+console.log({user:user})
+
+
+
   return (
     <div className='mx-5'>
         <p className='text-3xl font-bold'>Settings</p>
@@ -22,8 +64,8 @@ const ProfileSettings = () => {
               <div className='flex justify-between'>
                 <img src={photo} alt="" className='size-15 rounded-full' />
                 <div className='ms-3'>
-                  <p className='text-xl font-bold'>Love Ijeoma</p>
-                  <p className='text-[#999999]'>Safehomes@example.com</p>
+                  <p className='text-xl font-bold'>{user.name}</p>
+                  <p className='text-[#999999]'>{user.email}</p>
                 </div>
               </div>
               {/* Remove & Upload New Photo Buttons */}
@@ -38,26 +80,38 @@ const ProfileSettings = () => {
                 <form>
                   <div className='flex justify-between'>
                   <div className='w-full'>
-                    <label htmlFor="fullName" className='block my-3'>Full NAme</label>
-                    <input type="text" placeholder='Love Ijeoma' id='fullName'
+                    <label htmlFor="fullName" className='block my-3'>{user.name}</label>
+                    <input type="text" 
+                    placeholder='Love Ijeoma'
+                     id='fullName'
+                     value={user.name}
                     className='placeholder:ps-5 border border-gray-300 h-15 w-full rounded-lg' />
                   </div>
                   <div className='w-full ms-10'>
                     <label htmlFor="fullName" className='block my-3'>Role</label>
-                    <input type="text" placeholder='Administrators' id='fullName'
-                    className='placeholder:ps-5 border border-gray-300 h-15 w-full rounded-lg' />
+                    <input type="text"
+                     placeholder='Administrators'
+                     value={user.role}
+                      id='fullName'
+                    className='placeholder:ps-5 border border-gray-300 h-15 w-full rounded-lg' readOnly />
                   </div>
 
                   </div>
                   <div className='flex justify-between'>
                   <div className='w-full'>
                     <label htmlFor="fullName" className='block my-3'>Email Address</label>
-                    <input type="text" placeholder='Safehomes@example.com' id='fullName'
-                    className='placeholder:ps-5 border border-gray-300 h-15 w-full rounded-lg bg-[#D9D9D9]' />
+                    <input type="text"
+                     placeholder='Safehomes@example.com' 
+                     id='fullName'
+                     value={user.email}
+                    className='placeholder:ps-5 border border-gray-300 h-15 w-full rounded-lg bg-[#D9D9D9]' readOnly />
                   </div>
                   <div className='w-full ms-10'>
                     <label htmlFor="fullName" className='block my-3'>Phone Number</label>
-                    <input type="text" placeholder='(234) 801 234 4567' id='fullName'
+                    <input type="text"
+                     placeholder='(234) 801 234 4567' 
+                     id='fullName'
+                     value={user.phone}
                     className='placeholder:ps-5 border border-gray-300 h-15 w-full rounded-lg' />
                   </div>
 
