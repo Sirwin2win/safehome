@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { MdLogout, MdToggleOn, MdPayments   } from "react-icons/md";
 import photo from '../assets/images/safe_home_profile_photo.jpg'
 import { jwtDecode } from "jwt-decode";
-import { getUserById } from '../features/auth/authSlice';
+import { getUserById, updateUser } from '../features/auth/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
-
 
 
 
@@ -35,6 +34,13 @@ const { user, status, error } = useSelector(
 
 // initialize dispatch
 const dispatch = useDispatch();
+const [forms, setForms] = useState({
+  name:"",
+  phone:"",
+  currentPassword:"",
+  newPassword:"",
+  confirmPassword:""
+})
 
 // dispatch for the actual user
 useEffect(() => {
@@ -46,6 +52,17 @@ useEffect(() => {
 console.log({user:user})
 
 
+  const onChange = (e) => {
+    setForms((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(forms)
+    dispatch(updateUser({id:userId,forms}));
+  };
 
   return (
     <div className='mx-5'>
@@ -76,78 +93,148 @@ console.log({user:user})
           
         </div>
             {/* Bio form */}
-              <div className='bg-[#F5F5F5] px-5 py-10'>
-                <form>
-                  <div className='flex justify-between'>
-                  <div className='w-full'>
-                    <label htmlFor="fullName" className='block my-3'>{user.name}</label>
-                    <input type="text" 
-                    placeholder='Love Ijeoma'
-                     id='fullName'
-                     value={user.name}
-                    className='placeholder:ps-5 border border-gray-300 h-15 w-full rounded-lg' />
-                  </div>
-                  <div className='w-full ms-10'>
-                    <label htmlFor="fullName" className='block my-3'>Role</label>
-                    <input type="text"
-                     placeholder='Administrators'
-                     value={user.role}
-                      id='fullName'
-                    className='placeholder:ps-5 border border-gray-300 h-15 w-full rounded-lg' readOnly />
-                  </div>
+              {/* FORM */}
+      <form onSubmit={handleSubmit}>
 
-                  </div>
-                  <div className='flex justify-between'>
-                  <div className='w-full'>
-                    <label htmlFor="fullName" className='block my-3'>Email Address</label>
-                    <input type="text"
-                     placeholder='Safehomes@example.com' 
-                     id='fullName'
-                     value={user.email}
-                    className='placeholder:ps-5 border border-gray-300 h-15 w-full rounded-lg bg-[#D9D9D9]' readOnly />
-                  </div>
-                  <div className='w-full ms-10'>
-                    <label htmlFor="fullName" className='block my-3'>Phone Number</label>
-                    <input type="text"
-                     placeholder='(234) 801 234 4567' 
-                     id='fullName'
-                     value={user.phone}
-                    className='placeholder:ps-5 border border-gray-300 h-15 w-full rounded-lg' />
-                  </div>
+        {/* PROFILE SECTION */}
+        <div className='bg-[#F5F5F5] px-5 py-10'>
 
-                  </div>
-                </form>
-              </div>
-              {/* Profile form ended */}
-              <p className='text-2xl font-bold mt-5'>Security</p>
-              <p className='text-[#999999]'>Update your password to keep your account secure</p>
-              {/* Password Change form started */}
-                <div className='bg-[#F5F5F5] px-5 py-10'>
-                <form>
-                  <div className='flex justify-between'>
-                  <div className='w-full'>
-                    <label htmlFor="fullName" className='block my-3 text-[#757575]'>Current Password</label>
-                    <input type="text" placeholder='Enter Current Password' id='fullName'
-                    className='placeholder:ps-5 border border-gray-300 h-15 w-full rounded-lg' />
-                  </div>
-                  <div className='w-full ms-10'>
-                    <label htmlFor="fullName" className='block my-3 text-[#757575]'>New Password</label>
-                    <input type="text" placeholder='Enter New Password' id='fullName'
-                    className='placeholder:ps-5 border border-gray-300 h-15 w-full rounded-lg' />
-                  </div>
+          <div className='flex justify-between'>
 
-                  </div>
-                  <div className='flex justify-between'>
-                  <div className='w-115'>
-                    <label htmlFor="fullName" className='block my-3 text-[#757575]'>Confirm New Password</label>
-                    <input type="text" placeholder='Confirm Your New Password' id='fullName'
-                    className='placeholder:ps-5 border border-gray-300 h-15 w-full rounded-lg bg-[#D9D9D9]' />
-                  </div>
-                  <button className='bg-[#223B7E] text-white px-10 font-bold rounded-lg mt-10'>Change Password</button>
+            {/* NAME */}
+            <div className='w-full'>
+              <label className='block my-3'>
+                Full Name
+              </label>
 
-                  </div>
-                </form>
-              </div>
+              <input
+                type="text"
+                name="name"
+                value={forms.name}
+                onChange={onChange}
+                className='border border-gray-300 h-15 w-full rounded-lg ps-5'
+              />
+            </div>
+
+            {/* ROLE */}
+            <div className='w-full ms-10'>
+              <label className='block my-3'>
+                Role
+              </label>
+
+              <input
+                type="text"
+                value={user?.role || ""}
+                readOnly
+                className='border border-gray-300 h-15 w-full rounded-lg ps-5 bg-[#D9D9D9]'
+              />
+            </div>
+
+          </div>
+
+          <div className='flex justify-between mt-5'>
+
+            {/* EMAIL */}
+            <div className='w-full'>
+              <label className='block my-3'>
+                Email Address
+              </label>
+
+              <input
+                type="text"
+                value={user?.email || ""}
+                readOnly
+                className='border border-gray-300 h-15 w-full rounded-lg ps-5 bg-[#D9D9D9]'
+              />
+            </div>
+
+            {/* PHONE */}
+            <div className='w-full ms-10'>
+              <label className='block my-3'>
+                Phone Number
+              </label>
+
+              <input
+                type="text"
+                name="phone"
+                value={forms.phone}
+                onChange={onChange}
+                className='border border-gray-300 h-15 w-full rounded-lg ps-5'
+              />
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* PASSWORD SECTION */}
+        <div className='bg-[#F5F5F5] px-5 py-10 mt-5'>
+
+          <div className='flex justify-between'>
+
+            {/* CURRENT PASSWORD */}
+            <div className='w-full'>
+              <label className='block my-3'>
+                Current Password
+              </label>
+
+              <input
+                type="password"
+                name="currentPassword"
+                value={forms.currentPassword}
+                onChange={onChange}
+                placeholder='Enter Current Password'
+                className='border border-gray-300 h-15 w-full rounded-lg ps-5'
+              />
+            </div>
+
+            {/* NEW PASSWORD */}
+            <div className='w-full ms-10'>
+              <label className='block my-3'>
+                New Password
+              </label>
+
+              <input
+                type="password"
+                name="newPassword"
+                value={forms.newPassword}
+                onChange={onChange}
+                placeholder='Enter New Password'
+                className='border border-gray-300 h-15 w-full rounded-lg ps-5'
+              />
+            </div>
+
+          </div>
+
+          {/* CONFIRM PASSWORD */}
+          <div className='mt-5'>
+
+            <label className='block my-3'>
+              Confirm New Password
+            </label>
+
+            <input
+              type="password"
+              name="confirmPassword"
+              value={forms.confirmPassword}
+              onChange={onChange}
+              placeholder='Confirm New Password'
+              className='border border-gray-300 h-15 w-full rounded-lg ps-5'
+            />
+
+          </div>
+
+          {/* BUTTON */}
+          <button
+            type="submit"
+            className='bg-[#223B7E] text-white px-10 py-3 font-bold rounded-lg mt-10'
+          >
+            Save Changes
+          </button>
+
+        </div>
+
+      </form>
               {/* Password Change form ended */}
               {/* Notification started */}
               <p className='text-2xl font-bold mt-5'>Notification</p>
