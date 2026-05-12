@@ -155,6 +155,7 @@ const authSlice = createSlice({
     status: 'idle',
     error: null,
     initialized: false, 
+    updateStatus:'idle'
   },
   reducers: {
     // setCredentials: (state, action) => {
@@ -268,6 +269,24 @@ const authSlice = createSlice({
       // Error
       .addCase(getUserById.rejected, (state, action) => {
         state.status = "failed";
+        state.error = action.payload;
+      })
+// Update User By Id
+       // Pending
+      .addCase(updateUser.pending, (state) => {
+        state.updateStatus = 'loading';
+        state.error = null;
+      })
+
+      // Success
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.updateStatus = "succeeded";
+        state.user = action.payload;
+      })
+
+      // Error
+      .addCase(updateUser.rejected, (state, action) => {
+        state.updateStatus = "failed";
         state.error = action.payload;
       });
   },

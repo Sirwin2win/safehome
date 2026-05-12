@@ -1,29 +1,66 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import admin from '../assets/images/admin.avif'
 import { FaBell, FaTools, FaArrowDown , FaPowerOff   } from 'react-icons/fa'
 import { MdPayment } from "react-icons/md";
 import { IoDocumentTextSharp } from "react-icons/io5";
 import { GiSpanner } from "react-icons/gi";
+import { jwtDecode } from "jwt-decode";
+import { getUserById } from '../features/auth/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 
 
 
 
 const Dashboard = () => {
+    // Get token from localStorage
+  const token = localStorage.getItem("token");
+  
+  
+  let userId = null;
+  
+  if (token) {
+    // Decode token
+    const decoded = jwtDecode(token);
+  
+    console.log(decoded);
+  
+    // Access user id
+    userId = decoded.id;
+  
+    console.log("User ID:", userId);
+  }
+  
+  // get auth info from the state
+  const { user, status, error } = useSelector(
+    (state) => state.auth
+  );
+  
+  // initialize dispatch
+  const dispatch = useDispatch();
+ 
+  
+  // dispatch for the actual user
+  useEffect(() => {
+    if (userId) {
+      dispatch(getUserById(userId));
+    }
+  }, [dispatch, userId]);
   return (
     <div className='mx-10'>
       {/* Mini Header Started */}
           <div className='flex justify-between'>
           <div>
          <h2 className='text-2xl font-bold'>Dashboard</h2>
-         <p className='text-gray-500'>Welcome back, Ijeoma!</p>
+         <p className='text-gray-500'>Welcome back, {user.name}!</p>
           </div>
           <div className='flex justify-center'>
               <FaBell className='size-8 p-2 bg-gray-100 mt-1'/>
               <img src={admin} alt="safeHome admin" className='size-10 rounded-full mx-5' />
               <div className='-mt-2'>
-                <p className='text-2xl font-bold'>Love Ijeoma</p>
-                <p className='text-gray-500'>safehome@example.com</p>
+                <p className='text-2xl font-bold'>{user.name}</p>
+                <p className='text-gray-500'>{user.email}</p>
               </div>
 
           </div>

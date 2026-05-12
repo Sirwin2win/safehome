@@ -28,7 +28,7 @@ if (token) {
 }
 
 // get auth info from the state
-const { user, status, error } = useSelector(
+const { user, status, error,updateStatus } = useSelector(
   (state) => state.auth
 );
 
@@ -49,7 +49,7 @@ useEffect(() => {
   }
 }, [dispatch, userId]);
 
-console.log({user:user})
+// console.log({user:user})
 
 
   const onChange = (e) => {
@@ -63,6 +63,17 @@ console.log({user:user})
     console.log(forms)
     dispatch(updateUser({id:userId,forms}));
   };
+  useEffect(()=>{
+    if(updateStatus==="succeeded"){
+      setForms({
+  name:"",
+  phone:"",
+  currentPassword:"",
+  newPassword:"",
+  confirmPassword:""
+})
+    }
+  },[updateStatus])
 
   return (
     <div className='mx-5'>
@@ -95,7 +106,7 @@ console.log({user:user})
             {/* Bio form */}
               {/* FORM */}
       <form onSubmit={handleSubmit}>
-
+            <p className='text-green-500'>{updateStatus==="succeeded" && "Record updated successfully!"}</p>
         {/* PROFILE SECTION */}
         <div className='bg-[#F5F5F5] px-5 py-10'>
 
@@ -229,7 +240,8 @@ console.log({user:user})
             type="submit"
             className='bg-[#223B7E] text-white px-10 py-3 font-bold rounded-lg mt-10'
           >
-            Save Changes
+            
+            <span>{updateStatus==="loading"?"Saving...":"Save Changes"}</span>
           </button>
 
         </div>
