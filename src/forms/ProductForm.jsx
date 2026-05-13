@@ -13,6 +13,7 @@ const ProductForm = () => {
       //  const user = useSelector((state)=> state.auth.user)
       
   const [image, setImage] = useState(false);
+  const [images, setImages] = useState([]);
   const [data, setData] = useState({
     title: "",
     location: "",
@@ -47,6 +48,11 @@ const handleSubmit = async (e) => {
   formData.append("description", data.description);
   formData.append("image", image);
   formData.append("category_id", data.category_id);
+
+  // Multiple images
+for (let i = 0; i < images.length; i++) {
+  formData.append("images", images[i]);
+}
 
   dispatch(addProduct(formData));
 };
@@ -203,6 +209,31 @@ const handleSubmit = async (e) => {
             required
           />
         </div>
+        {/* Multiple Images Upload */}
+<div className="mb-6">
+  <p className="font-semibold mb-2">Upload Property Images</p>
+
+  <input
+    type="file"
+    multiple
+    accept="image/*"
+    onChange={(e) => setImages([...e.target.files])}
+    className="border p-2 rounded-lg w-full"
+  />
+
+  {/* Preview Images */}
+  <div className="grid grid-cols-3 gap-3 mt-4">
+    {images.length > 0 &&
+      images.map((img, index) => (
+        <img
+          key={index}
+          src={URL.createObjectURL(img)}
+          alt=""
+          className="w-32 h-32 object-cover rounded-lg"
+        />
+      ))}
+  </div>
+</div>
         {/* Category */}
               <div>
               <label className="block text-sm font-medium text-gray-700" htmlFor="category">Category</label>
