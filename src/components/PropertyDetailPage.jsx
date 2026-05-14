@@ -16,6 +16,7 @@ const PropertyDetailPage = () => {
     const {id} = useParams()
     const {currentProduct, status,error} = useSelector((state)=>state.products)
     const [isOpen, setIsOpen] = useState(false);
+const [selectedImage, setSelectedImage] = useState(null);
 
     // console.log(currentProduct)
     // console.log(id)
@@ -45,47 +46,42 @@ if(status === 'failed'){
             </div>
        <img  className="md:h-150 md:w-full object-cover rounded-xl" src={`https://api.safehomeproperties.com/uploads/${currentProduct?.image}`} alt={currentProduct?.title} />
       
-       <div className='md:flex mt-5'>
-        {currentProduct.images && currentProduct.images.map(img=>(
-            /* Thumbnail */
-            <div>
+       <div className='md:flex mt-5 gap-3 flex-wrap'>
+  {currentProduct?.images?.map((img) => (
+    <img
+      key={img.id}
+      onClick={() => {
+        setSelectedImage(img.images);
+        setIsOpen(true);
+      }}
+      className='size-50 border-4 border-white object-cover rounded-xl cursor-pointer hover:scale-105 transition'
+      src={`https://api.safehomeproperties.com/uploads/${img.images}`}
+      alt={`gallery ${img.id}`}
+    />
+  ))}
+</div>
 
-                <img 
-                key={img.id}
-                 onClick={() => setIsOpen(true)}
-                className='size-50 border border-5 border-white object-cover rounded-xl cursor-pointer hover:scale-105 transition'
-                src={`https://api.safehomeproperties.com/uploads/${img.images}`} 
-                alt={`gallery ${img.id}`} />
 
+{isOpen && (
+  <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4">
+    
+    {/* Close */}
+    <button
+      onClick={() => setIsOpen(false)}
+      className="absolute top-5 right-5 text-white text-4xl"
+    >
+      &times;
+    </button>
 
-                {/* Modal */}
-      {isOpen && (
-        <div className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4">
+    {/* Preview */}
+    <img
+      src={`https://api.safehomeproperties.com/uploads/${selectedImage}`}
+      alt="Preview"
+      className="max-w-5xl w-full max-h-[90vh] object-contain rounded-xl"
+    />
+  </div>
+)}
 
-          {/* Close */}
-          <button
-            onClick={() => setIsOpen(false)}
-            className="absolute top-5 right-5 text-white text-4xl"
-          >
-            &times;
-          </button>
-
-          {/* Large Image */}
-          <img
-           src={`https://api.safehomeproperties.com/uploads/${img.images}`} 
-                alt={`gallery preview`}
-            alt="Preview"
-            className="max-w-5xl w-full max-h-[90vh] object-contain rounded-xl"
-          />
-        </div>
-      )}
-            </div>
-           
-        ))}
-
-         
-
-       </div>
         <p className='my-5 text-lg'>{currentProduct?.description}</p>
             </div>
             {/* right hand */}
