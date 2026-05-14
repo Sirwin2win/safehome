@@ -182,7 +182,7 @@ for (let i = 0; i < images.length; i++) {
 
              {/* Password  */}
                 <div className="mb-6">
-          <p>Attach Property Image</p>
+          <p>Upload the main property image</p>
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
             htmlFor="image"
@@ -211,7 +211,7 @@ for (let i = 0; i < images.length; i++) {
         </div>
         {/* Multiple Images Upload */}
 <div className="mb-6">
-  <p className="font-semibold mb-2">Upload Property Images</p>
+  <p className="font-semibold mb-2">Upload Property Images(property gallery images)</p>
 
   <input
     type="file"

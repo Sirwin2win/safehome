@@ -63,7 +63,7 @@ export const fetchProduct = createAsyncThunk(
   async (id, thunkAPI) => {
     try {
       const response = await productAPI.fetchProductByIdAPI(id);
-      return response.data;
+      return response.data.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);
     }
