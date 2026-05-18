@@ -1,144 +1,135 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import bot from '../assets/vectors/safe_home_properties_loginBot.png'
-import { FaArrowRightLong } from "react-icons/fa6";
-import { PiWalletBold } from "react-icons/pi";
-import { BsTools } from "react-icons/bs";
-import { GiFamilyHouse } from "react-icons/gi";
-import { register } from '../features/auth/authSlice';
-
+import React from "react";
+import regImg from "../assets/images/safe_home_properties_register.png";
+import logo from "../assets/images/safehome_logo.png";
+import { MdOutlineRealEstateAgent } from "react-icons/md";
 
 const SignUp = () => {
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-  const auth = useSelector((state) => state.auth)
+  return (
+    <div className="flex justify-evenly">
+      {/* Left hand sise with an image */}
+      <div className="relative w-150 h-300 overflow-hidden -mt-35 rounded-lg">
+        <img src={regImg} alt="" className="rounded-lg h-400 w-150 mt-50" />
+        <div className="flex absolute bottom-220 ms-10">
+          <img src={logo} alt="" className="size-10" />
+          <p className="text-2xl font-bold ms-2 text-white">SafeHomes</p>
+        </div>
+        <div>
+          <p className="absolute bottom-130 text-4xl font-bold text-white px-25">
+            Secure Your Abuja Legacy.
+          </p>
+          <p className="absolute bottom-107 px-25 text-white">
+            Experience Abuja's most trusted enterprise portal designed for real
+            estate professionals who demand security and precision.
+          </p>
+        </div>
+      </div>
+      {/* Right hand side with a form */}
+      <div className="shadow-xl p-6 w-130 bg-white mt-15 -ms-80 z-20 rounded-r-lg">
+        <form>
+          <p className="text-2xl font-bold w-full mt-10">Join SafeHomes</p>
+          <p className="pt-2 text-gray-600">
+            Select your role to get started in our Abuja ecosystem.
+          </p>
+          <div className="grid grid-cols-2 gap-4">
+            <label htmlFor="landlord" className="">
+              <input type="radio" className="h-18 text-2xl peer hidden" />
+              <div className="shadow-xl bg-white p-5 w-55 rounded-lg">
+                <MdOutlineRealEstateAgent className="size-5" />
+                <p className="text-lg font-bold">Landlord</p>
+                <p>Manage multiple premium Abuja assets.</p>
+              </div>
+            </label>
+            <label htmlFor="landlord" className="">
+              <input type="radio" className="h-18 text-2xl peer hidden" />
+              <div className="shadow-xl bg-white p-5 w-55 rounded-lg">
+                <MdOutlineRealEstateAgent className="size-5" />
+                <p className="text-lg font-bold">Tenant</p>
+                <p>Elevated living and Abuja concierge services.</p>
+              </div>
+            </label>
+            <label htmlFor="landlord" className="">
+              <input type="radio" className="h-18 text-2xl peer hidden" />
+              <div className="shadow-xl bg-white p-5 w-55 rounded-lg">
+                <MdOutlineRealEstateAgent className="size-5" />
+                <p className="text-lg font-bold">Homeowner</p>
+                <p>Full control of your personal residence.</p>
+              </div>
+            </label>
+            <label htmlFor="landlord" className="">
+              <input type="radio" className="h-18 text-2xl peer hidden" />
+              <div className="shadow-xl bg-white p-5 w-55 rounded-lg">
+                <MdOutlineRealEstateAgent className="size-5" />
+                <p className="text-lg font-bold">Estate Manager</p>
+                <p>Professional Abuja property operations.</p>
+              </div>
+            </label>
+          </div>
+          <div class="flex items-center gap-4 mt-5">
+            <hr class="flex-grow border-t border-gray-300" />
 
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    role: 'user',
-    password: '',
-  })
+            <p class="text-gray-500 whitespace-nowrap">Account Details</p>
 
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value })
+            <hr class="flex-grow border-t border-gray-300" />
+          </div>
+          {/* Full Name & Phone Number flex */}
+          <div className="flex justify-evenly">
+            <div>
+              <label htmlFor="name" className="font-[600]">
+                Full Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                className="bg-gray-100 h-10 rounded-lg border border-gray-300"
+              />
+            </div>
+            <div>
+              <label htmlFor="phone" className="font-[600]">
+                Phone Number
+              </label>
+              <input
+                type="text"
+                id="phone"
+                name="phone"
+                className="bg-gray-100 h-10 rounded-lg border border-gray-300"
+              />
+            </div>
+          </div>
+          {/* Full Name & Phone Number flex  ended*/}
+          <div className="my-5">
+            <label htmlFor="email" className="font-[600]">
+              Email Address
+            </label>
+            <input
+              type="text"
+              className="bg-gray-100 h-10 rounded-lg border border-gray-300 w-full"
+            />
+          </div>
+          <div className="">
+            <label htmlFor="password" className="font-[600]">
+              Password
+            </label>
+            <input
+              type="text"
+              className="bg-gray-100 h-10 rounded-lg border border-gray-300 w-full"
+            />
+            <p className="text-gray-500">
+              Minimum 8 characters including one special symbol
+            </p>
+          </div>
+          <div className="flex justify-evenly">
+            <input type="checkbox" />
+            <p>I agree to the Terms of Service and Privacy Policy.</p>
+          </div>
 
- const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  try {
-  const res = await dispatch(register(form)).unwrap();
-  console.log('SUCCESS:', res);
-  navigate('/login');
-} catch (err) {
-  console.error('ERROR:', err);
-}
+          <button>
+            <span></span>
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 };
 
-  return (
-            <div className='flex justify-center my-5'>
-                    
-                    {/* Left Div */}
-                    <div className='bg-[#FF6700C9] rounded-lg px-8 pb-20'>
-                        <p className='pt-20 px-10 text-center text-3xl font-500 text-white'>Let’s help you with <span className='block'>smarter living.</span> </p>
-                        {/* Make Payments Div */}
-                        <div className='flex justify-between my-10'>
-                            <PiWalletBold className='size-20 text-[#FF6700C9] bg-gray-300 rounded-full p-2 shadow-lg'/>
-                            <div className='ms-5'>
-                                <p className='text-lg font-bold text-white'>Make Payments</p>
-                                <p className='text-white'>Pay online, track payment <span className='block'>status, and view your payment</span> history with ease.</p>
-                            </div>
-            
-                        </div>
-                        {/* Maintenance Requests Div */}
-                        <div className='flex justify-between my-10'>
-                            <BsTools className='size-20 text-[#FF6700C9] bg-gray-300 rounded-full p-2 shadow-lg'/>
-                            <div className='ms-5'>
-                                <p className='text-lg font-bold text-white'>Maintenance Requests</p>
-                                <p className='text-white'>Submit and manage 
-                                    <span className='block'>maintenance requests directly </span> 
-                                    online.</p>
-                            </div>
-            
-                        </div>
-                        {/* Renter Essentials Div */}
-                       <div className='flex justify-between my-10'>
-                            <GiFamilyHouse className='size-20 text-[#FF6700C9] bg-gray-300 rounded-full p-2 shadow-lg'/>
-                            <div className='ms-5'>
-                                <p className='text-lg font-bold text-white'>Renter Essentials</p>
-                                <p className='text-white'>Easily set up and handle your
-                                    <span className='block'>utilities, services, and important </span>documents.</p>
-                            </div>
-            
-                        </div>
-                          {/* Renter Essentials Div End */}
-            
-                    </div>
-
-
-                    {/* Right Div */}
-                    <div className='shadow-lg ms-3 p-10 border border-gray-200 rounded-lg'>
-                            <img src={bot} alt="safe_home_properties_bot" className='size-40 mx-auto' />
-                            <p className='text-[#999999] text-3xl font-lg mt-5'>Login to SafeHome</p>
-            
-                            <form>
-                                 {auth.error && <p style={{ color: 'red' }}>{auth.error}</p>}
-                                <div className='bg-white  my-10'>
-                                    <input type="text" placeholder='Full Name'
-                                      name='name'
-                                      onChange={handleChange}
-                                       className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2' 
-                                       required
-                                       />
-                                </div>
-                                <div className='bg-white  my-10'>
-                                    <input type="text" 
-                                    placeholder='Phone Number'
-                                     name='phone' 
-                                     onChange={handleChange}
-                                     className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2'
-                                     required
-                                     />
-                                </div>
-                                <div className='bg-white  my-10'>
-                                    <input type="text"
-                                     placeholder='example@name.com' 
-                                     onChange={handleChange}
-                                     name='email' className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2'
-                                     required
-                                     />
-                                </div>
-                                <div className='bg-white my-10'>
-                                    <input type="password" 
-                                    placeholder='Enter your password'
-                                     name='password' 
-                                     onChange={handleChange}
-                                     className='bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2' 
-                                     required
-                                     />
-                                </div>
-                                 <p className='my-3'>Already have an account?<Link to={'/login'} className='ms-2 text-blue-500'>login</Link> </p>
-                                <button 
-                                 disabled={auth.status === 'loading'}
-                                onClick={handleSubmit}
-                                className='bg-[#FF6700C9] rounded-lg w-full text-white flex justify-evenly py-2 border-r border-r-gray-300'
-                                
-                                >
-                                    <span> {auth.status === 'loading' ? 'Registering...' : 'Continue with Email'}</span>
-                                    
-                                    
-                                    <FaArrowRightLong />
-                                    </button>
-                                    <div className='my-5'>
-                                     <Link to='#'>Forgot your password?</Link>
-                                    </div>
-                            </form>
-                    </div>
-            
-                </div>
-  )
-}
-
-export default SignUp
+export default SignUp;
