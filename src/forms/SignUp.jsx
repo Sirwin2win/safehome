@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import regImg from "../assets/images/safe_home_properties_register.png";
 import logo from "../assets/images/safehome_logo.png";
 import { MdOutlineRealEstateAgent } from "react-icons/md";
+import { FaRegEyeSlash, FaRegEye, FaArrowRight } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
+  const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="flex justify-evenly">
       {/* Left hand sise with an image */}
@@ -81,6 +84,7 @@ const SignUp = () => {
                 type="text"
                 id="name"
                 name="name"
+                placeholder="John Doe"
                 className="bg-gray-100 h-10 rounded-lg border border-gray-300"
               />
             </div>
@@ -92,6 +96,7 @@ const SignUp = () => {
                 type="text"
                 id="phone"
                 name="phone"
+                placeholder="+234 800 000 0000"
                 className="bg-gray-100 h-10 rounded-lg border border-gray-300"
               />
             </div>
@@ -104,28 +109,55 @@ const SignUp = () => {
             <input
               type="text"
               className="bg-gray-100 h-10 rounded-lg border border-gray-300 w-full"
+              placeholder="email@example.com"
             />
           </div>
-          <div className="">
+          <div className="relative">
             <label htmlFor="password" className="font-[600]">
               Password
             </label>
             <input
-              type="text"
+              type={showPassword ? "text" : "password"}
               className="bg-gray-100 h-10 rounded-lg border border-gray-300 w-full"
+              placeholder="************"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+            >
+              {showPassword ? (
+                <FaRegEyeSlash size={18} />
+              ) : (
+                <FaRegEye size={18} />
+              )}
+            </button>
             <p className="text-gray-500">
               Minimum 8 characters including one special symbol
             </p>
           </div>
-          <div className="flex justify-evenly">
-            <input type="checkbox" />
-            <p>I agree to the Terms of Service and Privacy Policy.</p>
+          <div className="flex justify-evenly my-5">
+            <input type="checkbox" className="-ms-15" />
+            <p className="-ms-10">
+              I agree to the{" "}
+              <Link to={"#"} className="text-blue-500">
+                Terms of Service and Privacy Policy.
+              </Link>
+            </p>
           </div>
 
-          <button>
-            <span></span>
+          <button className="flex justify-center h-10 bg-[#FD761A] w-full rounded-lg my-10 py-2">
+            <span className="text-white me-5 font-bold">
+              Complete Registration
+            </span>
+            <FaArrowRight className="text-white mt-2" />
           </button>
+          <p className="my-5 text-center">
+            Already have an account?{" "}
+            <Link to={"/login"} className="text-blue-500">
+              Sign In
+            </Link>
+          </p>
         </form>
       </div>
     </div>
