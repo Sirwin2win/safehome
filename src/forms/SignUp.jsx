@@ -8,9 +8,9 @@ import { Link } from "react-router-dom";
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <div className="flex justify-evenly">
+    <div className="md:flex justify-evenly">
       {/* Left hand sise with an image */}
-      <div className="relative w-150 h-300 overflow-hidden -mt-35 rounded-lg">
+      <div className="relative w-150 h-300 overflow-hidden -mt-35 rounded-lg hidden md:block">
         <img src={regImg} alt="" className="rounded-lg h-400 w-150 mt-50" />
         <div className="flex absolute bottom-220 ms-10">
           <img src={logo} alt="" className="size-10" />
@@ -27,7 +27,7 @@ const SignUp = () => {
         </div>
       </div>
       {/* Right hand side with a form */}
-      <div className="shadow-xl p-6 w-130 bg-white mt-15 -ms-80 z-20 rounded-r-lg">
+      <div className="shadow-xl p-6 md:w-130 bg-white mt-15 md:-ms-80 z-20 rounded-r-lg">
         <form>
           <p className="text-2xl font-bold w-full mt-10">Join SafeHomes</p>
           <p className="pt-2 text-gray-600">
@@ -36,34 +36,34 @@ const SignUp = () => {
           <div className="grid grid-cols-2 gap-4">
             <label htmlFor="landlord" className="">
               <input type="radio" className="h-18 text-2xl peer hidden" />
-              <div className="shadow-xl bg-white p-5 w-55 rounded-lg">
+              <div className="shadow-xl bg-white p-5 h-30 md:w-55 rounded-lg">
                 <MdOutlineRealEstateAgent className="size-5" />
-                <p className="text-lg font-bold">Landlord</p>
-                <p>Manage multiple premium Abuja assets.</p>
+                <p className="md:text-lg font-bold">Landlord</p>
+                <p className="hidden md:block">Manage multiple premium Abuja assets.</p>
               </div>
             </label>
             <label htmlFor="landlord" className="">
               <input type="radio" className="h-18 text-2xl peer hidden" />
-              <div className="shadow-xl bg-white p-5 w-55 rounded-lg">
+              <div className="shadow-xl bg-white p-5 h-30 md:w-55 rounded-lg">
                 <MdOutlineRealEstateAgent className="size-5" />
-                <p className="text-lg font-bold">Tenant</p>
-                <p>Elevated living and Abuja concierge services.</p>
+                <p className="md:text-lg font-bold">Tenant</p>
+                <p className="hidden md:block">Elevated living and Abuja concierge services.</p>
               </div>
             </label>
             <label htmlFor="landlord" className="">
               <input type="radio" className="h-18 text-2xl peer hidden" />
-              <div className="shadow-xl bg-white p-5 w-55 rounded-lg">
+              <div className="shadow-xl bg-white p-5 h-30 md:w-55 rounded-lg">
                 <MdOutlineRealEstateAgent className="size-5" />
-                <p className="text-lg font-bold">Homeowner</p>
-                <p>Full control of your personal residence.</p>
+                <p className="md:text-lg font-bold">Homeowner</p>
+                <p className="hidden md:block">Full control of your personal residence.</p>
               </div>
             </label>
             <label htmlFor="landlord" className="">
               <input type="radio" className="h-18 text-2xl peer hidden" />
-              <div className="shadow-xl bg-white p-5 w-55 rounded-lg">
+              <div className="shadow-xl bg-white p-5 h-30 md:w-55 rounded-lg">
                 <MdOutlineRealEstateAgent className="size-5" />
-                <p className="text-lg font-bold">Estate Manager</p>
-                <p>Professional Abuja property operations.</p>
+                <p className="md:text-lg font-bold">Estate Manager</p>
+                <p className="hidden md:block">Professional Abuja property operations.</p>
               </div>
             </label>
           </div>
@@ -85,10 +85,10 @@ const SignUp = () => {
                 id="name"
                 name="name"
                 placeholder="John Doe"
-                className="bg-gray-100 h-10 rounded-lg border border-gray-300"
+                className="bg-gray-100 h-10 w-full rounded-lg border border-gray-300"
               />
             </div>
-            <div>
+            <div className="ms-5">
               <label htmlFor="phone" className="font-[600]">
                 Phone Number
               </label>
@@ -97,7 +97,7 @@ const SignUp = () => {
                 id="phone"
                 name="phone"
                 placeholder="+234 800 000 0000"
-                className="bg-gray-100 h-10 rounded-lg border border-gray-300"
+                className="bg-gray-100 h-10 w-full rounded-lg border border-gray-300"
               />
             </div>
           </div>
@@ -127,9 +127,9 @@ const SignUp = () => {
               className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
             >
               {showPassword ? (
-                <FaRegEyeSlash size={18} />
+                <FaRegEyeSlash size={18} className="mb-5 md:mb-0"/>
               ) : (
-                <FaRegEye size={18} />
+                <FaRegEye size={18} className="mb-5 md:mb-0"/>
               )}
             </button>
             <p className="text-gray-500">
@@ -137,8 +137,8 @@ const SignUp = () => {
             </p>
           </div>
           <div className="flex justify-evenly my-5">
-            <input type="checkbox" className="-ms-15" />
-            <p className="-ms-10">
+            <input type="checkbox" className="md:-ms-15" />
+            <p className="md:-ms-10 ms-3">
               I agree to the{" "}
               <Link to={"#"} className="text-blue-500">
                 Terms of Service and Privacy Policy.

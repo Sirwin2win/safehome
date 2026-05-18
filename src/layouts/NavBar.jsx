@@ -48,7 +48,7 @@ const NavBar = () => {
           <Link to={'/contact'} className="hover:text-gray-300">Contact Us</Link>
         </div>
 			        {/* Get Started Button */}
-        <Link to='/get-started'>
+        <Link to='/signup'>
             <button className='bg-omaOrange text-white h-10 w-50 rounded-lg hidden md:block'>Login</button>
             </Link>
 
@@ -91,7 +91,7 @@ const NavBar = () => {
           <Link to={'/contact'} className="hover:text-gray-300 text-2xl" onClick={() => setIsOpen(false)}>Contact Us</Link>
           </li>
           <li className='-ms-15'>
-             <Link to='/get-started'>
+             <Link to='/signup'>
             <button className='bg-omaOrange text-white text-2xl h-10 w-50 rounded-lg md:hidden' onClick={() => setIsOpen(false)}>Login</button>
             </Link>
           </li>
