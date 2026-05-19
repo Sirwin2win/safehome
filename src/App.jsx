@@ -12,14 +12,14 @@ import Listings from "./pages/Listings";
 import Services from "./pages/Services";
 import GetStarted from "./components/GetStarted";
 import Login from "./forms/Login";
-import Dashboard from './components/Dashboard'
-import LeaseDocs from './components/LeaseDocs'
-import LeaseInfo from './components/LeaseInfo'
-import Mentenance from './components/Mentenance'
-import PaymentAccount from './components/PaymentAccount'
-import PaymentHistory from './components/PaymentHistory'
-import ProfileSettings from './components/ProfileSettings'
-import SetAutoplay from './components/SetAutoplay'
+import Dashboard from "./components/Dashboard";
+import LeaseDocs from "./components/LeaseDocs";
+import LeaseInfo from "./components/LeaseInfo";
+import Mentenance from "./components/Mentenance";
+import PaymentAccount from "./components/PaymentAccount";
+import PaymentHistory from "./components/PaymentHistory";
+import ProfileSettings from "./components/ProfileSettings";
+import SetAutoplay from "./components/SetAutoplay";
 import SignUp from "./forms/SignUp";
 import ConfirmPayment from "./components/ConfirmPayment";
 import PaymentSuccess from "./components/PaymentSuccess";
@@ -31,6 +31,7 @@ import EditProduct from "./forms/EditProduct";
 import PropertyDetailPage from "./components/PropertyDetailPage";
 import PropertyCard from "./components/PropertyCard";
 import Properties from "./dashboards/Properties";
+import Tenant from "./dashboards/Tenant";
 
 // Dashboard pages
 // import DashboardHome from "./pages/dashboard/Home";
@@ -41,12 +42,11 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-
         {/*  Public Website */}
         <Route path="/" element={<PublicLayout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
-          <Route path="listings" element={<Listings /> } />
+          <Route path="listings" element={<Listings />} />
           <Route path="services" element={<Services />} />
           <Route path="contact" element={<Contact />} />
           <Route path="get-started" element={<GetStarted />} />
@@ -59,22 +59,22 @@ export default function App() {
 
         {/*  Dashboard */}
         <Route path="/dashboard" element={<DashboardLayout />}>
-        <Route index element={<Dashboard />} />
-        <Route path="lease-docs" element={<LeaseDocs />} />
-        <Route path="lease-info" element={<LeaseInfo />} />
-        <Route path="mentenance" element={<Mentenance />} />
-        <Route path="payment-account" element={<PaymentAccount />} />
-        <Route path="payment-history" element={<PaymentHistory />} />
-        <Route path="profile-settings" element={<ProfileSettings />} />
-        <Route path="set-autoplay" element={<SetAutoplay />} />
-        <Route path="confirm-payment" element={<ConfirmPayment />} />
-        <Route path="payment-success" element={<PaymentSuccess />} />
-        <Route path="payment-decline" element={<PaymentDeclined />} />
-        <Route path="manage-category" element={<GetCategories />} />
-        <Route path="manage-products" element={<GetProducts />} />
-        <Route path="properties" element={<Properties />} />
+          <Route index element={<Dashboard />} />
+          <Route path="lease-docs" element={<LeaseDocs />} />
+          <Route path="lease-info" element={<LeaseInfo />} />
+          <Route path="mentenance" element={<Mentenance />} />
+          <Route path="payment-account" element={<PaymentAccount />} />
+          <Route path="payment-history" element={<PaymentHistory />} />
+          <Route path="profile-settings" element={<ProfileSettings />} />
+          <Route path="set-autoplay" element={<SetAutoplay />} />
+          <Route path="confirm-payment" element={<ConfirmPayment />} />
+          <Route path="payment-success" element={<PaymentSuccess />} />
+          <Route path="payment-decline" element={<PaymentDeclined />} />
+          <Route path="manage-category" element={<GetCategories />} />
+          <Route path="manage-products" element={<GetProducts />} />
+          <Route path="properties" element={<Properties />} />
+          <Route path="tenant" element={<Tenant />} />
         </Route>
-
       </Routes>
     </BrowserRouter>
   );

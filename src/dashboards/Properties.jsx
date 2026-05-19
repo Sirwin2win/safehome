@@ -43,7 +43,7 @@ const Properties = () => {
             <FaUserPlus className="size-5 ps-2 mt-1" />{" "}
             <span className="ms-2 pe-3">Approve Tenant</span>
           </button>
-          <button className="text-white bg-[#1B2B3F] rounded-lg font-bold flex justify-between ms-5">
+          <button className="text-white bg-[#00236F] rounded-lg font-bold flex justify-between ms-5">
             {" "}
             <FaPlus className="size-5 ps-2 mt-2" />{" "}
             <span className="ms-2 pe-3 pt-1">Add Property</span>
