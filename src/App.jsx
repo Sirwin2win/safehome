@@ -30,6 +30,7 @@ import GetProducts from "./manageProd/GetProducts";
 import EditProduct from "./forms/EditProduct";
 import PropertyDetailPage from "./components/PropertyDetailPage";
 import PropertyCard from "./components/PropertyCard";
+import Properties from "./dashboards/Properties";
 
 // Dashboard pages
 // import DashboardHome from "./pages/dashboard/Home";
@@ -71,6 +72,7 @@ export default function App() {
         <Route path="payment-decline" element={<PaymentDeclined />} />
         <Route path="manage-category" element={<GetCategories />} />
         <Route path="manage-products" element={<GetProducts />} />
+        <Route path="properties" element={<Properties />} />
         </Route>
 
       </Routes>
