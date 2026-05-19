@@ -12,6 +12,7 @@ import skyline from "../assets/images/safehome_skyline.jpg";
 import { HiOutlineHomeModern } from "react-icons/hi2";
 import { TbCalendarClock } from "react-icons/tb";
 import { GiSpanner } from "react-icons/gi";
+import { BsStopwatch } from "react-icons/bs";
 // import { MdOutlineHomeWork } from "react-icons/md";
 
 const Tenant = () => {
@@ -89,11 +90,11 @@ const Tenant = () => {
         </div>
         <div className="bg-white shadow-xl p-5 w-60 border border-gray-300 rounded-lg">
           <div className="flex justify-between my-5">
-            <GiSpanner className="rotate-280 size-8 rounded-lg bg-gray-300 p-2" />
-            <span className="text-[#38485D] bg-[#D3E4FE80]">2 Critical</span>
+            <BsStopwatch lassName="size-8 rounded-lg bg-gray-300 p-2" />
+            <span className="text-[#38485D] bg-[#D3E4FE80]"></span>
           </div>
-          <p className="text-sm text-[#444651]">MAINTENANCE</p>
-          <p className="text-2xl font-bold my-3">3</p>
+          <p className="text-sm text-[#444651]">Lease Expiry</p>
+          <p className="text-2xl font-bold my-3">240 Days</p>
         </div>
       </div>
     </div>
