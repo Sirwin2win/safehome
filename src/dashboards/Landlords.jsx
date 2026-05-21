@@ -10,7 +10,7 @@ import { AiOutlineExclamationCircle } from "react-icons/ai";
 import pix from "../assets/images/safehome_profile.jpg";
 import skyline from "../assets/images/safehome_skyline.jpg";
 
-const Properties = () => {
+const Landlords = () => {
   return (
     <div>
       {/* Search , notification bell and profile flex */}
@@ -223,4 +223,4 @@ const Properties = () => {
   );
 };
 
-export default Properties;
+export default Landlords;

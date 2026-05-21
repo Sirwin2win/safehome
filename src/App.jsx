@@ -30,7 +30,7 @@ import GetProducts from "./manageProd/GetProducts";
 import EditProduct from "./forms/EditProduct";
 import PropertyDetailPage from "./components/PropertyDetailPage";
 import PropertyCard from "./components/PropertyCard";
-import Properties from "./dashboards/Properties";
+import Landlords from "./dashboards/Landlords";
 import Tenant from "./dashboards/Tenant";
 
 // Dashboard pages
@@ -72,7 +72,7 @@ export default function App() {
           <Route path="payment-decline" element={<PaymentDeclined />} />
           <Route path="manage-category" element={<GetCategories />} />
           <Route path="manage-products" element={<GetProducts />} />
-          <Route path="properties" element={<Properties />} />
+          <Route path="landlord" element={<Landlords />} />
           <Route path="tenant" element={<Tenant />} />
         </Route>
       </Routes>
