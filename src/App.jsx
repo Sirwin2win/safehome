@@ -32,6 +32,7 @@ import PropertyDetailPage from "./components/PropertyDetailPage";
 import PropertyCard from "./components/PropertyCard";
 import Landlords from "./dashboards/Landlords";
 import Tenant from "./dashboards/Tenant";
+import Homeowner from "./dashboards/Homeowner";
 
 // Dashboard pages
 // import DashboardHome from "./pages/dashboard/Home";
@@ -74,6 +75,7 @@ export default function App() {
           <Route path="manage-products" element={<GetProducts />} />
           <Route path="landlord" element={<Landlords />} />
           <Route path="tenant" element={<Tenant />} />
+          <Route path="homeowner" element={<Homeowner />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -55,19 +55,19 @@ const Landlords = () => {
         <div className="bg-white shadow-xl p-5 w-60 border border-gray-300 rounded-lg">
           <div className="flex justify-between my-5">
             <MdOutlineHomeWork className="size-8 rounded-lg bg-gray-300 p-2" />
-            <span className="text-[#16A34A] text-sm">+2 this month</span>
+            <span className="text-[#16A34A] text-xs">+2 this month</span>
           </div>
-          <p className="text-sm text-[#444651]">TOTAL PROPERTIES</p>
+          <p className="text-xs text-[#444651]">TOTAL PROPERTIES</p>
           <p className="text-2xl font-bold my-3">12</p>
         </div>
         <div className="bg-white shadow-xl p-5 w-60 border border-gray-300 mx-5 rounded-lg">
           <div className="flex justify-between my-5">
             <HiOutlineHomeModern className="text-[#9D4300] bg-[#FD761A1A] size-8 p-2" />
-            <span className="text-[#444651] text-sm bg-[#ECEEF0]">
+            <span className="text-[#444651] text-xs bg-[#ECEEF0]">
               83.3% Occupancy
             </span>
           </div>
-          <p className="text-sm text-[#444651]">OCCUPIED UNITS</p>
+          <p className="text-xs text-[#444651]">OCCUPIED UNITS</p>
           <p className="text-2xl font-bold my-3">10</p>
         </div>
         <div className="bg-white shadow-xl p-5 w-60 border border-gray-300 me-5 rounded-lg">
@@ -75,7 +75,7 @@ const Landlords = () => {
             <TbCalendarClock className="text-[#9D4300] font-bold bg-[#FD761A1A] size-8 p-2" />
             <span className="text-[#BA1A1A] bg-[#FFDAD633]">Due in 5d</span>
           </div>
-          <p className="text-sm text-[#444651]">PENDING RENT</p>
+          <p className="text-xs text-[#444651]">PENDING RENT</p>
           <p className="text-2xl font-bold my-3 text-[#BA1A1A]">$4,200</p>
         </div>
         <div className="bg-white shadow-xl p-5 w-60 border border-gray-300 rounded-lg">
@@ -83,7 +83,7 @@ const Landlords = () => {
             <GiSpanner className="rotate-280 size-8 rounded-lg bg-gray-300 p-2" />
             <span className="text-[#38485D] bg-[#D3E4FE80]">2 Critical</span>
           </div>
-          <p className="text-sm text-[#444651]">MAINTENANCE</p>
+          <p className="text-xs text-[#444651]">MAINTENANCE</p>
           <p className="text-2xl font-bold my-3">3</p>
         </div>
       </div>

@@ -80,19 +80,19 @@ const Tenant = () => {
         <div className="bg-white shadow-xl p-5 w-60 border border-gray-300 rounded-lg">
           <div className="flex justify-between my-5">
             <MdOutlineAccountBalanceWallet className="size-8 rounded-lg bg-gray-300 p-2" />
-            <span className="text-[#444651] text-sm">Status: Paid</span>
+            <span className="text-[#444651] text-xs">Status: Paid</span>
           </div>
-          <p className="text-sm text-[#444651]">Current Balance</p>
+          <p className="text-xs text-[#444651]">Current Balance</p>
           <p className="text-lg font-bold my-3">$0.00</p>
         </div>
         <div className="bg-white shadow-xl p-5 w-60 border border-gray-300 mx-5 rounded-lg">
           <div className="flex justify-between my-5">
             <MdOutlineCalendarToday className="text-[#9D4300] bg-[#FD761A1A] size-8 p-2" />
-            <span className="text-[#9D4300] font-bold text-sm">
+            <span className="text-[#9D4300] font-bold text-xs">
               14 Days left
             </span>
           </div>
-          <p className="text-sm text-[#444651]">Next Due Date</p>
+          <p className="text-xs text-[#444651]">Next Due Date</p>
           <p className="text-lg font-bold my-3">Oct 1st</p>
         </div>
         <div className="bg-white shadow-xl p-5 w-60 border border-gray-300 me-5 rounded-lg">
@@ -100,7 +100,7 @@ const Tenant = () => {
             <TbCalendarClock className="text-[#1B2B3F] font-bold bg-[#D3E4FE] size-8 p-2" />
             <span className="text-[#BA1A1A] bg-[#FFDAD633]"></span>
           </div>
-          <p className="text-sm text-[#444651]">Maintenance Status</p>
+          <p className="text-xs text-[#444651]">Maintenance Status</p>
           <p className="text-lg font-bold my-3 text-[#191C1E]">1 Pending</p>
         </div>
         <div className="bg-white shadow-xl p-5 w-60 border border-gray-300 rounded-lg">
@@ -108,7 +108,7 @@ const Tenant = () => {
             <BsStopwatch lassName="size-8 rounded-lg bg-gray-300 p-2" />
             <span className="text-[#38485D] bg-[#D3E4FE80]"></span>
           </div>
-          <p className="text-sm text-[#444651]">Lease Expiry</p>
+          <p className="text-xs text-[#444651]">Lease Expiry</p>
           <p className="text-lg font-bold my-3">240 Days</p>
         </div>
       </div>
