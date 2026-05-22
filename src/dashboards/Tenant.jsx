@@ -66,12 +66,12 @@ const Tenant = () => {
           <button className="text-white bg-[#00236F] rounded-lg border border-gray-300 font-bold flex justify-between">
             {" "}
             <MdOutlinePayments className="size-7 ps-2 text-white" />{" "}
-            <span className="ms-2 pe-3">Approve Tenant</span>
+            <span className="ms-2 pe-3">Make Payment</span>
           </button>
           <button className="text-[#00236F] rounded-lg font-bold border border-gray-300 flex justify-between ms-5">
             {" "}
             <FaTools className="size-7 ps-2 mt-1" />{" "}
-            <span className="ms-2 pe-3 pt-1">Add Property</span>
+            <span className="ms-2 pe-3 pt-1">Report Issue</span>
           </button>
         </div>
       </div>
@@ -165,7 +165,7 @@ const Tenant = () => {
               <p className="font-bold text-gray-500">Recent Payments</p>
               <p className="font-bold text-[#00236F]">View All</p>
             </div>
-            <table className="w-full text-left border border-gray-300 rounded-b-lg p-5">
+            <table className="w-full text-left border border-gray-300 rounded-b-lg">
               <thead>
                 <tr className="bg-[#F2F4F6]">
                   <th className="p-3 text-[#757682] text-sm ">DATE</th>
@@ -175,7 +175,7 @@ const Tenant = () => {
                 </tr>
               </thead>
 
-              <tbody>
+              <tbody className="p-50">
                 <tr className="">
                   <td className="p-3">Sep 01, 2023</td>
                   <td className="p-3">Rent Unit 402B</td>

@@ -13,6 +13,10 @@ import {
   MdWarningAmber,
   MdOutlinePayments,
   MdOutlineAnnouncement,
+  MdOutlineSupportAgent,
+  MdFilterList,
+  MdOutlineFileDownload,
+  MdOutlinePayment,
 } from "react-icons/md";
 import { HiOutlineHomeModern } from "react-icons/hi2";
 import { TbCalendarClock, TbBellRinging } from "react-icons/tb";
@@ -104,118 +108,210 @@ const Homeowner = () => {
       </div>
       {/* Estate Announcement*/}
       <div className="flex justify-between mt-20">
-        <div className="">
-          <div className="flex justify-between bg-[#C5C5D3] border border-gray-300 p-5 rounded-t-lg">
-            <div className="flex justify-between">
-              <MdOutlineAnnouncement className="text-[#00236F] size-5 mt-1" />
-              <p className="text-md ms-2 font-bold text-[#00236F]">
-                Estate Announcements
-              </p>
-            </div>
-            <p className="font-bold text-[#00236F]">View All</p>
-          </div>
-          {/* blog like announcement */}
-          <div className="flex justify-between p-5">
-            <img
-              src={news1}
-              alt="estate news1"
-              className="rounded-lg h-20 me-5"
-            />
-            <div>
+        <div>
+          <div className="bg-white border border-gray-200 rounded-lg">
+            <div className="flex justify-between bg-[#C5C5D3] border border-gray-300 p-5 rounded-t-lg">
               <div className="flex justify-between">
-                <p className="text-xs font-bold me-20">
-                  Main Gate Maintenance Schedule
-                </p>
-                <p className="bg-[#E0E3E5] text-[#444651] text-xs font-bold">
-                  Estate News
+                <MdOutlineAnnouncement className="text-[#00236F] size-5 mt-1" />
+                <p className="text-md ms-2 font-bold text-[#00236F]">
+                  Estate Announcements
                 </p>
               </div>
-              <p className="my-5 text-xs">
-                Please be advised that the bi-annual maintenance for the
-                automated gate system will take place this Thursday from 10:00
-                AM to 2:00 PM.
-              </p>
-              <p className="text-xs">Posted 2 hours ago by Management</p>
+              <p className="font-bold text-[#00236F]">View All</p>
             </div>
-          </div>
-          <div className="flex justify-between p-5 border-t-3 border-gray-300">
-            <img
-              src={news1}
-              alt="estate news1"
-              className="rounded-lg h-20 me-5"
-            />
-            <div>
-              <div className="flex justify-between">
-                <p className="text-xs font-bold me-20">
-                  Main Gate Maintenance Schedule
+            {/* blog like announcement */}
+            <div className="flex justify-between p-5">
+              <img
+                src={news1}
+                alt="estate news1"
+                className="rounded-lg h-20 me-5"
+              />
+              <div>
+                <div className="flex justify-between">
+                  <p className="text-xs font-bold me-20">
+                    Main Gate Maintenance Schedule
+                  </p>
+                  <p className="bg-[#E0E3E5] text-[#444651] text-xs font-bold">
+                    Estate News
+                  </p>
+                </div>
+                <p className="my-5 text-xs">
+                  Please be advised that the bi-annual maintenance for the
+                  automated gate system will take place this Thursday from 10:00
+                  AM to 2:00 PM.
                 </p>
-                <p className="bg-[#E0E3E5] text-[#444651] text-xs font-bold">
-                  Estate News
+                <p className="text-xs">Posted 2 hours ago by Management</p>
+              </div>
+            </div>
+            <div className="flex justify-between p-5 border-t-3 border-gray-300">
+              <img
+                src={news1}
+                alt="estate news1"
+                className="rounded-lg h-20 me-5"
+              />
+              <div>
+                <div className="flex justify-between">
+                  <p className="text-xs font-bold me-20">
+                    Annual Residents Social Gala
+                  </p>
+                  <p className="bg-[#DCE1FF] text-[#264191] text-xs font-bold">
+                    Community Event
+                  </p>
+                </div>
+                <p className="my-5 text-xs">
+                  We are excited to invite all residents to the Oakwood Annual
+                  Social. Tickets are now available at the clubhouse reception
+                  desk.
+                </p>
+                <p className="text-xs">
+                  Posted Yesterday by Residents Association
                 </p>
               </div>
-              <p className="my-5 text-xs">
-                Please be advised that the bi-annual maintenance for the
-                automated gate system will take place this Thursday from 10:00
-                AM to 2:00 PM.
-              </p>
-              <p className="text-xs">Posted 2 hours ago by Management</p>
             </div>
+          </div>
+          {/* Table */}
+          <div className="rounded-lg mt-5">
+            <div className="flex justify-between bg-[#C5C5D3] border border-gray-300 p-5 rounded-t-lg">
+              <p className="text-xs ms-2 font-bold text-[#00236F]">
+                Service Charge History
+              </p>
+              <div className="flex justify-between">
+                <MdFilterList />
+                <p className="font-bold text-xs text-[#00236F] ms-3">Filter</p>
+              </div>
+            </div>
+            <table className="min-w-full border border-gray-200 rounded-lg">
+              <thead className="bg-gray-100 rounded-lg">
+                <tr>
+                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                    REFERENCE
+                  </th>
+                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                    DATE
+                  </th>
+                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                    AMOUNT
+                  </th>
+                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                    STATUS
+                  </th>
+                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                    ACTION
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                <tr className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm text-gray-700">
+                    NV-2023-09
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-700">
+                    Sep 01, 2023
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-700">$150.00</td>
+                  <td className="px-6 py-4 text-sm text-gray-700">
+                    <button className="bg-[#DCFCE7] py-2 px-5 rounded-full text-[#15803D]">
+                      Paid
+                    </button>
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-700">
+                    <MdOutlineFileDownload />
+                  </td>
+                </tr>
+                <tr className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm text-gray-700">
+                    INV-2023-10
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-700">
+                    Oct 01, 2023
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-700">$150.00</td>
+                  <td className="px-6 py-4 text-sm text-gray-700">
+                    <button className="bg-[#FEF9C3] py-2 px-5 rounded-full text-[#A16207]">
+                      Pending
+                    </button>
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-700">
+                    <MdOutlinePayment />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
-        <div className="bg-white p-5 shadow-xl border border-gray-300">
-          <p className="text-md font-bold text-[#00236F]">
-            Recent Tenant Activity
-          </p>
-          <div className="space-y-1">
-            {/* Item  */}
-            <div className="flex gap-4">
-              {/* Line + Dot  */}
-              <div className="flex flex-col items-center">
-                {/* <div className="w-3 h-3 bg-green-500 rounded-full"></div> */}
-                <IoIosCheckmarkCircleOutline className="w-3 h-3 bg-green-200 rounded-full" />
-                <div className="w-px flex-1 bg-gray-300"></div>
+        {/* Issue Tracker */}
+        <div className="ms-5">
+          <div className="bg-[#C5C5D3] border border-gray-300 p-3 rounded-t-lg">
+            <p className="font-bold text-[#00236F]">Issue Tracker</p>
+            <p className="text-[#00236F]">Status of your reported concerns</p>
+          </div>
+          <div className="bg-white p-5 shadow-xl border border-gray-300">
+            <div className="space-y-1">
+              {/* Item  */}
+              <div className="flex gap-4">
+                {/* Line + Dot  */}
+                <div className="flex flex-col items-center">
+                  {/* <div className="w-3 h-3 bg-green-500 rounded-full"></div> */}
+                  <IoIosCheckmarkCircleOutline className="w-3 h-3 bg-green-200 rounded-full" />
+                  <div className="w-px flex-1 bg-gray-300"></div>
+                </div>
+
+                {/* Content  */}
+                <div className="pb-6 bg-[#F2F4F6] rounded-lg p-3">
+                  <div className="flex justify-between">
+                    <p className="font-semibold text-[#191C1E] text-xs">
+                      Rent Paid - Unit 402
+                    </p>
+                    <p className="bg-[#DBEAFE] text-[#1D4ED8] text-xs">
+                      In Review
+                    </p>
+                  </div>
+                  <p className="text-xs text-gray-500 my-3">
+                    Unit 12 Frontage, faulty sensor causing flickering.
+                  </p>
+                  <div className="flex justify-between my-1">
+                    <p className="text-xs text-gray-500">ID: #TK-8892</p>
+                    <p className="text-xs text-gray-500">2 Days Ago</p>
+                  </div>
+                </div>
               </div>
 
-              {/* Content  */}
-              <div className="pb-6">
-                <p className="font-semibold">Rent Paid - Unit 402</p>
-                <p className="text-sm text-gray-500">
-                  Sarah Jenkins paid $1,850.00 via Stripe.2 hours ago
-                </p>
+              {/* Item  */}
+              <div className="flex gap-4">
+                <div className="flex flex-col items-center">
+                  {/* <div className="w-3 h-3 bg-blue-500 rounded-full"></div> */}
+                  <AiOutlineExclamationCircle className="w-3 h-3 bg-red-200 rounded-full" />
+                  <div className="w-px flex-1 bg-gray-300"></div>
+                </div>
+
+                <div className="pb-6 p-3 mt-10 border-b-1 border-gray-300">
+                  <div className="flex justify-between">
+                    <p className="font-semibold text-[#191C1E] text-xs">
+                      Water Pressure Drop
+                    </p>
+                    <p className="bg-[#E6E8EA] text-[#757682] text-xs p-1">
+                      Resolved
+                    </p>
+                  </div>
+                  <p className="text-xs text-gray-500 my-3">
+                    Pressure restored after pump station maintenance.
+                  </p>
+                  <div className="flex justify-between my-1">
+                    <p className="text-xs text-gray-500">ID: #TK-8810</p>
+                    <p className="text-xs text-gray-500">Resolved Sep 28</p>
+                  </div>
+                </div>
+                {/* contact support  */}
               </div>
             </div>
-
-            {/* Item  */}
-            <div className="flex gap-4">
-              <div className="flex flex-col items-center">
-                {/* <div className="w-3 h-3 bg-blue-500 rounded-full"></div> */}
-                <AiOutlineExclamationCircle className="w-3 h-3 bg-red-200 rounded-full" />
-                <div className="w-px flex-1 bg-gray-300"></div>
-              </div>
-
-              <div className="pb-6">
-                <p className="font-semibold">Maintenance Requested</p>
-                <p className="text-sm text-gray-500">
-                  Leaking sink reported in Maple Oaks Estate.5 hours ago
-                </p>
-              </div>
-            </div>
-
-            {/* Last Item  */}
-            <div className="flex gap-4">
-              <div className="flex flex-col items-center">
-                {/* <div className="w-3 h-3 bg-purple-500 rounded-full"></div> */}
-                <TiClipboard />
-              </div>
-
-              <div>
-                <p className="font-semibold">Lease Renewal</p>
-                <p className="text-sm text-gray-500">
-                  David Miller signed renewal for Unit 12B.Yesterday
-                </p>
-              </div>
-            </div>
+            <MdOutlineSupportAgent className="size-10 mx-auto my-5 text-[#00236F33]" />
+            <p className="text-xs text-[#444651]">
+              Need urgent assistance with an estate service?
+            </p>
+            <button className="text-[#00236F] border-2 w-full border-[#00236F] rounded-lg p-2 my-3 text-xs font-semibold">
+              Contact Support
+            </button>
           </div>
         </div>
         {/* Recent Tenant Activity ended*/}
