@@ -3,6 +3,9 @@ import regImg from "../assets/images/safe_home_properties_register.png";
 import logo from "../assets/images/safehome_logo.png";
 import { MdOutlineRealEstateAgent } from "react-icons/md";
 import { FaRegEyeSlash, FaRegEye, FaArrowRight } from "react-icons/fa";
+import { GoHome } from "react-icons/go";
+import { RiMapPinUserLine } from "react-icons/ri";
+import { TbUserStar } from "react-icons/tb";
 import { Link } from "react-router-dom";
 
 const SignUp = () => {
@@ -38,32 +41,40 @@ const SignUp = () => {
               <input type="radio" className="h-18 text-2xl peer hidden" />
               <div className="shadow-xl bg-white p-5 h-30 md:w-55 rounded-lg">
                 <MdOutlineRealEstateAgent className="size-5" />
-                <p className="md:text-lg font-bold">Landlord</p>
-                <p className="hidden md:block">Manage multiple premium Abuja assets.</p>
+                <p className="md:text-md font-bold">Landlord</p>
+                <p className="hidden md:block text-xs">
+                  Manage multiple premium Abuja assets.
+                </p>
               </div>
             </label>
             <label htmlFor="landlord" className="">
               <input type="radio" className="h-18 text-2xl peer hidden" />
               <div className="shadow-xl bg-white p-5 h-30 md:w-55 rounded-lg">
-                <MdOutlineRealEstateAgent className="size-5" />
-                <p className="md:text-lg font-bold">Tenant</p>
-                <p className="hidden md:block">Elevated living and Abuja concierge services.</p>
+                <RiMapPinUserLine className="size-5" />
+                <p className="md:text-md font-bold">Tenant</p>
+                <p className="hidden md:block text-xs">
+                  Elevated living and Abuja concierge services.
+                </p>
               </div>
             </label>
             <label htmlFor="landlord" className="">
               <input type="radio" className="h-18 text-2xl peer hidden" />
               <div className="shadow-xl bg-white p-5 h-30 md:w-55 rounded-lg">
-                <MdOutlineRealEstateAgent className="size-5" />
-                <p className="md:text-lg font-bold">Homeowner</p>
-                <p className="hidden md:block">Full control of your personal residence.</p>
+                <GoHome className="size-5" />
+                <p className="md:text-md font-bold">Homeowner</p>
+                <p className="hidden md:block text-xs">
+                  Full control of your personal residence.
+                </p>
               </div>
             </label>
             <label htmlFor="landlord" className="">
               <input type="radio" className="h-18 text-2xl peer hidden" />
               <div className="shadow-xl bg-white p-5 h-30 md:w-55 rounded-lg">
-                <MdOutlineRealEstateAgent className="size-5" />
-                <p className="md:text-lg font-bold">Estate Manager</p>
-                <p className="hidden md:block">Professional Abuja property operations.</p>
+                <TbUserStar className="size-5" />
+                <p className="md:text-md font-bold">Estate Manager</p>
+                <p className="hidden md:block text-xs">
+                  Professional Abuja property operations.
+                </p>
               </div>
             </label>
           </div>
@@ -127,9 +138,9 @@ const SignUp = () => {
               className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
             >
               {showPassword ? (
-                <FaRegEyeSlash size={18} className="mb-5 md:mb-0"/>
+                <FaRegEyeSlash size={18} className="mb-5 md:mb-0" />
               ) : (
-                <FaRegEye size={18} className="mb-5 md:mb-0"/>
+                <FaRegEye size={18} className="mb-5 md:mb-0" />
               )}
             </button>
             <p className="text-gray-500">

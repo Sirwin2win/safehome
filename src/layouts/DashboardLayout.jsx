@@ -14,7 +14,11 @@ import { Outlet, Link, useNavigate } from "react-router-dom";
 // import { logout, setCredentials } from '../features/auth/authSlice'
 import { BiPurchaseTag } from "react-icons/bi";
 import logo from "../assets/images/logo.jpg";
-import { TbLayoutDashboardFilled, TbLayoutDashboard } from "react-icons/tb";
+import {
+  TbLayoutDashboardFilled,
+  TbLayoutDashboard,
+  TbUserStar,
+} from "react-icons/tb";
 import { BsTools } from "react-icons/bs";
 import {
   MdPayment,
@@ -98,6 +102,15 @@ const DashboardLayout = () => {
                 className={`ml-4 text-[#B7C8E1] md:block ${isOpen ? "block" : "hidden"}`}
               >
                 <Link to={"homeowner"}>Homeowner</Link>
+              </span>
+            </li>
+            <li className="flex items-center p-4 m-3 rounded-lg cursor-pointer">
+              <TbUserStar size={24} className="text-[#B7C8E1]" />
+              {/* <FaUserAlt size={24} /> */}
+              <span
+                className={`ml-4 text-[#B7C8E1] md:block ${isOpen ? "block" : "hidden"}`}
+              >
+                <Link to={"estate-manager"}>Estate Manager</Link>
               </span>
             </li>
             <li className="flex items-center p-4 m-3 rounded-lg cursor-pointer">
