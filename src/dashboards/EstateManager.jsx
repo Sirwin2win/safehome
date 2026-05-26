@@ -1,9 +1,18 @@
 import React from "react";
 import { FaRegBell, FaUserPlus, FaPlus } from "react-icons/fa";
 import { IoIosSearch, IoIosCheckmarkCircleOutline } from "react-icons/io";
-import { MdOutlineHomeWork, MdWarningAmber } from "react-icons/md";
+import {
+  MdOutlineHomeWork,
+  MdWarningAmber,
+  MdFilterList,
+} from "react-icons/md";
 import { HiOutlineHomeModern } from "react-icons/hi2";
-import { TbCalendarClock, TbClipboardText } from "react-icons/tb";
+import {
+  TbCalendarClock,
+  TbClipboardText,
+  TbDots,
+  TbReload,
+} from "react-icons/tb";
 import { GiSpanner } from "react-icons/gi";
 import { TiClipboard } from "react-icons/ti";
 import { PiUsersBold } from "react-icons/pi";
@@ -106,6 +115,134 @@ const EstateManager = () => {
             Monthly Revenue
           </p>
           <p className="text-2xl font-bold my-3">$85k</p>
+        </div>
+      </div>
+      {/* Complaint Management */}
+      <div className="flex justify-between mt-10">
+        <div className="grow-3">
+          <div className="flex justify-between">
+            <p className="text-[#191C1E] text-lg font-bold">
+              Complaint Management
+            </p>
+            <p className="text-xs text-[#00236F] mt-2">View All</p>
+          </div>
+          <div className="flex justify-between my-5">
+            {/* NEW (3) */}
+            <div className="grow-1 p-5 bg-[#F2F4F6] rounded-lg">
+              {/* <div className=""> */}
+              <div className="flex justify-between mt-3">
+                <p className="text-[#757682] text-xs">NEW (3)</p>
+                <TbDots />
+              </div>
+              {/* </div> */}
+              <div className="bg-white rounded-lg p-5 my-3 border border-gray-300">
+                <p className="font-bold">Elevator B-4 Faulty</p>
+                <div className="flex justify-between mt-3">
+                  <p className="bg-[#FFDAD6] text-[#BA1A1A] p-1 rounded-lg text-xs">
+                    Urgent
+                  </p>
+                  <p className="text-[#757682] text-xs">Apt 204</p>
+                </div>
+              </div>
+              <div className="bg-white rounded-lg p-2 my-3 border border-gray-300">
+                <p className="font-bold">Pool Light Replacement</p>
+                <div className="flex justify-between mt-3">
+                  <p className="bg-[#D3E4FE] text-[#38485D] p-1 rounded-lg text-xs">
+                    Urgent
+                  </p>
+                  <p className="text-[#757682] text-xs">Lounge</p>
+                </div>
+              </div>
+            </div>
+
+            {/* IN REVIEW (2) */}
+            <div className="grow-1 p-5 bg-[#F2F4F6] mx-3 rounded-lg">
+              {/* <div className=""> */}
+              <div className="flex justify-between mt-3">
+                <p className="text-[#757682] text-xs">IN REVIEW (2)</p>
+                <TbDots />
+              </div>
+              {/* </div> */}
+              <div className="bg-white rounded-lg p-2 my-3 border border-gray-300">
+                <p className="font-bold">Leakage in Basement</p>
+                <div className="flex justify-between mt-3">
+                  <p className="bg-[#DCE1FF] text-[#00236F] p-1 rounded-lg text-xs">
+                    Maintenance
+                  </p>
+                  <p className="text-[#757682] text-xs">Zone C</p>
+                </div>
+              </div>
+            </div>
+
+            {/* RESOLVED (15) */}
+            <div className="grow-1 p-5 bg-[#F2F4F6] rounded-lg">
+              {/* <div className=""> */}
+              <div className="flex justify-between mt-3">
+                <p className="text-[#757682] text-xs">RESOLVED (15)</p>
+                <TbDots />
+              </div>
+              {/* </div> */}
+              <div className="bg-white rounded-lg p-2 my-3 border border-gray-300">
+                <del className="font-bold">Gym AC Repaired</del>
+                <div className="flex mt-3">
+                  <IoIosCheckmarkCircleOutline className="text-[#16A34A]" />
+                  <p className="text-[#757682] text-xs ms-3">Yesterday</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="grow-2 ms-5">
+          <p className="text-[#191C1E] text-lg font-bold">Revenue Collection</p>
+          <div className="border border-gray-300 rounded-lg mt-5">
+            <div className="flex justify-between p-5 mt-5">
+              <div>
+                <p className="text-xs text-[#757682]">MTD Goal</p>
+                <p className="text-[#191C1E] font-bold">$92,000</p>
+              </div>
+              <div>
+                <p className="text-[#757682] text-xs">Current</p>
+                <p className="text-[#16A34A] font-bold">$85,400</p>
+              </div>
+            </div>
+            <div className="flex items-center justify-center min-h-screen -mt-50">
+              <div className="w-40 h-40 rounded-full border-15 border-[#00236F] p-5 items-center justify-center shadow-lg">
+                <p className="text-2xl text-center font-bold text-[#191C1E]">
+                  92%
+                </p>
+                <p className="text-xs text-center">COLLECTED</p>
+              </div>
+            </div>
+            <div className="-mt-45 p-3">
+              <div className="flex justify-between py-3 border-b-2 border-gray-300">
+                <p>Service Charge</p>
+                <p>$62,000</p>
+              </div>
+              <div className="flex justify-between py-3 border-b-2 border-gray-300">
+                <p>Facility Bookings</p>
+                <p>$18,400</p>
+              </div>
+              <div className="flex justify-between py-3">
+                <p>Utility Recharges</p>
+                <p>$5,000</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* Maintenance Operations */}
+      <div className="flex justify-between mt-10">
+        <div className="grow-2">
+          <div className="flex justify-between">
+            <p>Maintenance Operations</p>
+            <MdFilterList />
+          </div>
+        </div>
+        <div className="grow-2">
+          <div className="flex justify-between">
+            <p>Shared Facility Monitoring</p>
+            <TbReload />
+          </div>
         </div>
       </div>
     </div>
