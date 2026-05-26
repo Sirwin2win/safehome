@@ -5,6 +5,8 @@ import {
   MdOutlineHomeWork,
   MdWarningAmber,
   MdFilterList,
+  MdPool,
+  MdOutlineCoffee,
 } from "react-icons/md";
 import { HiOutlineHomeModern } from "react-icons/hi2";
 import {
@@ -12,6 +14,7 @@ import {
   TbClipboardText,
   TbDots,
   TbReload,
+  TbCirclePlusFilled,
 } from "react-icons/tb";
 import { GiSpanner } from "react-icons/gi";
 import { TiClipboard } from "react-icons/ti";
@@ -21,6 +24,7 @@ import {
   AiOutlineSound,
   AiOutlineDollar,
 } from "react-icons/ai";
+import { CgGym } from "react-icons/cg";
 import pix from "../assets/images/safehome_profile.jpg";
 import skyline from "../assets/images/safehome_skyline.jpg";
 
@@ -234,14 +238,119 @@ const EstateManager = () => {
       <div className="flex justify-between mt-10">
         <div className="grow-2">
           <div className="flex justify-between">
-            <p>Maintenance Operations</p>
+            <p className="font-bold">Maintenance Operations</p>
             <MdFilterList />
           </div>
+          {/* Table */}
+          <div className="overflow-x-auto border border-gray-300 rounded-lg mt-5">
+            <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden">
+              <thead className="bg-gray-100">
+                <tr>
+                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+                    VENDOR
+                  </th>
+                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+                    TASK
+                  </th>
+                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+                    STATUS
+                  </th>
+                  <th className="px-6 py-3 text-left text-sm font-semibold text-gray-700">
+                    ETA
+                  </th>
+                </tr>
+              </thead>
+
+              <tbody className="divide-y divide-gray-200">
+                <tr className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm text-gray-800">
+                    AquaPro Systems
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-600">
+                    Pool Filter Cleaning
+                  </td>
+
+                  <td className="px-6 py-4">
+                    <span className="px-2 py-1 text-xs font-medium text-[#2563EB] bg-[#EFF6FF] rounded-full">
+                      In Progress
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-600">2h 15m</td>
+                </tr>
+
+                <tr className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm text-gray-800">
+                    PowerLink Inc.
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-600">
+                    Gen Set Overhaul
+                  </td>
+
+                  <td className="px-6 py-4">
+                    <span className="px-2 py-1 text-xs font-medium text-yellow-700 bg-yellow-100 rounded-full">
+                      Pending
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-600">Tomorrow</td>
+                </tr>
+                <tr className="hover:bg-gray-50">
+                  <td className="px-6 py-4 text-sm text-gray-800">
+                    CleanCo Group
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-600">
+                    Façade Washing
+                  </td>
+
+                  <td className="px-6 py-4">
+                    <span className="px-2 py-1 text-xs font-medium text-[#16A34A] bg-[#F0FDF4] rounded-full">
+                      Scheduled
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 text-sm text-gray-600">Dec 12</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
-        <div className="grow-2">
-          <div className="flex justify-between">
-            <p>Shared Facility Monitoring</p>
-            <TbReload />
+        <div className="grow-2 ms-3 px-5">
+          <div className="">
+            <div className="flex justify-between">
+              <p className="font-bold">Shared Facility Monitoring</p>
+              <TbReload />
+            </div>
+            <div className="flex justify-between mt-5">
+              {/* Gym */}
+              <div className="bg-gray-200 px-2 py-3 rounded-lg  border border-gray-300">
+                <CgGym className="my-2" />
+                <div className="bg-white p-3 rounded-lg border-b-5 border-[#00236F]">
+                  <p className="font-bold text-xs text-[#191C1E]">Gym</p>
+                  <p className="text-[#16A34A] text-xs my-2">85% Capacity</p>
+                </div>
+              </div>
+              {/* Pool */}
+              <div className="bg-gray-200 px-2 py-3 rounded-lg border border-gray-300">
+                <MdPool className="my-2" />
+                <div className="bg-white p-3 rounded-lg ">
+                  <p className="font-bold text-xs text-[#191C1E]">Pool</p>
+                  <p className="text-[#16A34A] text-xs">Open</p>
+                  <p className="text-xs text-[#757682] my-2">
+                    Temp:26<sup>o</sup>C
+                  </p>
+                </div>
+              </div>
+              {/* Lounge */}
+              <div className="bg-gray-200 px-2 py-3 rounded-lg  border border-gray-300">
+                <MdOutlineCoffee className="my-2" />
+                <div className="relative p-3 rounded-lg ">
+                  <p className="font-bold text-xs text-[#191C1E]">Lounge</p>
+                  <TbCirclePlusFilled className="absolute text-[#00236F] left-15 bottom-12 size-10" />
+                  <p className="text-[#BA1A1A] font-bold my-2 text-xs">
+                    Fully Booked
+                  </p>
+                  <p className="text-xs text-[#757682]">Next: 14:00 PM</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
