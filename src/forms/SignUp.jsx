@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate, Link } from "react-router-dom";
+import { register } from "../features/auth/authSlice";
 import regImg from "../assets/images/safe_home_properties_register.png";
 import logo from "../assets/images/safehome_logo.png";
 import { MdOutlineRealEstateAgent } from "react-icons/md";
@@ -6,10 +9,44 @@ import { FaRegEyeSlash, FaRegEye, FaArrowRight } from "react-icons/fa";
 import { GoHome } from "react-icons/go";
 import { RiMapPinUserLine } from "react-icons/ri";
 import { TbUserStar } from "react-icons/tb";
-import { Link } from "react-router-dom";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+  const nagivate = useNavigate();
+  const auth = useSelector((state) => state.auth);
+
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    role: "",
+    password: "",
+  });
+
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(register(form));
+    // console.log(form);
+  };
+
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    if (status === "succeeded") {
+      setForm({
+        name: "",
+        phone: "",
+        email: "",
+        password: "",
+        role: "",
+      });
+      nagivate("/login");
+    }
+  }, [status]);
   return (
     <div className="md:flex justify-evenly">
       {/* Left hand sise with an image */}
@@ -31,47 +68,98 @@ const SignUp = () => {
       </div>
       {/* Right hand side with a form */}
       <div className="shadow-xl p-6 md:w-130 bg-white mt-15 md:-ms-80 z-20 rounded-r-lg">
-        <form>
+        <form onSubmit={handleSubmit}>
           <p className="text-2xl font-bold w-full mt-10">Join SafeHomes</p>
           <p className="pt-2 text-gray-600">
             Select your role to get started in our Abuja ecosystem.
           </p>
           <div className="grid grid-cols-2 gap-4">
-            <label htmlFor="landlord" className="">
-              <input type="radio" className="h-18 text-2xl peer hidden" />
-              <div className="shadow-xl bg-white p-5 h-30 md:w-55 rounded-lg">
+            {/* Landlord */}
+            <label htmlFor="landlord" className="cursor-pointer">
+              <input
+                id="landlord"
+                type="radio"
+                name="role"
+                value="landlord"
+                checked={form.role === "landlord"}
+                onChange={handleChange}
+                className="peer hidden"
+              />
+
+              <div className="shadow-xl bg-white p-5 h-30 md:w-55 rounded-lg border-2 border-transparent peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-300 transition-all">
                 <MdOutlineRealEstateAgent className="size-5" />
+
                 <p className="md:text-md font-bold">Landlord</p>
+
                 <p className="hidden md:block text-xs">
                   Manage multiple premium Abuja assets.
                 </p>
               </div>
             </label>
-            <label htmlFor="landlord" className="">
-              <input type="radio" className="h-18 text-2xl peer hidden" />
-              <div className="shadow-xl bg-white p-5 h-30 md:w-55 rounded-lg">
+
+            {/* Tenant */}
+            <label htmlFor="tenant" className="cursor-pointer">
+              <input
+                id="tenant"
+                type="radio"
+                name="role"
+                value="tenant"
+                checked={form.role === "tenant"}
+                onChange={handleChange}
+                className="peer hidden"
+              />
+
+              <div className="shadow-xl bg-white p-5 h-30 md:w-55 rounded-lg border-2 border-transparent peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-300 transition-all">
                 <RiMapPinUserLine className="size-5" />
+
                 <p className="md:text-md font-bold">Tenant</p>
+
                 <p className="hidden md:block text-xs">
                   Elevated living and Abuja concierge services.
                 </p>
               </div>
             </label>
-            <label htmlFor="landlord" className="">
-              <input type="radio" className="h-18 text-2xl peer hidden" />
-              <div className="shadow-xl bg-white p-5 h-30 md:w-55 rounded-lg">
+
+            {/* Homeowner */}
+            <label htmlFor="homeowner" className="cursor-pointer">
+              <input
+                id="homeowner"
+                type="radio"
+                name="role"
+                value="homeowner"
+                checked={form.role === "homeowner"}
+                onChange={handleChange}
+                className="peer hidden"
+              />
+
+              <div className="shadow-xl bg-white p-5 h-30 md:w-55 rounded-lg border-2 border-transparent peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-300 transition-all">
                 <GoHome className="size-5" />
+
                 <p className="md:text-md font-bold">Homeowner</p>
+
                 <p className="hidden md:block text-xs">
                   Full control of your personal residence.
                 </p>
               </div>
             </label>
-            <label htmlFor="landlord" className="">
-              <input type="radio" className="h-18 text-2xl peer hidden" />
-              <div className="shadow-xl bg-white p-5 h-30 md:w-55 rounded-lg">
+
+            {/* Estate Manager */}
+            <label htmlFor="user" className="cursor-pointer">
+              <input
+                id="user"
+                type="radio"
+                name="role"
+                value="user"
+                checked={form.role === "user"}
+                onChange={handleChange}
+                className="peer hidden"
+              />
+
+              <div className="shadow-xl bg-white p-5 h-30 md:w-55 rounded-lg border-2 border-transparent peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-300 transition-all">
                 <TbUserStar className="size-5" />
+
                 <p className="md:text-md font-bold">Estate Manager</p>
+
                 <p className="hidden md:block text-xs">
                   Professional Abuja property operations.
                 </p>
@@ -95,6 +183,7 @@ const SignUp = () => {
                 type="text"
                 id="name"
                 name="name"
+                onChange={handleChange}
                 placeholder="John Doe"
                 className="bg-gray-100 h-10 w-full rounded-lg border border-gray-300"
               />
@@ -107,6 +196,7 @@ const SignUp = () => {
                 type="text"
                 id="phone"
                 name="phone"
+                onChange={handleChange}
                 placeholder="+234 800 000 0000"
                 className="bg-gray-100 h-10 w-full rounded-lg border border-gray-300"
               />
@@ -119,6 +209,8 @@ const SignUp = () => {
             </label>
             <input
               type="text"
+              name="email"
+              onChange={handleChange}
               className="bg-gray-100 h-10 rounded-lg border border-gray-300 w-full"
               placeholder="email@example.com"
             />
@@ -129,6 +221,8 @@ const SignUp = () => {
             </label>
             <input
               type={showPassword ? "text" : "password"}
+              name="password"
+              onChange={handleChange}
               className="bg-gray-100 h-10 rounded-lg border border-gray-300 w-full"
               placeholder="************"
             />
@@ -159,7 +253,9 @@ const SignUp = () => {
 
           <button className="flex justify-center h-10 bg-[#FD761A] w-full rounded-lg my-10 py-2">
             <span className="text-white me-5 font-bold">
-              Complete Registration
+              {status === "loading"
+                ? "creating your account..."
+                : "Complete Registration"}
             </span>
             <FaArrowRight className="text-white mt-2" />
           </button>
