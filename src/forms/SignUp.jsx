@@ -13,7 +13,7 @@ import { TbUserStar } from "react-icons/tb";
 const SignUp = () => {
   const dispatch = useDispatch();
   const nagivate = useNavigate();
-  const auth = useSelector((state) => state.auth);
+  const { status, error } = useSelector((state) => state.auth);
 
   const [form, setForm] = useState({
     name: "",
@@ -259,6 +259,9 @@ const SignUp = () => {
             </span>
             <FaArrowRight className="text-white mt-2" />
           </button>
+          <p className="text-red-500 text-2xl font-bold text-center">
+            {error && error}
+          </p>
           <p className="my-5 text-center">
             Already have an account?{" "}
             <Link to={"/login"} className="text-blue-500">
