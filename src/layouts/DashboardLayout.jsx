@@ -28,17 +28,18 @@ import {
 } from "react-icons/md";
 import { IoDocumentText } from "react-icons/io5";
 import { AiOutlineProduct } from "react-icons/ai";
+import { logout } from "../features/auth/authSlice";
 
 const DashboardLayout = () => {
   const [isOpen, setIsOpen] = useState(false);
   //  const user = useSelector((state) => state.auth.user);
   const navigate = useNavigate();
-  //  const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   // Handle logout
   const handleLogout = () => {
-    // dispatch(logout());
-    navigate("/");
+    dispatch(logout());
+    navigate("/login");
   };
 
   return (
