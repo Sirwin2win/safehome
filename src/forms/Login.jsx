@@ -95,7 +95,7 @@ const Login = () => {
           </button>
           <div className="my-5 flex justify-center">
             <p>Don't have an account?</p>
-            <Link to="/register" className="text-blue-500">
+            <Link to="/signup" className="text-blue-500">
               Sign Up
             </Link>
           </div>
