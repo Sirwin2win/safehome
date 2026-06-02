@@ -66,7 +66,7 @@ const Login = () => {
           </div>
           <div className="bg-white my-10">
             <input
-              type="text"
+              type="password"
               placeholder="Enter your password"
               className="bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2"
               onChange={handleChange}
