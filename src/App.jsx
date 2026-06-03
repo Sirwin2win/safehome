@@ -34,6 +34,7 @@ import Landlords from "./dashboards/Landlords";
 import Tenant from "./dashboards/Tenant";
 import Homeowner from "./dashboards/Homeowner";
 import EstateManager from "./dashboards/EstateManager";
+import CreateEstateForm from "./forms/CreateEstateForm";
 
 // Dashboard pages
 // import DashboardHome from "./pages/dashboard/Home";
@@ -78,6 +79,7 @@ export default function App() {
           <Route path="tenant" element={<Tenant />} />
           <Route path="homeowner" element={<Homeowner />} />
           <Route path="estate-manager" element={<EstateManager />} />
+          <Route path="create-estate" element={<CreateEstateForm />} />
         </Route>
       </Routes>
     </BrowserRouter>

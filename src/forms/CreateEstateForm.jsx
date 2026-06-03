@@ -1,6 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import logo from "../assets/images/logo.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addEstate } from "../features/estate/estateSlice";
 
 const CreateEstateForm = () => {
+  const { estates, status, error } = useSelector((state) => state.estates);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    name: "",
+    address: "",
+  });
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // const fullName = `${user.firstName} ${user.lastName}`;
+
+    dispatch(addEstate(formData));
+    if (status === "succeeded") {
+      navigate("/dashboard");
+    }
+    setFormData({
+      name: "",
+      address: "",
+    });
+  };
+
   return (
     <div className="min-h-screen bg-white flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -13,10 +44,8 @@ const CreateEstateForm = () => {
             </p>
           </div>
           {/* Form  */}
-          <form className="space-y-6">
-            {categories.error && (
-              <p style={{ color: "red" }}>{categories.error}</p>
-            )}
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            {error && <p style={{ color: "red" }}>{error}</p>}
             <div>
               <label
                 className="block text-sm font-medium text-gray-700"
@@ -50,16 +79,12 @@ const CreateEstateForm = () => {
               />
             </div>
             <button
-              type="submit"
-              onClick={handleSubmit}
-              disabled={categories.status === "loading"}
+              disabled={status === "loading"}
               className="w-full flex justify-center py-2 px-4 sm:py-3 border border-transparent rounded-lg shadow-sm text-sm sm:text-base font-medium text-white bg-[#223B7E] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
             >
               <span>
                 {" "}
-                {categories.status === "loading"
-                  ? "Creating..."
-                  : "Create Category"}
+                {status === "loading" ? "Creating Estate..." : "Create Estate"}
               </span>
             </button>
           </form>

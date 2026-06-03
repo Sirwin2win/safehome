@@ -94,7 +94,7 @@ const DashboardLayout = () => {
               <span
                 className={`ml-4 text-[#B7C8E1] md:block ${isOpen ? "block" : "hidden"}`}
               >
-                <Link to={"landlord"}>Estates</Link>
+                <Link to={"create-estate"}>Estates</Link>
               </span>
             </li>
             <li className="flex items-center p-4 m-3 rounded-lg cursor-pointer">
