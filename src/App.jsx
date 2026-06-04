@@ -36,6 +36,7 @@ import Homeowner from "./dashboards/Homeowner";
 import Admin from "./dashboards/Admin";
 import EstateManager from "./dashboards/EstateManager";
 import CreateEstateForm from "./forms/CreateEstateForm";
+import AssignPermission from "./dashboards/AssignPermission";
 
 // Dashboard pages
 // import DashboardHome from "./pages/dashboard/Home";
@@ -82,6 +83,7 @@ export default function App() {
           <Route path="estate-manager" element={<EstateManager />} />
           <Route path="create-estate" element={<CreateEstateForm />} />
           <Route path="admin" element={<Admin />} />
+          <Route path="assign-permission" element={<AssignPermission />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -2,6 +2,8 @@ import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "../features/auth/authSlice";
 import categoryReducer from "../features/category/categorySlice";
 import estateReducer from "../features/estate/estateSlice";
+import roleReducer from "../features/role/roleSlice";
+import permissionReducer from "../features/permission/permissionSlice";
 import searchSlice from "../features/search/searchSlice";
 import productReducer from "../features/products/productSlice";
 import mailReducer from "../features/mail/mailSlice";
@@ -16,7 +18,10 @@ const store = configureStore({
     filter: searchSlice,
     categories: categoryReducer,
     estates: estateReducer,
+    roles: roleReducer,
+    permissions: permissionReducer,
     mails: mailReducer,
+
     //  carts:cartReducer
     // orders:orderReducer,
   },

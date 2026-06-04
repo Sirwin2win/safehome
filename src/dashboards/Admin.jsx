@@ -1,9 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Admin = () => {
   return (
     <div>
-      <h1>Hello Admin</h1>
+      <Link to={"/dashboard/assign-permission"}>
+        Assign Permissions to roles
+      </Link>
     </div>
   );
 };

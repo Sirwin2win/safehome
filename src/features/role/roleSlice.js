@@ -63,8 +63,8 @@ const roleSlice = createSlice({
   initialState: {
     roles: [],
     currentRole: null, // for editing / viewing one
-    status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
-    error: null,
+    roleStatus: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
+    roleError: null,
   },
   reducers: {
     // optional non-async actions
@@ -76,50 +76,50 @@ const roleSlice = createSlice({
     builder
       // fetch all products
       .addCase(fetchRoles.pending, (state) => {
-        state.status = "loading";
-        state.error = null;
+        state.roleStatus = "loading";
+        state.roleError = null;
       })
       .addCase(fetchRoles.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.roleStatus = "succeeded";
         state.roles = action.payload;
       })
       .addCase(fetchRoles.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
+        state.roleStatus = "failed";
+        state.roleError = action.payload;
       })
       // fetch one product
       .addCase(fetchRole.pending, (state) => {
-        state.status = "loading";
-        state.error = null;
+        state.roleStatus = "loading";
+        state.roleError = null;
       })
       .addCase(fetchRole.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.roleStatus = "succeeded";
         state.currentRole = action.payload;
       })
       .addCase(fetchRole.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
+        state.roleStatus = "failed";
+        state.roleError = action.payload;
       })
       // add product
       .addCase(addRole.pending, (state) => {
-        state.status = "loading";
-        state.error = null;
+        state.roleStatus = "loading";
+        state.roleError = null;
       })
       .addCase(addRole.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.roleStatus = "succeeded";
         state.roles.push(action.payload);
       })
       .addCase(addRole.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
+        state.roleStatus = "failed";
+        state.roleError = action.payload;
       })
       // update Role
       .addCase(updateRole.pending, (state) => {
-        state.status = "loading";
-        state.error = null;
+        state.roleStatus = "loading";
+        state.roleError = null;
       })
       .addCase(updateRole.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.roleStatus = "succeeded";
         const updated = action.payload;
         const index = state.roles.findIndex((p) => p.id === updated.id);
         if (index !== -1) {
@@ -131,16 +131,16 @@ const roleSlice = createSlice({
         }
       })
       .addCase(updateRole.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
+        state.roleStatus = "failed";
+        state.roleError = action.payload;
       })
       // delete Role
       .addCase(deleteRole.pending, (state) => {
-        state.status = "loading";
-        state.error = null;
+        state.roleStatus = "loading";
+        state.roleError = null;
       })
       .addCase(deleteRole.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.roleStatus = "succeeded";
         const id = action.payload;
         state.roles = state.roles.filter((p) => p.id !== id);
         // clear currentRole if it was deleted
@@ -149,8 +149,8 @@ const roleSlice = createSlice({
         }
       })
       .addCase(deleteRole.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload;
+        state.roleStatus = "failed";
+        state.roleError = action.payload;
       });
   },
 });
