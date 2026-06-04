@@ -102,6 +102,7 @@ export const login = createAsyncThunk(
 
       // Store token (and possibly user info) in localStorage
       localStorage.setItem("token", res.data.token);
+      // localStorage.setItem("me", res.data.me);
 
       return res.data; // Should contain: { user, token }
     } catch (err) {
@@ -152,6 +153,7 @@ const authSlice = createSlice({
     initialized: false,
     updateStatus: "idle",
     msg: null,
+    me: null,
   },
   reducers: {
     // setCredentials: (state, action) => {
@@ -235,6 +237,7 @@ const authSlice = createSlice({
             token,
           };
           localStorage.setItem("token", token);
+          localStorage.setItem("me", action.payload.user);
         } catch (err) {
           console.error("Token decode failed:", err);
         }

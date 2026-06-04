@@ -33,6 +33,7 @@ import PropertyCard from "./components/PropertyCard";
 import Landlords from "./dashboards/Landlords";
 import Tenant from "./dashboards/Tenant";
 import Homeowner from "./dashboards/Homeowner";
+import Admin from "./dashboards/Admin";
 import EstateManager from "./dashboards/EstateManager";
 import CreateEstateForm from "./forms/CreateEstateForm";
 
@@ -80,6 +81,7 @@ export default function App() {
           <Route path="homeowner" element={<Homeowner />} />
           <Route path="estate-manager" element={<EstateManager />} />
           <Route path="create-estate" element={<CreateEstateForm />} />
+          <Route path="admin" element={<Admin />} />
         </Route>
       </Routes>
     </BrowserRouter>
