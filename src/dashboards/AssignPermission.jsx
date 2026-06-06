@@ -5,6 +5,7 @@ import { fetchRoles } from "../features/role/roleSlice";
 import { fetchPermissions } from "../features/permission/permissionSlice";
 import { div } from "framer-motion/client";
 import { addRolePermission } from "../features/rolePermission/rolePermissionSlice";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 const AssignPermission = () => {
   const { roles, roleStatus, roleError } = useSelector((state) => state.roles);
@@ -13,6 +14,7 @@ const AssignPermission = () => {
   );
   const { rPstatus } = useSelector((state) => state.rolePermissions);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [selectedRole, setSelectedRole] = useState(null);
   const [selectedPermissions, setSelectedPermissions] = useState([]);
 
@@ -61,8 +63,21 @@ const AssignPermission = () => {
     }
   }, [rPstatus]);
 
+  // Back function
+  const back = () => {
+    navigate(-1);
+  };
+
   return (
     <div>
+      <button
+        onClick={back}
+        className="flex justify-between bg-[#1B2B3F] text-white p-3 rounded-lg"
+      >
+        {" "}
+        <IoMdArrowRoundBack className="size-7" />{" "}
+        <span className="ms-2 font-bold">Back</span>
+      </button>
       <form onSubmit={handleSubmit}>
         <p className="text-green-500 text-lg font-bold text-center">
           {rPstatus === "succeeded" && "Role Permissions Saved!"}
