@@ -3,6 +3,7 @@ import authReducer from "../features/auth/authSlice";
 import categoryReducer from "../features/category/categorySlice";
 import estateReducer from "../features/estate/estateSlice";
 import roleReducer from "../features/role/roleSlice";
+import userRoleReducer from "../features/userRoles/userRoleSlice";
 import permissionReducer from "../features/permission/permissionSlice";
 import rolePermissionReducer from "../features/rolePermission/rolePermissionSlice";
 import searchSlice from "../features/search/searchSlice";
@@ -20,6 +21,7 @@ const store = configureStore({
     categories: categoryReducer,
     estates: estateReducer,
     roles: roleReducer,
+    userRoles: userRoleReducer,
     permissions: permissionReducer,
     rolePermissions: rolePermissionReducer,
     mails: mailReducer,
