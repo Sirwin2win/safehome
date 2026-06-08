@@ -131,7 +131,7 @@ const DashboardLayout = () => {
               <span
                 className={`ml-4 text-[#B7C8E1] md:block ${isOpen ? "block" : "hidden"}`}
               >
-                <Link to={"admin"}>Admin</Link>
+                <Link to={"admin"}>Admin Corner</Link>
               </span>
             </li>
             <li className="flex items-center p-4 m-3 rounded-lg cursor-pointer">

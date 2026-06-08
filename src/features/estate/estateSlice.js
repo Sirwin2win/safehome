@@ -24,11 +24,16 @@ export const fetchEstate = createAsyncThunk(
     }
   },
 );
+// create estate logic
 export const addEstate = createAsyncThunk(
   "estates/addEstate",
   async (estate, thunkAPI) => {
     try {
-      const response = await estateAPI.createEstateAPI(estate);
+      //const token = thunkAPI.getState().auth.token; // adjust path as needed
+      const token = localStorage.getItem("token");
+
+      const response = await estateAPI.createEstateAPI(estate, token);
+
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);

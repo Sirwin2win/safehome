@@ -51,7 +51,7 @@ const CreateEstateForm = () => {
                 className="block text-sm font-medium text-gray-700"
                 htmlFor="estate"
               >
-                Product Category
+                Estate Name
               </label>
               <input
                 type="text"
@@ -67,7 +67,7 @@ const CreateEstateForm = () => {
                 className="block text-sm font-medium text-gray-700"
                 htmlFor="address"
               >
-                Product Category
+                Estate Address
               </label>
               <input
                 type="text"
