@@ -38,6 +38,7 @@ import EstateManager from "./dashboards/EstateManager";
 import CreateEstateForm from "./forms/CreateEstateForm";
 import AssignPermission from "./dashboards/AssignPermission";
 import UserRoles from "./dashboards/UserRoles";
+import EditEstateForm from "./forms/EditEstateForm";
 
 // Dashboard pages
 // import DashboardHome from "./pages/dashboard/Home";
@@ -86,6 +87,7 @@ export default function App() {
           <Route path="admin" element={<Admin />} />
           <Route path="assign-permission" element={<AssignPermission />} />
           <Route path="user-role" element={<UserRoles />} />
+          <Route path="edit-estate/:id" element={<EditEstateForm />} />
         </Route>
       </Routes>
     </BrowserRouter>

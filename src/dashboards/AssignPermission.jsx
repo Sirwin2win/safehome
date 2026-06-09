@@ -59,7 +59,7 @@ const AssignPermission = () => {
   useEffect(() => {
     if (rPstatus === "succeeded") {
       setSelectedPermissions([]);
-      setSelectedRoles(null);
+      setSelectedRole(null);
     }
   }, [rPstatus]);
 

@@ -78,7 +78,7 @@ export const register = createAsyncThunk(
         password,
       });
 
-      // localStorage.setItem('token', res.data.token)
+      localStorage.setItem("token", res.data.token);
       // console.log(res.data)
 
       return res.data; // { user, token }
