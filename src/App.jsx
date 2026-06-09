@@ -39,6 +39,7 @@ import CreateEstateForm from "./forms/CreateEstateForm";
 import AssignPermission from "./dashboards/AssignPermission";
 import UserRoles from "./dashboards/UserRoles";
 import EditEstateForm from "./forms/EditEstateForm";
+import Estates from "./components/Estates";
 
 // Dashboard pages
 // import DashboardHome from "./pages/dashboard/Home";
@@ -62,6 +63,7 @@ export default function App() {
           <Route path="/edit/:id" element={<EditProduct />} />
           <Route path="/detail/:id" element={<PropertyDetailPage />} />
           <Route path="/procard" element={<PropertyCard />} />
+          <Route path="/estates" element={<Estates />} />
         </Route>
 
         {/*  Dashboard */}
