@@ -2,11 +2,11 @@
 
 import axios from "axios";
 
-const API_BASE = "https://api.safehomeproperties.com/api/estates";
+const API_BASE = "https://api.safehomeproperties.com/api/estateMembers";
 
-export const fetchEstatesAPI = () => axios.get(API_BASE);
-export const fetchEstateByIdAPI = (id) => axios.get(`${API_BASE}/${id}`);
-export const createEstateAPI = (estate, token) =>
+export const fetchEstateMembersAPI = () => axios.get(API_BASE);
+export const fetchEstateMemberIdAPI = (id) => axios.get(`${API_BASE}/${id}`);
+export const createEstateMemberAPI = (estate, token) =>
   axios.post(API_BASE, estate, {
     headers: {
       Authorization: `Bearer ${token}`,
