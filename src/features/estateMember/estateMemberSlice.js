@@ -164,5 +164,5 @@ const estateMemberSlice = createSlice({
     // });
   },
 });
-export const { clearCurrentEstate } = estateSlice.actions;
+export const { clearCurrentEstate } = estateMemberSlice.actions;
 export default estateMemberSlice.reducer;
