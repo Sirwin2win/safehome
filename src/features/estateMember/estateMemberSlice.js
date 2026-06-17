@@ -39,7 +39,10 @@ export const addEstateMember = createAsyncThunk(
 
       return response.data;
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+      // return thunkAPI.rejectWithValue(err.response?.data || err.message);
+      return thunkAPI.rejectWithValue(
+        err.response?.data?.message || err.message,
+      );
     }
   },
 );
@@ -73,7 +76,7 @@ const estateMemberSlice = createSlice({
   initialState: {
     estateMembers: [],
     currentEstateMember: null, // for editing / viewing one
-    status: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
+    emStatus: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
   },
   reducers: {
@@ -86,50 +89,50 @@ const estateMemberSlice = createSlice({
     builder
       // fetch all estates
       .addCase(fetchEstateMembers.pending, (state) => {
-        state.status = "loading";
+        state.emStatus = "loading";
         state.error = null;
       })
       .addCase(fetchEstateMembers.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.emStatus = "succeeded";
         state.estateMembers = action.payload.data || action.payload;
       })
       .addCase(fetchEstateMembers.rejected, (state, action) => {
-        state.status = "failed";
+        state.emStatus = "failed";
         state.error = action.payload;
       })
       // fetch one product
       .addCase(fetchEstateMember.pending, (state) => {
-        state.status = "loading";
+        state.emStatus = "loading";
         state.error = null;
       })
       .addCase(fetchEstateMember.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.emStatus = "succeeded";
         state.currentEstate = action.payload;
       })
       .addCase(fetchEstateMember.rejected, (state, action) => {
-        state.status = "failed";
+        state.emStatus = "failed";
         state.error = action.payload;
       })
       // add product
       .addCase(addEstateMember.pending, (state) => {
-        state.status = "loading";
+        state.emStatus = "loading";
         state.error = null;
       })
       .addCase(addEstateMember.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.emStatus = "succeeded";
         state.estateMembers.push(action.payload);
       })
       .addCase(addEstateMember.rejected, (state, action) => {
-        state.status = "failed";
+        state.emStatus = "failed";
         state.error = action.payload;
       });
     // update Estate
     // .addCase(updateEstate.pending, (state) => {
-    //   state.status = "loading";
+    //   state.emStatus = "loading";
     //   state.error = null;
     // })
     // .addCase(updateEstate.fulfilled, (state, action) => {
-    //   state.status = "succeeded";
+    //   state.emStatus = "succeeded";
     //   const updated = action.payload;
     //   const index = state.estates.findIndex((p) => p.id === updated.id);
     //   if (index !== -1) {
@@ -141,16 +144,16 @@ const estateMemberSlice = createSlice({
     //   }
     // })
     // .addCase(updateEstate.rejected, (state, action) => {
-    //   state.status = "failed";
+    //   state.emStatus = "failed";
     //   state.error = action.payload;
     // })
     // // delete Category
     // .addCase(deleteEstate.pending, (state) => {
-    //   state.status = "loading";
+    //   state.emStatus = "loading";
     //   state.error = null;
     // })
     // .addCase(deleteEstate.fulfilled, (state, action) => {
-    //   state.status = "succeeded";
+    //   state.emStatus = "succeeded";
     //   const id = action.payload;
     //   state.estates = state.estates.filter((p) => p.id !== id);
     //   // clear currentEstate if it was deleted
@@ -159,7 +162,7 @@ const estateMemberSlice = createSlice({
     //   }
     // })
     // .addCase(deleteEstate.rejected, (state, action) => {
-    //   state.status = "failed";
+    //   state.emStatus = "failed";
     //   state.error = action.payload;
     // });
   },

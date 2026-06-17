@@ -76,7 +76,10 @@ const DashboardLayout = () => {
     navigate("/login");
   };
 
-  const hasEstate = (user.estate_memberships?.length || 0) > 0;
+  let hasEstate;
+  if (user) {
+    hasEstate = (user.estate_memberships?.length || 0) > 0;
+  }
 
   return (
     <div className="flex">

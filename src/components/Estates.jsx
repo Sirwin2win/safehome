@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchEstates } from "../features/estate/estateSlice";
+import { addEstateMember } from "../features/estateMember/estateMemberSlice";
 
 const Estates = () => {
   const { estates, status } = useSelector((state) => state.estates);
+  const { emStatus, error } = useSelector((state) => state.estateMembers);
   const dispatch = useDispatch();
 
   const [form, setForm] = useState({
@@ -34,7 +36,7 @@ const Estates = () => {
 
     console.log(form);
 
-    // dispatch(register(form));
+    dispatch(addEstateMember(form));
   };
 
   return (
@@ -44,6 +46,10 @@ const Estates = () => {
       </p>
 
       <form onSubmit={handleSubmit}>
+        <p className="text-green-500 font-bold text-center">
+          {emStatus === "succeeded" &&
+            "Estate membership request sent! waiting for approval..."}
+        </p>
         <div className="space-y-2">
           {estates?.map((estate) => (
             <label
@@ -112,7 +118,7 @@ const Estates = () => {
             <span>I want to manage properties</span>
           </label>
         </div>
-
+        <p className="text-red-500 text-center font-bold">{error}</p>
         <button
           type="submit"
           className="w-full bg-[#1B2B3F] text-white p-3 rounded-lg mt-6 hover:bg-[#24374f]"

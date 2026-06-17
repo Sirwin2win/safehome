@@ -54,7 +54,7 @@ const Dashboard = () => {
       <div className="flex justify-between">
         <div>
           <h2 className="text-2xl font-bold">Dashboard</h2>
-          <p className="text-gray-500">Welcome back, {user.name}!</p>
+          <p className="text-gray-500">Welcome back, {user && user.name}!</p>
         </div>
         <div className="flex justify-center">
           <FaBell className="size-8 p-2 bg-gray-100 mt-1" />
@@ -64,8 +64,8 @@ const Dashboard = () => {
             className="size-10 rounded-full mx-5"
           />
           <div className="-mt-2">
-            <p className="text-2xl font-bold">{user.name}</p>
-            <p className="text-gray-500">{user.email}</p>
+            <p className="text-2xl font-bold">{user && user.name}</p>
+            <p className="text-gray-500">{user && user.email}</p>
           </div>
         </div>
       </div>
