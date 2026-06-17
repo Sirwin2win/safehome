@@ -7,6 +7,7 @@ import { GiSpanner } from "react-icons/gi";
 import { jwtDecode } from "jwt-decode";
 import { getUserById } from "../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { markAsReadLocal } from "../features/notifications/notificationSlice";
 
 const Dashboard = () => {
   // Get token from localStorage
@@ -39,6 +40,14 @@ const Dashboard = () => {
       dispatch(getUserById(userId));
     }
   }, [dispatch, userId]);
+
+  const handleClick = async (id) => {
+    dispatch(markAsReadLocal(id)); // optimistic update
+
+    await axios.patch(
+      `https://api.safehomeproperties.com/notifications/${id}/read`,
+    );
+  };
   return (
     <div className="mx-10">
       {/* Mini Header Started */}

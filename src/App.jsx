@@ -40,6 +40,8 @@ import AssignPermission from "./dashboards/AssignPermission";
 import UserRoles from "./dashboards/UserRoles";
 import EditEstateForm from "./forms/EditEstateForm";
 import Estates from "./components/Estates";
+import { useNotificationSocket } from "./sockets/useNotificationSocket";
+import { useNotificationInit } from "./sockets/useNotificationInit";
 
 // Dashboard pages
 // import DashboardHome from "./pages/dashboard/Home";
@@ -47,6 +49,8 @@ import Estates from "./components/Estates";
 // import Settings from "./pages/dashboard/Settings";
 
 export default function App() {
+  useNotificationInit();
+  useNotificationSocket();
   return (
     <BrowserRouter>
       <Routes>
