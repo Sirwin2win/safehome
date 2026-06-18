@@ -49,6 +49,7 @@ import { useNotificationSocket } from "./sockets/useNotificationSocket";
 import { useNotificationInit } from "./sockets/useNotificationInit";
 import { connectSocket } from "./sockets/socket";
 import { useEffect } from "react";
+import NotificationPage from "./dashboards/NotificationPage";
 
 /**
  * ✅ GLOBAL PROVIDER
@@ -118,6 +119,7 @@ export default function App() {
           <Route path="assign-permission" element={<AssignPermission />} />
           <Route path="user-role" element={<UserRoles />} />
           <Route path="edit-estate/:id" element={<EditEstateForm />} />
+          <Route path="notifications" element={<NotificationPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

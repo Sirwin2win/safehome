@@ -1,20 +1,27 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUnreadCount } from "../features/notifications/notificationSlice";
+import NotificationDropdown from "./NotificationDropdown";
 
 export default function NotificationBell() {
-  const unreadCount = useSelector(selectUnreadCount);
-  console.log(unreadCount);
-  const items = useSelector((state) => state.notifications.items);
-  console.log("items:", items);
+  const [isOpen, setIsOpen] = useState(false);
 
+  const unreadCount = useSelector(selectUnreadCount);
+  const { items } = useSelector((state) => state.notifications);
+  console.log(items);
   return (
-    <div>
-      🔔{" "}
-      {unreadCount > 0 && (
-        <span className="text-red-500 text-lg font-bold -ms-2">
-          {unreadCount}
-        </span>
-      )}
+    <div className="relative">
+      <button
+        onClick={() => setIsOpen((prev) => !prev)}
+        className="cursor-pointer"
+      >
+        🔔
+        {unreadCount > 0 && (
+          <span className="text-red-500 text-lg font-bold">{unreadCount}</span>
+        )}
+      </button>
+
+      {isOpen && <NotificationDropdown />}
     </div>
   );
 }
