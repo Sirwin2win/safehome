@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   items: [],
-  unreadCount: 0,
 };
 
 const notificationSlice = createSlice({
@@ -11,21 +10,20 @@ const notificationSlice = createSlice({
   reducers: {
     setNotifications: (state, action) => {
       state.items = action.payload;
-
-      state.unreadCount = action.payload.filter((n) => !n.isRead).length;
     },
 
     addNotification: (state, action) => {
-      const exists = state.items.find((n) => n.id === action.payload.id);
+      const data = action.payload;
+
+      // ✅ safety guard
+      if (!data?.id) return;
+
+      // prevent duplicates
+      const exists = state.items.some((n) => n.id === data.id);
 
       if (!exists) {
-        state.items.unshift(action.payload);
-        state.unreadCount += 1;
+        state.items.unshift(data);
       }
-    },
-
-    setUnreadCount: (state, action) => {
-      state.unreadCount = action.payload;
     },
 
     markAsReadLocal: (state, action) => {
@@ -33,15 +31,19 @@ const notificationSlice = createSlice({
 
       const item = state.items.find((n) => n.id === id);
 
-      if (item && !item.isRead) {
+      if (item) {
         item.isRead = true;
-        state.unreadCount -= 1;
       }
     },
 
     markAllAsReadLocal: (state) => {
-      state.items.forEach((n) => (n.isRead = true));
-      state.unreadCount = 0;
+      state.items.forEach((n) => {
+        n.isRead = true;
+      });
+    },
+
+    clearNotifications: (state) => {
+      state.items = [];
     },
   },
 });
@@ -49,9 +51,15 @@ const notificationSlice = createSlice({
 export const {
   setNotifications,
   addNotification,
-  setUnreadCount,
   markAsReadLocal,
   markAllAsReadLocal,
+  clearNotifications,
 } = notificationSlice.actions;
+
+/**
+ * ✅ Derived selector (single source of truth)
+ */
+export const selectUnreadCount = (state) =>
+  state.notifications.items.filter((n) => !n.isRead).length;
 
 export default notificationSlice.reducer;

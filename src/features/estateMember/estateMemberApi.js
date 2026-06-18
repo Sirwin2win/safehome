@@ -6,8 +6,8 @@ const API_BASE = "https://api.safehomeproperties.com/api/estateMembers";
 
 export const fetchEstateMembersAPI = () => axios.get(API_BASE);
 export const fetchEstateMemberIdAPI = (id) => axios.get(`${API_BASE}/${id}`);
-export const createEstateMemberAPI = (estate, token) =>
-  axios.post(API_BASE, estate, {
+export const createEstateMemberAPI = (form, token) =>
+  axios.post(API_BASE, form, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

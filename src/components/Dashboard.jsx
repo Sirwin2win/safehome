@@ -8,6 +8,7 @@ import { jwtDecode } from "jwt-decode";
 import { getUserById } from "../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { markAsReadLocal } from "../features/notifications/notificationSlice";
+import NotificationBell from "./NotificationBell";
 
 const Dashboard = () => {
   // Get token from localStorage
@@ -57,7 +58,10 @@ const Dashboard = () => {
           <p className="text-gray-500">Welcome back, {user && user.name}!</p>
         </div>
         <div className="flex justify-center">
-          <FaBell className="size-8 p-2 bg-gray-100 mt-1" />
+          <div>
+            {/* <FaBell className="size-8 p-2 bg-gray-100 mt-1" /> */}
+            <NotificationBell />
+          </div>
           <img
             src={admin}
             alt="safeHome admin"

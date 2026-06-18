@@ -10,6 +10,7 @@ import rolePermissionReducer from "../features/rolePermission/rolePermissionSlic
 import searchSlice from "../features/search/searchSlice";
 import productReducer from "../features/products/productSlice";
 import mailReducer from "../features/mail/mailSlice";
+import notificationReducer from "../features/notifications/notificationSlice";
 
 const store = configureStore({
   reducer: {
@@ -27,6 +28,7 @@ const store = configureStore({
     permissions: permissionReducer,
     rolePermissions: rolePermissionReducer,
     mails: mailReducer,
+    notifications: notificationReducer,
 
     //  carts:cartReducer
     // orders:orderReducer,

@@ -1,11 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getSocket } from "./socket";
-import {
-  addNotification,
-  markAllAsReadLocal,
-  setUnreadCount,
-} from "../features/notifications/notificationSlice";
+import { addNotification } from "../features/notifications/notificationSlice";
 
 export const useNotificationSocket = () => {
   const dispatch = useDispatch();
@@ -15,25 +11,15 @@ export const useNotificationSocket = () => {
 
     if (!socket) return;
 
-    // NEW NOTIFICATION
-    socket.on("notification", (data) => {
+    const handleNotification = (data) => {
+      console.log("LIVE NOTIF:", data);
       dispatch(addNotification(data));
-    });
+    };
 
-    // MARK SINGLE READ (from backend eventBus)
-    socket.on("notification.read", ({ notificationId }) => {
-      dispatch(markAsReadLocal(notificationId));
-    });
-
-    // MARK ALL READ
-    socket.on("notification.read.all", () => {
-      dispatch(markAllAsReadLocal());
-    });
+    socket.on("notification", handleNotification);
 
     return () => {
-      socket.off("notification");
-      socket.off("notification.read");
-      socket.off("notification.read.all");
+      socket.off("notification", handleNotification);
     };
   }, [dispatch]);
 };

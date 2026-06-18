@@ -27,15 +27,12 @@ export const fetchEstateMember = createAsyncThunk(
 // create estate logic
 export const addEstateMember = createAsyncThunk(
   "estateMembers/addEstateMember",
-  async (estate, thunkAPI) => {
+  async (form, thunkAPI) => {
     try {
       //const token = thunkAPI.getState().auth.token; // adjust path as needed
       const token = localStorage.getItem("token");
 
-      const response = await estateMemberAPI.createEstateMemberAPI(
-        estate,
-        token,
-      );
+      const response = await estateMemberAPI.createEstateMemberAPI(form, token);
 
       return response.data;
     } catch (err) {

@@ -1,6 +1,6 @@
-// App.jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+// Layouts
 import PublicLayout from "./layouts/PublicLayout";
 import DashboardLayout from "./layouts/DashboardLayout";
 
@@ -12,6 +12,9 @@ import Listings from "./pages/Listings";
 import Services from "./pages/Services";
 import GetStarted from "./components/GetStarted";
 import Login from "./forms/Login";
+import SignUp from "./forms/SignUp";
+
+// Dashboard components
 import Dashboard from "./components/Dashboard";
 import LeaseDocs from "./components/LeaseDocs";
 import LeaseInfo from "./components/LeaseInfo";
@@ -20,16 +23,17 @@ import PaymentAccount from "./components/PaymentAccount";
 import PaymentHistory from "./components/PaymentHistory";
 import ProfileSettings from "./components/ProfileSettings";
 import SetAutoplay from "./components/SetAutoplay";
-import SignUp from "./forms/SignUp";
 import ConfirmPayment from "./components/ConfirmPayment";
 import PaymentSuccess from "./components/PaymentSuccess";
 import PaymentDeclined from "./components/PaymentDeclined";
-import CategoryForm from "./forms/CategoryForm";
 import GetCategories from "./manageCat/GetCategories";
 import GetProducts from "./manageProd/GetProducts";
 import EditProduct from "./forms/EditProduct";
 import PropertyDetailPage from "./components/PropertyDetailPage";
 import PropertyCard from "./components/PropertyCard";
+import Estates from "./components/Estates";
+
+// Dashboards
 import Landlords from "./dashboards/Landlords";
 import Tenant from "./dashboards/Tenant";
 import Homeowner from "./dashboards/Homeowner";
@@ -39,22 +43,42 @@ import CreateEstateForm from "./forms/CreateEstateForm";
 import AssignPermission from "./dashboards/AssignPermission";
 import UserRoles from "./dashboards/UserRoles";
 import EditEstateForm from "./forms/EditEstateForm";
-import Estates from "./components/Estates";
+
+// Notifications
 import { useNotificationSocket } from "./sockets/useNotificationSocket";
 import { useNotificationInit } from "./sockets/useNotificationInit";
+import { connectSocket } from "./sockets/socket";
+import { useEffect } from "react";
 
-// Dashboard pages
-// import DashboardHome from "./pages/dashboard/Home";
-// import Users from "./pages/dashboard/Users";
-// import Settings from "./pages/dashboard/Settings";
+/**
+ * ✅ GLOBAL PROVIDER
+ */
+function AppProviders() {
+  // connect socket first
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
+
+    connectSocket(token);
+  }, []);
+
+  // then attach listeners
+  useNotificationSocket();
+
+  // then load initial data
+  useNotificationInit();
+
+  return null;
+}
 
 export default function App() {
-  useNotificationInit();
-  useNotificationSocket();
   return (
     <BrowserRouter>
+      {/* GLOBAL SOCKET + NOTIFICATIONS */}
+      <AppProviders />
+
       <Routes>
-        {/*  Public Website */}
+        {/* PUBLIC ROUTES */}
         <Route path="/" element={<PublicLayout />}>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
@@ -62,15 +86,15 @@ export default function App() {
           <Route path="services" element={<Services />} />
           <Route path="contact" element={<Contact />} />
           <Route path="get-started" element={<GetStarted />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/edit/:id" element={<EditProduct />} />
-          <Route path="/detail/:id" element={<PropertyDetailPage />} />
-          <Route path="/procard" element={<PropertyCard />} />
-          <Route path="/estates" element={<Estates />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<SignUp />} />
+          <Route path="edit/:id" element={<EditProduct />} />
+          <Route path="detail/:id" element={<PropertyDetailPage />} />
+          <Route path="procard" element={<PropertyCard />} />
+          <Route path="estates" element={<Estates />} />
         </Route>
 
-        {/*  Dashboard */}
+        {/* DASHBOARD ROUTES */}
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="lease-docs" element={<LeaseDocs />} />
