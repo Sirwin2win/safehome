@@ -6,6 +6,14 @@ const Admin = () => {
     <div>
       <div className="mb-20">
         <Link
+          to={"/dashboard/estate-member-approval"}
+          className="bg-[#1B2B3F] text-white p-5 rounded-lg"
+        >
+          Approve Estate Membership Request
+        </Link>
+      </div>
+      <div className="mb-20">
+        <Link
           to={"/dashboard/assign-permission"}
           className="bg-[#1B2B3F] text-white p-5 rounded-lg"
         >

@@ -40,9 +40,9 @@ export default function NotificationDropdown() {
   };
 
   return (
-    <div className="absolute right-0 mt-2 w-96 bg-white shadow-lg rounded-lg border z-50">
+    <div className="absolute right-0 mt-2 w-96 bg-white shadow-2xl rounded-lg border border-gray-300 z-50">
       {/* Header */}
-      <div className="flex justify-between items-center p-3 border-b">
+      <div className="flex justify-between items-center p-3">
         <h3 className="font-semibold">Notifications</h3>
         <span className="text-sm text-gray-500">
           {unreadNotifications.length} unread
@@ -57,8 +57,8 @@ export default function NotificationDropdown() {
           <div
             key={notification.id}
             onClick={() => handleNotificationClick(notification)}
-            className={`p-3 border-b cursor-pointer hover:bg-gray-100 ${
-              !notification.isRead ? "bg-red-50 font-semibold" : ""
+            className={`p-3 border-b border-gray-300 cursor-pointer hover:bg-gray-100 ${
+              !notification.isRead ? "bg-white font-semibold" : ""
             }`}
           >
             <div className="text-sm">{notification.title}</div>
