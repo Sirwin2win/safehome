@@ -6,7 +6,8 @@ export const fetchEstateMembers = createAsyncThunk(
   "estateMembers/fetchEstateMembers",
   async (_, thunkAPI) => {
     try {
-      const response = await estateMemberAPI.fetchEstateMembersAPI();
+       const token = localStorage.getItem("token");
+      const response = await estateMemberAPI.fetchEstateMembersAPI(token);
       return response.data; // assuming your API returns array of products
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);
