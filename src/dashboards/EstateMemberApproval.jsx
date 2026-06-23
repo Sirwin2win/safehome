@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteEstateMember, fetchEstateMembers, updateEstateMember } from "../features/estateMember/estateMemberSlice";
-
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 
 const EstateMemberApproval = () => {
@@ -31,8 +31,23 @@ const EstateMemberApproval = () => {
       }
     };
 
+    
+  // Back function
+  const back = () => {
+    navigate(-1);
+  };
+
   return (
     <div>
+      {/* Back Buttom */}
+      <button
+              onClick={back}
+              className="flex justify-between bg-[#1B2B3F] text-white p-3 rounded-lg"
+            >
+              {" "}
+              <IoMdArrowRoundBack className="size-7" />{" "}
+              <span className="ms-2 font-bold">Back</span>
+            </button>
       <p className="text-center font-bold my-10">
         Kindly engage the user to know the reason why they want to join this estate before you approve
         them
@@ -102,9 +117,9 @@ const EstateMemberApproval = () => {
               <td className="px-4 py-3 text-center">
                 <span
                   className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
-                    member.status === "approved"
+                    member.status === "APPROVED"
                       ? "bg-green-100 text-green-700"
-                      : member.status === "rejected"
+                      : member.status === "REJECTED"
                       ? "bg-red-100 text-red-700"
                       : "bg-yellow-100 text-yellow-700"
                   }`}
