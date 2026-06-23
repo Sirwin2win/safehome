@@ -20,6 +20,7 @@ const EstateMemberApproval = () => {
 
    const handleUpdateStatus = (id, status) => {
   if (window.confirm(`Are you sure you want to ${status} this request?`)) {
+    console.log(status)
     dispatch(updateEstateMember({ id, status }));
   }
 };

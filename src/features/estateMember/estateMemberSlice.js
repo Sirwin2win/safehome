@@ -106,7 +106,7 @@ const estateMemberSlice = createSlice({
       })
       .addCase(fetchEstateMember.fulfilled, (state, action) => {
         state.emStatus = "succeeded";
-        state.currentEstate = action.payload;
+        state.currentEstateMember = action.payload;
       })
       .addCase(fetchEstateMember.rejected, (state, action) => {
         state.emStatus = "failed";
@@ -133,13 +133,13 @@ const estateMemberSlice = createSlice({
     .addCase(updateEstateMember.fulfilled, (state, action) => {
       state.emStatus = "succeeded";
       const updated = action.payload;
-      const index = state.estates.findIndex((p) => p.id === updated.id);
+      const index = state.estateMembers.findIndex((p) => p.id === updated.id);
       if (index !== -1) {
-        state.estates[index] = updated;
+        state.estateMembers[index] = updated;
       }
       // if currentEstate is the one updated, update that too
-      if (state.currentEstate && state.currentEstate.id === updated.id) {
-        state.currentEstate = updated;
+      if (state.currentEstateMember && state.currentEstateMember.id === updated.id) {
+        state.currentEstateMember = updated;
       }
     })
     .addCase(updateEstateMember.rejected, (state, action) => {
@@ -154,10 +154,9 @@ const estateMemberSlice = createSlice({
     .addCase(deleteEstateMember.fulfilled, (state, action) => {
       state.emStatus = "succeeded";
       const id = action.payload;
-      state.estates = state.estates.filter((p) => p.id !== id);
-      // clear currentEstate if it was deleted
-      if (state.currentEstate && state.currentEstate.id === id) {
-        state.currentEstate = null;
+state.estateMembers = state.estateMembers.filter((p) => p.id !== id);      // clear currentEstate if it was deleted
+      if (state.currentEstateMember && state.currentEstateMember.id === id) {
+        state.currentEstateMember = null;
       }
     })
     .addCase(deleteEstateMember.rejected, (state, action) => {

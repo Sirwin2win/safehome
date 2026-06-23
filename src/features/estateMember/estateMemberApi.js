@@ -16,12 +16,20 @@ export const createEstateMemberAPI = (form, token) =>
       Authorization: `Bearer ${token}`,
     },
   });
-export const updateEstateMemberAPI = (id, status, token) =>
-  axios.patch(`${API_BASE}/${id}/status`, status, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+export const updateEstateMemberAPI = (id, status, token) => {
+  console.log("API:", { id, status });
+
+  return axios.patch(
+    `${API_BASE}/${id}`,
+    { status },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+};
 export const deleteEstateMemberAPI = (id, token) =>
   axios.delete(`${API_BASE}/${id}`, {
     headers: {
