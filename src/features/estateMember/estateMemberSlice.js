@@ -44,30 +44,31 @@ export const addEstateMember = createAsyncThunk(
     }
   },
 );
-// export const updateEstate = createAsyncThunk(
-//   "estates/updateEstate",
-//   async ({ id, formData }, thunkAPI) => {
-//     try {
-//       const token = localStorage.getItem("token");
-//       const response = await estateAPI.updateEstateAPI(id, formData, token);
-//       return response.data;
-//     } catch (err) {
-//       return thunkAPI.rejectWithValue(err.response?.data || err.message);
-//     }
-//   },
-// );
-// export const deleteEstate = createAsyncThunk(
-//   "estates/deleteEstate",
-//   async (id, thunkAPI) => {
-//     try {
-//       const token = localStorage.getItem("token");
-//       await estateAPI.deleteEstateAPI(id, token);
-//       return id;
-//     } catch (err) {
-//       return thunkAPI.rejectWithValue(err.response?.data || err.message);
-//     }
-//   },
-// );
+
+export const updateEstateMember = createAsyncThunk(
+  "estates/updateEstateMember",
+  async ({ id, status }, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await estateMemberAPI.updateEstateMemberAPI(id, status, token);
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  },
+);
+export const deleteEstateMember = createAsyncThunk(
+  "estates/deleteEstateMember",
+  async (id, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+      await estateMemberAPI.deleteEstateMemberAPI(id, token);
+      return id;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  },
+);
 // Slice
 const estateMemberSlice = createSlice({
   name: "estateMembers",
@@ -123,46 +124,46 @@ const estateMemberSlice = createSlice({
       .addCase(addEstateMember.rejected, (state, action) => {
         state.emStatus = "failed";
         state.error = action.payload;
-      });
+      })
     // update Estate
-    // .addCase(updateEstate.pending, (state) => {
-    //   state.emStatus = "loading";
-    //   state.error = null;
-    // })
-    // .addCase(updateEstate.fulfilled, (state, action) => {
-    //   state.emStatus = "succeeded";
-    //   const updated = action.payload;
-    //   const index = state.estates.findIndex((p) => p.id === updated.id);
-    //   if (index !== -1) {
-    //     state.estates[index] = updated;
-    //   }
-    //   // if currentEstate is the one updated, update that too
-    //   if (state.currentEstate && state.currentEstate.id === updated.id) {
-    //     state.currentEstate = updated;
-    //   }
-    // })
-    // .addCase(updateEstate.rejected, (state, action) => {
-    //   state.emStatus = "failed";
-    //   state.error = action.payload;
-    // })
+    .addCase(updateEstateMember.pending, (state) => {
+      state.emStatus = "loading";
+      state.error = null;
+    })
+    .addCase(updateEstateMember.fulfilled, (state, action) => {
+      state.emStatus = "succeeded";
+      const updated = action.payload;
+      const index = state.estates.findIndex((p) => p.id === updated.id);
+      if (index !== -1) {
+        state.estates[index] = updated;
+      }
+      // if currentEstate is the one updated, update that too
+      if (state.currentEstate && state.currentEstate.id === updated.id) {
+        state.currentEstate = updated;
+      }
+    })
+    .addCase(updateEstateMember.rejected, (state, action) => {
+      state.emStatus = "failed";
+      state.error = action.payload;
+    })
     // // delete Category
-    // .addCase(deleteEstate.pending, (state) => {
-    //   state.emStatus = "loading";
-    //   state.error = null;
-    // })
-    // .addCase(deleteEstate.fulfilled, (state, action) => {
-    //   state.emStatus = "succeeded";
-    //   const id = action.payload;
-    //   state.estates = state.estates.filter((p) => p.id !== id);
-    //   // clear currentEstate if it was deleted
-    //   if (state.currentEstate && state.currentEstate.id === id) {
-    //     state.currentEstate = null;
-    //   }
-    // })
-    // .addCase(deleteEstate.rejected, (state, action) => {
-    //   state.emStatus = "failed";
-    //   state.error = action.payload;
-    // });
+    .addCase(deleteEstateMember.pending, (state) => {
+      state.emStatus = "loading";
+      state.error = null;
+    })
+    .addCase(deleteEstateMember.fulfilled, (state, action) => {
+      state.emStatus = "succeeded";
+      const id = action.payload;
+      state.estates = state.estates.filter((p) => p.id !== id);
+      // clear currentEstate if it was deleted
+      if (state.currentEstate && state.currentEstate.id === id) {
+        state.currentEstate = null;
+      }
+    })
+    .addCase(deleteEstateMember.rejected, (state, action) => {
+      state.emStatus = "failed";
+      state.error = action.payload;
+    });
   },
 });
 export const { clearCurrentEstate } = estateMemberSlice.actions;

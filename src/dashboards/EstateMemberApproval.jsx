@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { fetchEstateMembers } from "../features/estateMember/estateMemberSlice";
+import { deleteEstateMember, fetchEstateMembers, updateEstateMember } from "../features/estateMember/estateMemberSlice";
 
 
 
 const EstateMemberApproval = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const {estateMembers,emStatus,error} = useSelector(state=>state.estateMembers)
 
@@ -16,9 +17,22 @@ const EstateMemberApproval = () => {
   },[emStatus,dispatch])
   console.log(estateMembers)
 
+
+   const handleUpdateStatus = (id, status) => {
+  if (window.confirm(`Are you sure you want to ${status} this request?`)) {
+    dispatch(updateEstateMember({ id, status }));
+  }
+};
+
+   const handleDelete = (id) => {
+      if (window.confirm('Are you sure you want to delete this request?')) {
+        dispatch(deleteEstateMember(id));
+      }
+    };
+
   return (
     <div>
-      <p className="text-center font-bold">
+      <p className="text-center font-bold my-10">
         Kindly engage the user to know the reason why they want to join this estate before you approve
         them
       </p>
@@ -100,7 +114,7 @@ const EstateMemberApproval = () => {
 
               <td className="px-4 py-3 text-center">
                 <button
-                  onClick={() => console.log("Approve", member.id)}
+                  onClick={() => handleUpdateStatus(member.id, 'APPROVED')}
                   className="rounded-md bg-green-600 px-3 py-2 text-sm font-medium text-white transition hover:bg-green-700"
                 >
                   Approve
@@ -109,7 +123,7 @@ const EstateMemberApproval = () => {
 
               <td className="px-4 py-3 text-center">
                 <button
-                  onClick={() => console.log("Reject", member.id)}
+                  onClick={() => handleUpdateStatus(member.id, 'REJECTED')}
                   className="rounded-md bg-amber-500 px-3 py-2 text-sm font-medium text-white transition hover:bg-amber-600"
                 >
                   Reject
@@ -118,7 +132,7 @@ const EstateMemberApproval = () => {
 
               <td className="px-4 py-3 text-center">
                 <button
-                  onClick={() => console.log("Delete", member.id)}
+                  onClick={() => handleDelete(member.id)}
                   className="rounded-md bg-red-600 px-3 py-2 text-sm font-medium text-white transition hover:bg-red-700"
                 >
                   Delete
