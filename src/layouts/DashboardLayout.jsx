@@ -287,7 +287,7 @@ const DashboardLayout = () => {
             <li className="flex items-center p-4 m-3 text-[#B7C8E1] cursor-pointer">
               <AiOutlineProduct size={24} />
               <span className={`ml-4 md:block ${isOpen ? "block" : "hidden"}`}>
-                <Link to={"manage-products"}>Manage Products</Link>
+                <Link to={"property-form"}>Manage Properties</Link>
               </span>
             </li>
             {/* )} */}

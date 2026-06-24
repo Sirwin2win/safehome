@@ -2,18 +2,68 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { getUsers } from '../features/auth/authSlice'
+import logo from '../assets/images/logo.jpg'
+import { IoCloudUploadOutline } from "react-icons/io5";
+
 
 
 const PropertyForm = () => {
 
     const { users, status, error } = useSelector((state) => state.auth);
+    const {properties,propStatus,propError} = useSelector(state=>state.properties)
     const dispatch = useDispatch();
     const navigate = useNavigate();
+   
+    const [image, setImage] = useState(false);
+    const [images, setImages] = useState([]);
     useEffect(() => {
       if (status === "idle") {
         dispatch(getUsers());
       }
     }, [status, dispatch]);
+
+    const [data, setData] = useState({
+        title: "",
+        location: "",
+        estate: "",
+        price:"",
+        rooms:"",
+        baths:"",
+        size:"",
+        description: "",
+        category_id:"",
+      });
+    
+    
+      const handleChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setData((data) => ({ ...data, [name]: value }));
+      };
+    
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+    
+      const formData = new FormData();
+    
+      formData.append("title", data.title);
+      formData.append("location", data.location);
+      formData.append("estate", data.estate);
+      formData.append("price", data.price);
+      formData.append("rooms", data.rooms);
+      formData.append("baths", data.baths);
+      formData.append("size", data.size);
+      formData.append("description", data.description);
+      formData.append("image", image);
+      formData.append("category_id", data.category_id);
+    
+      // Multiple images
+    for (let i = 0; i < images.length; i++) {
+      formData.append("images", images[i]);
+    }
+    
+      dispatch(addProduct(formData));
+    };
   return (
     <div className="min-h-screen bg-white flex flex-col justify-center py-12 sm:px-6 lg:px-8">
           <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -29,7 +79,7 @@ const PropertyForm = () => {
                {/* Form  */}
               <form className="space-y-6" onSubmit={handleSubmit} encType="multipart/form-data">
                  {/* Email  */}
-                 {productError && <p style={{ color: 'red' }}>{productError}</p>}
+                 {propError && <p style={{ color: 'red' }}>{propError}</p>}
                 <div>
                   <label className="block text-sm font-medium text-gray-700" htmlFor="title">Property Name</label>
                   <input
@@ -170,13 +220,13 @@ const PropertyForm = () => {
       </div>
     </div>
             {/* Category */}
-                  <div>
+                  {/* <div>
                   <label className="block text-sm font-medium text-gray-700" htmlFor="category">Category</label>
                    <div className="md:w-1/3">
                 </div>
                 <select
                   className="w-[333px] mt-[30px] border border-gray-400 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                  // value={city}
+                  
                   id="category"
                    value={data.category_id}
                   name="category_id"
@@ -184,7 +234,7 @@ const PropertyForm = () => {
                   onChange={handleChange}
                 >
                   <option value="">--Categories--</option>
-                  {/* <option value="bag">bag</option> */}
+                  
                   {categories && 
                     categories.map((cat) => (
                  
@@ -194,8 +244,8 @@ const PropertyForm = () => {
                 
                     ))}
                 </select>
-              </div>
-                {/* </div> */}
+              </div> */}
+               
                   <div>
                   <label className="block text-sm font-medium text-gray-700" htmlFor="description">Product Description</label>
                   <textarea name="description" value={data.description} onChange={handleChange} className='mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-blue-500' id="description">
@@ -210,7 +260,7 @@ const PropertyForm = () => {
                   // onClick={handleSubmit}
                   className="w-full flex justify-center py-2 px-4 sm:py-3 border border-transparent rounded-lg shadow-sm text-sm sm:text-base font-medium text-white bg-blue-700 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 >
-                 <span> {prodSuccess === 'loading' ? 'Creating...' : 'Create Product'}</span>
+                 <span> {propStatus === 'loading' ? 'Creating...' : 'Create Property'}</span>
                 </button> 
                 
               </form>

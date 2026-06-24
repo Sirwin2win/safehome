@@ -51,6 +51,7 @@ import { connectSocket } from "./sockets/socket";
 import { useEffect } from "react";
 import NotificationPage from "./dashboards/NotificationPage";
 import EstateMemberApproval from "./dashboards/EstateMemberApproval";
+import PropertyForm from "./forms/PropertyForm";
 
 /**
  * ✅ GLOBAL PROVIDER
@@ -121,6 +122,7 @@ export default function App() {
           <Route path="user-role" element={<UserRoles />} />
           <Route path="edit-estate/:id" element={<EditEstateForm />} />
           <Route path="notifications" element={<NotificationPage />} />
+          <Route path="property-form" element={<PropertyForm />} />
           <Route
             path="estate-member-approval"
             element={<EstateMemberApproval />}

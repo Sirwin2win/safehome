@@ -9,6 +9,7 @@ import permissionReducer from "../features/permission/permissionSlice";
 import rolePermissionReducer from "../features/rolePermission/rolePermissionSlice";
 import searchSlice from "../features/search/searchSlice";
 import productReducer from "../features/products/productSlice";
+import propertyReducer from "../features/properties/propertySlice";
 import mailReducer from "../features/mail/mailSlice";
 import notificationReducer from "../features/notifications/notificationSlice";
 
@@ -17,6 +18,7 @@ const store = configureStore({
     //  pay:payReducer,
     auth: authReducer,
     products: productReducer,
+    properties: propertyReducer,
     // cart : cartSlice,
     // product: detailSlice,
     filter: searchSlice,
