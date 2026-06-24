@@ -1,274 +1,252 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import { getUsers } from '../features/auth/authSlice'
-import logo from '../assets/images/logo.jpg'
+import React, { useEffect, useMemo, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import logo from "../assets/images/logo.jpg";
 import { IoCloudUploadOutline } from "react-icons/io5";
-
-
+import { getUsers } from "../features/auth/authSlice";
 
 const PropertyForm = () => {
+  const { users = [], status } = useSelector((state) => state.auth);
+  const { propStatus, propError } = useSelector((state) => state.properties);
 
-    const { users, status, error } = useSelector((state) => state.auth);
-    const {properties,propStatus,propError} = useSelector(state=>state.properties)
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-   
-    const [image, setImage] = useState(false);
-    const [images, setImages] = useState([]);
-    useEffect(() => {
-      if (status === "idle") {
-        dispatch(getUsers());
-      }
-    }, [status, dispatch]);
+  const dispatch = useDispatch();
 
-    const [data, setData] = useState({
-        title: "",
-        location: "",
-        estate: "",
-        price:"",
-        rooms:"",
-        baths:"",
-        size:"",
-        description: "",
-        category_id:"",
-      });
-    
-    
-      const handleChange = (e) => {
-        const name = e.target.name;
-        const value = e.target.value;
-        setData((data) => ({ ...data, [name]: value }));
-      };
-    
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-    
-      const formData = new FormData();
-    
-      formData.append("title", data.title);
-      formData.append("location", data.location);
-      formData.append("estate", data.estate);
-      formData.append("price", data.price);
-      formData.append("rooms", data.rooms);
-      formData.append("baths", data.baths);
-      formData.append("size", data.size);
-      formData.append("description", data.description);
-      formData.append("image", image);
-      formData.append("category_id", data.category_id);
-    
-      // Multiple images
-    for (let i = 0; i < images.length; i++) {
-      formData.append("images", images[i]);
+  const [image, setImage] = useState(null);
+  const [images, setImages] = useState([]);
+
+  const [selectedUserId, setSelectedUserId] = useState("");
+  const [selectedEstateId, setSelectedEstateId] = useState("");
+
+  const [data, setData] = useState({
+    title: "",
+    location: "",
+    price: "",
+    rooms: "",
+    baths: "",
+    size: "",
+    description: "",
+    category_id: "",
+  });
+
+  // ✅ Load users
+  useEffect(() => {
+    if (status === "idle") {
+      dispatch(getUsers());
     }
-    
-      dispatch(addProduct(formData));
-    };
+  }, [status, dispatch]);
+
+  // ✅ SAFE selected user lookup (memoized for stability)
+  const selectedUser = useMemo(() => {
+    return users.find(
+      (u) => String(u.id) === String(selectedUserId)
+    );
+  }, [users, selectedUserId]);
+
+  // ✅ Reset estate when user changes
+  useEffect(() => {
+    setSelectedEstateId("");
+  }, [selectedUserId]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append("title", data.title);
+    formData.append("location", data.location);
+    formData.append("estate", selectedEstateId);
+    formData.append("price", data.price);
+    formData.append("rooms", data.rooms);
+    formData.append("baths", data.baths);
+    formData.append("size", data.size);
+    formData.append("description", data.description);
+    formData.append("image", image);
+    formData.append("category_id", data.category_id);
+
+    images.forEach((img) => {
+      formData.append("images", img);
+    });
+
+    // dispatch(addProduct(formData));
+  };
+
   return (
     <div className="min-h-screen bg-white flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-          <div className="sm:mx-auto sm:w-full sm:max-w-md">
-            <div
-              className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10">
-               {/* Header */}
-              <div className="text-center mb-8">
-               <img src={logo} alt='' className='my-5 mx-auto size-30' />
-                <p className="mt-2 text-sm sm:text-base text-gray-600">
-                  Please Upload Properties here
-                </p>
-              </div>
-               {/* Form  */}
-              <form className="space-y-6" onSubmit={handleSubmit} encType="multipart/form-data">
-                 {/* Email  */}
-                 {propError && <p style={{ color: 'red' }}>{propError}</p>}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700" htmlFor="title">Property Name</label>
-                  <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    value={data.title}
-                    onChange={handleChange}
-                    className="mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-blue-500"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700" htmlFor="location">Property Location</label>
-                  <input
-                    type="text"
-                    id="location"
-                    name="location"
-                    value={data.location}
-                    onChange={handleChange}
-                    className="mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-blue-500"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700" htmlFor="estate">Estate Name</label>
-                  <input
-                    type="text"
-                    id="estate"
-                    name="estate"
-                    value={data.estate}
-                    onChange={handleChange}
-                    className="mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-blue-500"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700" htmlFor="price">Property Price</label>
-                  <input
-                    type="number"
-                    name='price'
-                    id="price"
-                    value={data.price}
-                    onChange={handleChange}
-                    className="mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-blue-500"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700" htmlFor="rooms">Number of Rooms</label>
-                  <input
-                    type="number"
-                    name='rooms'
-                    id="rooms"
-                    value={data.rooms}
-                    onChange={handleChange}
-                    className="mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-blue-500"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700" htmlFor="baths">Number of Bathrooms</label>
-                  <input
-                    type="number"
-                    name='baths'
-                    id="baths"
-                    value={data.baths}
-                    onChange={handleChange}
-                    className="mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-blue-500"
-                    required
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700" htmlFor="size">Property Size</label>
-                  <input
-                    type="number"
-                    name='size'
-                    id="size"
-                    value={data.size}
-                    onChange={handleChange}
-                    className="mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-blue-500"
-                    required
-                  />
-                </div>
-    
-                 {/* Password  */}
-                    <div className="mb-6">
-              <p>Upload the main property image</p>
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="image"
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10">
+
+          {/* HEADER */}
+          <div className="text-center mb-8">
+            <img src={logo} alt="" className="my-5 mx-auto size-30" />
+            <p className="mt-2 text-sm text-gray-600">
+              Please Upload Properties here
+            </p>
+          </div>
+
+          <form className="space-y-6" onSubmit={handleSubmit}>
+
+            {propError && (
+              <p className="text-red-500">{propError}</p>
+            )}
+
+            {/* USER SELECT */}
+            <div>
+              <label className="block mb-1">Select User</label>
+
+              <select
+                value={String(selectedUserId)}
+                onChange={(e) => setSelectedUserId(e.target.value)}
+                className="border p-2 w-full"
               >
+                <option value="">Choose User</option>
+
+                {users.map((user) => (
+                  <option key={user.id} value={user.id}>
+                    {user.name} ({user.email})
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* DEBUG (REMOVE IN PRODUCTION IF YOU WANT) */}
+            {/* <pre>{JSON.stringify(selectedUser, null, 2)}</pre> */}
+
+            {/* ESTATES */}
+            {selectedUser?.estate_memberships?.length > 0 ? (
+              <div>
+                <label className="block mb-2">Select Estate</label>
+
+                {selectedUser.estate_memberships.map((m) => (
+                  <label key={m.id} className="block mb-1">
+                    <input
+                      type="radio"
+                      name="estate"
+                      value={String(m.estate_id)}
+                      checked={String(selectedEstateId) === String(m.estate_id)}
+                      onChange={(e) => setSelectedEstateId(e.target.value)}
+                      className="mr-2"
+                    />
+                    {m.estate_name}
+                  </label>
+                ))}
+              </div>
+            ) : selectedUserId ? (
+              <p className="text-gray-500">
+                No estates found for this user
+              </p>
+            ) : null}
+
+            {/* FIELDS */}
+            <input
+              name="title"
+              placeholder="Property Name"
+              value={data.title}
+              onChange={handleChange}
+              className="border p-2 w-full"
+            />
+
+            <input
+              name="location"
+              placeholder="Location"
+              value={data.location}
+              onChange={handleChange}
+              className="border p-2 w-full"
+            />
+
+            <input
+              name="price"
+              placeholder="Price"
+              type="number"
+              value={data.price}
+              onChange={handleChange}
+              className="border p-2 w-full"
+            />
+
+            <input
+              name="rooms"
+              placeholder="Rooms"
+              type="number"
+              value={data.rooms}
+              onChange={handleChange}
+              className="border p-2 w-full"
+            />
+
+            <input
+              name="baths"
+              placeholder="Baths"
+              type="number"
+              value={data.baths}
+              onChange={handleChange}
+              className="border p-2 w-full"
+            />
+
+            <input
+              name="size"
+              placeholder="Size"
+              type="number"
+              value={data.size}
+              onChange={handleChange}
+              className="border p-2 w-full"
+            />
+
+            {/* MAIN IMAGE */}
+            <div>
+              <label>Main Image</label>
+
+              <label htmlFor="image">
                 {image ? (
                   <img
                     src={URL.createObjectURL(image)}
                     alt=""
-                    height={300}
-                    width={300}
+                    className="w-40 h-40 object-cover"
                   />
                 ) : (
-                  <IoCloudUploadOutline className="size-[50px]" />
+                  <IoCloudUploadOutline size={40} />
                 )}
               </label>
+
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight
-           focus:outline-none focus:shadow-outline form-control"
                 id="image"
-                name="image"
-                onChange={(e) => setImage(e.target.files[0])}
                 type="file"
                 hidden
-                required
+                onChange={(e) => setImage(e.target.files[0])}
               />
             </div>
-            {/* Multiple Images Upload */}
-    <div className="mb-6">
-      <p className="font-semibold mb-2">Upload Property Images(property gallery images)</p>
-    
-      <input
-        type="file"
-        multiple
-        accept="image/*"
-        onChange={(e) => setImages([...e.target.files])}
-        className="border p-2 rounded-lg w-full"
-      />
-    
-      {/* Preview Images */}
-      <div className="grid grid-cols-3 gap-3 mt-4">
-        {images.length > 0 &&
-          images.map((img, index) => (
-            <img
-              key={index}
-              src={URL.createObjectURL(img)}
-              alt=""
-              className="w-32 h-32 object-cover rounded-lg"
+
+            {/* GALLERY */}
+            <input
+              type="file"
+              multiple
+              onChange={(e) => setImages([...e.target.files])}
             />
-          ))}
+
+            {/* DESCRIPTION */}
+            <textarea
+              name="description"
+              value={data.description}
+              onChange={handleChange}
+              className="border p-2 w-full"
+            />
+
+            {/* SUBMIT */}
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white py-2"
+            >
+              {propStatus === "loading"
+                ? "Creating..."
+                : "Create Property"}
+            </button>
+
+          </form>
+        </div>
       </div>
     </div>
-            {/* Category */}
-                  {/* <div>
-                  <label className="block text-sm font-medium text-gray-700" htmlFor="category">Category</label>
-                   <div className="md:w-1/3">
-                </div>
-                <select
-                  className="w-[333px] mt-[30px] border border-gray-400 py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                  
-                  id="category"
-                   value={data.category_id}
-                  name="category_id"
-                  value={data.category_id}
-                  onChange={handleChange}
-                >
-                  <option value="">--Categories--</option>
-                  
-                  {categories && 
-                    categories.map((cat) => (
-                 
-                      <option key={cat.id} value={cat.id} >
-                        {cat.name}
-                      </option>
-                
-                    ))}
-                </select>
-              </div> */}
-               
-                  <div>
-                  <label className="block text-sm font-medium text-gray-700" htmlFor="description">Product Description</label>
-                  <textarea name="description" value={data.description} onChange={handleChange} className='mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-blue-500' id="description">
-    
-                  </textarea>
-            
-                </div>
-    
-               
-                <button
-                  type="submit"
-                  // onClick={handleSubmit}
-                  className="w-full flex justify-center py-2 px-4 sm:py-3 border border-transparent rounded-lg shadow-sm text-sm sm:text-base font-medium text-white bg-blue-700 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                >
-                 <span> {propStatus === 'loading' ? 'Creating...' : 'Create Property'}</span>
-                </button> 
-                
-              </form>
-    
-            </div>
-          </div>
-        </div>
-  )
-}
+  );
+};
 
-export default PropertyForm
+export default PropertyForm;
