@@ -5,7 +5,7 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 import { getUsers } from "../features/auth/authSlice";
 
 const PropertyForm = () => {
-  const { users = [], status } = useSelector((state) => state.auth);
+  const { users, status } = useSelector((state) => state.auth);
   const { propStatus, propError } = useSelector((state) => state.properties);
 
   const dispatch = useDispatch();
@@ -13,8 +13,7 @@ const PropertyForm = () => {
   const [image, setImage] = useState(null);
   const [images, setImages] = useState([]);
 
-  const [selectedUserId, setSelectedUserId] = useState("");
-const [selectedEstateId, setSelectedEstateId] = useState("");
+
 
   const [data, setData] = useState({
     title: "",
@@ -35,16 +34,13 @@ const [selectedEstateId, setSelectedEstateId] = useState("");
   }, [status, dispatch]);
 
   // ✅ SAFE selected user lookup (memoized for stability)
-
+const [selectedUserId, setSelectedUserId] = useState("");
+const [selectedEstateId, setSelectedEstateId] = useState("");
 
 const selectedUser = users.find(
-  (user) => String(user.id) === String(selectedUserId)
+  (user) => user.id === Number(selectedUserId)
 );
 
-  // ✅ Reset estate when user changes
-  useEffect(() => {
-    setSelectedEstateId("");
-  }, [selectedUserId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -73,7 +69,7 @@ const selectedUser = users.find(
 
     // dispatch(addProduct(formData));
   };
-
+console.log(users)
   return (
     <div className="min-h-screen bg-white flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -97,73 +93,42 @@ const selectedUser = users.find(
             
 
           <div>
-  <label className="block mb-1">Select User</label>
+  {/* <label className="block mb-1">Select User</label> */}
 
-  <select
-    value={String(selectedUserId)}
-    onChange={(e) => setSelectedUserId(e.target.value)}
-    className="border p-2 w-full"
-  >
-    <option value="">Choose User</option>
+   {/* User Select */}
+     <select
+  value={selectedUserId}
+  onChange={(e) => {
+    setSelectedUserId(e.target.value);
+    setSelectedEstateId("");
+  }}
+  className="border p-2 w-full"
+>
+  <option value="">Select User</option>
 
-    {users.map((user) => (
-      <option key={user.id} value={user.id}>
-        {user.name} ({user.email})
-      </option>
-    ))}
-  </select>
+  {users.map((user) => (
+    <option key={user.id} value={user.id}>
+      {user.name}
+    </option>
+  ))}
+</select>
+
 </div>
 
-{selectedUser.estate_memberships.map((estate) => (
-  <label key={estate.id} className="flex items-center gap-2 mb-2">
+ {selectedUser?.estate_memberships?.map((membership) => (
+  <div key={membership.id}>
     <input
       type="radio"
-      name="estate"
-      value={estate.id}
-      onChange={(e) => setSelectedEstate(e.target.value)}
+      name="estate_membership"
+      // className="border p-2 w-full"
+      value={membership.id}
+      checked={selectedEstateId === String(membership.id)}
+      onChange={(e) => setSelectedEstateId(e.target.value)}
     />
-    <span>{estate.name}</span>
-  </label>
-))}
-            {/* ESTATES */}
-            <div>
-  <label className="block mb-1">Select User</label>
 
-  <select
-    value={String(selectedUserId)}
-    onChange={(e) => setSelectedUserId(e.target.value)}
-    className="border p-2 w-full"
-  >
-    <option value="">Choose User</option>
-
-    {users.map((user) => (
-      <option key={user.id} value={user.id}>
-        {user.name} ({user.email})
-      </option>
-    ))}
-  </select>
-</div>
-
-{selectedUser?.estate_membershipd?.length > 0 && (
-  <div className="mt-4">
-    <label className="block mb-2">Select Estate</label>
-
-    {selectedUser.estate_membershipd.map((estate, index) => (
-      <label
-        key={index}
-        className="flex items-center gap-2 mb-2"
-      >
-        <input
-          type="radio"
-          name="estate"
-          value={estate}
-          onChange={(e) => setSelectedEstate(e.target.value)}
-        />
-        <span>{estate}</span>
-      </label>
-    ))}
+    <label>{membership.estate_name}</label>
   </div>
-)}
+))}
             {/* FIELDS */}
             <input
               name="title"
