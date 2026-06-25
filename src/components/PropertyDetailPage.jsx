@@ -53,11 +53,11 @@ if(propStatus === 'failed'){
     <img
       key={img.id}
       onClick={() => {
-        setSelectedImage(img.images);
+        setSelectedImage(img.image);
         setIsOpen(true);
       }}
-      className='size-50 border-4 border-white object-cover rounded-xl cursor-pointer hover:scale-105 transition'
-      src={`https://api.safehomeproperties.com/uploads/${img.images}`}
+      className='size-40 border-4 border-white object-cover rounded-xl cursor-pointer hover:scale-105 transition'
+      src={`https://api.safehomeproperties.com/uploads/${img.image}`}
       alt={`gallery ${img.id}`}
     />
   ))}
@@ -82,9 +82,12 @@ if(propStatus === 'failed'){
       className="max-w-5xl w-full max-h-[90vh] object-contain rounded-xl"
     />
   </div>
+  
 )}
 
+
         <p className='my-5 text-lg'>{currentProperty?.description}</p>
+        <button className='font-semibold rounded-lg bg-[#1B2B3F] text-white p-3'>Request for a lease document</button>
             </div>
             {/* right hand */}
             <div className='bg-white w-80 rounded-xl md:ms-10 -ms-12 pe-5 h-100 shadow-2xl md:mt-40 mt-10 pt-10 ps-10'>
