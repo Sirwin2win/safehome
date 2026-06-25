@@ -14,7 +14,7 @@ const PropertyForm = () => {
   const [images, setImages] = useState([]);
 
   const [selectedUserId, setSelectedUserId] = useState("");
-  const [selectedEstateId, setSelectedEstateId] = useState("");
+const [selectedEstateId, setSelectedEstateId] = useState("");
 
   const [data, setData] = useState({
     title: "",
@@ -35,11 +35,11 @@ const PropertyForm = () => {
   }, [status, dispatch]);
 
   // ✅ SAFE selected user lookup (memoized for stability)
-  const selectedUser = useMemo(() => {
-    return users.find(
-      (u) => String(u.id) === String(selectedUserId)
-    );
-  }, [users, selectedUserId]);
+
+
+const selectedUser = users.find(
+  (user) => String(user.id) === String(selectedUserId)
+);
 
   // ✅ Reset estate when user changes
   useEffect(() => {
@@ -94,52 +94,76 @@ const PropertyForm = () => {
             )}
 
             {/* USER SELECT */}
-            <div>
-              <label className="block mb-1">Select User</label>
+            
 
-              <select
-                value={String(selectedUserId)}
-                onChange={(e) => setSelectedUserId(e.target.value)}
-                className="border p-2 w-full"
-              >
-                <option value="">Choose User</option>
+          <div>
+  <label className="block mb-1">Select User</label>
 
-                {users.map((user) => (
-                  <option key={user.id} value={user.id}>
-                    {user.name} ({user.email})
-                  </option>
-                ))}
-              </select>
-            </div>
+  <select
+    value={String(selectedUserId)}
+    onChange={(e) => setSelectedUserId(e.target.value)}
+    className="border p-2 w-full"
+  >
+    <option value="">Choose User</option>
 
-            {/* DEBUG (REMOVE IN PRODUCTION IF YOU WANT) */}
-            {/* <pre>{JSON.stringify(selectedUser, null, 2)}</pre> */}
+    {users.map((user) => (
+      <option key={user.id} value={user.id}>
+        {user.name} ({user.email})
+      </option>
+    ))}
+  </select>
+</div>
 
+{selectedUser.estate_memberships.map((estate) => (
+  <label key={estate.id} className="flex items-center gap-2 mb-2">
+    <input
+      type="radio"
+      name="estate"
+      value={estate.id}
+      onChange={(e) => setSelectedEstate(e.target.value)}
+    />
+    <span>{estate.name}</span>
+  </label>
+))}
             {/* ESTATES */}
-            {selectedUser?.estate_memberships?.length > 0 ? (
-              <div>
-                <label className="block mb-2">Select Estate</label>
+            <div>
+  <label className="block mb-1">Select User</label>
 
-                {selectedUser.estate_memberships.map((m) => (
-                  <label key={m.id} className="block mb-1">
-                    <input
-                      type="radio"
-                      name="estate"
-                      value={String(m.estate_id)}
-                      checked={String(selectedEstateId) === String(m.estate_id)}
-                      onChange={(e) => setSelectedEstateId(e.target.value)}
-                      className="mr-2"
-                    />
-                    {m.estate_name}
-                  </label>
-                ))}
-              </div>
-            ) : selectedUserId ? (
-              <p className="text-gray-500">
-                No estates found for this user
-              </p>
-            ) : null}
+  <select
+    value={String(selectedUserId)}
+    onChange={(e) => setSelectedUserId(e.target.value)}
+    className="border p-2 w-full"
+  >
+    <option value="">Choose User</option>
 
+    {users.map((user) => (
+      <option key={user.id} value={user.id}>
+        {user.name} ({user.email})
+      </option>
+    ))}
+  </select>
+</div>
+
+{selectedUser?.estate_membershipd?.length > 0 && (
+  <div className="mt-4">
+    <label className="block mb-2">Select Estate</label>
+
+    {selectedUser.estate_membershipd.map((estate, index) => (
+      <label
+        key={index}
+        className="flex items-center gap-2 mb-2"
+      >
+        <input
+          type="radio"
+          name="estate"
+          value={estate}
+          onChange={(e) => setSelectedEstate(e.target.value)}
+        />
+        <span>{estate}</span>
+      </label>
+    ))}
+  </div>
+)}
             {/* FIELDS */}
             <input
               name="title"
