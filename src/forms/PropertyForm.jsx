@@ -3,195 +3,269 @@ import { useDispatch, useSelector } from "react-redux";
 import logo from "../assets/images/logo.jpg";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { getUsers } from "../features/auth/authSlice";
+import { addProperty } from "../features/properties/propertySlice";
+
 
 const PropertyForm = () => {
-  const { users, status } = useSelector((state) => state.auth);
-  const { propStatus, propError } = useSelector((state) => state.properties);
-
   const dispatch = useDispatch();
+
+  const { users, status } = useSelector((state) => state.auth);
+  const { propStatus, propError } = useSelector(
+    (state) => state.properties
+  );
 
   const [image, setImage] = useState(null);
   const [images, setImages] = useState([]);
 
-
+  const [selectedUserId, setSelectedUserId] = useState("");
+  const [selectedEstateId, setSelectedEstateId] = useState("");
 
   const [data, setData] = useState({
-    title: "",
-    location: "",
-    price: "",
-    rooms: "",
-    baths: "",
+    type: "",
     size: "",
     description: "",
-    category_id: "",
+    address: "",
+    rent_amount: "",
+    service_charge: "",
+    bedrooms: "",
+    bathrooms: "",
   });
 
-  // ✅ Load users
   useEffect(() => {
     if (status === "idle") {
       dispatch(getUsers());
     }
-  }, [status, dispatch]);
+  }, [dispatch, status]);
 
-  // ✅ SAFE selected user lookup (memoized for stability)
-const [selectedUserId, setSelectedUserId] = useState("");
-const [selectedEstateId, setSelectedEstateId] = useState("");
-
-const selectedUser = users.find(
-  (user) => user.id === Number(selectedUserId)
-);
-
+  const selectedUser = useMemo(() => {
+    return users.find(
+      (user) => user.id === Number(selectedUserId)
+    );
+  }, [users, selectedUserId]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setData((prev) => ({ ...prev, [name]: value }));
+
+    setData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (!selectedUserId) {
+      alert("Please select a property owner");
+      return;
+    }
+
+    if (!selectedEstateId) {
+      alert("Please select an estate");
+      return;
+    }
+
     const formData = new FormData();
 
-    formData.append("title", data.title);
-    formData.append("location", data.location);
-    formData.append("estate", selectedEstateId);
-    formData.append("price", data.price);
-    formData.append("rooms", data.rooms);
-    formData.append("baths", data.baths);
+    formData.append("owner_id", selectedUserId);
+    formData.append("estate_id", selectedEstateId);
+
+    formData.append("type", data.type);
     formData.append("size", data.size);
     formData.append("description", data.description);
-    formData.append("image", image);
-    formData.append("category_id", data.category_id);
+    formData.append("address", data.address);
+    formData.append("rent_amount", data.rent_amount);
+    formData.append("service_charge", data.service_charge);
+    formData.append("bedrooms", data.bedrooms);
+    formData.append("bathrooms", data.bathrooms);
+
+    if (image) {
+      formData.append("image", image);
+    }
 
     images.forEach((img) => {
       formData.append("images", img);
     });
 
-    // dispatch(addProduct(formData));
+    dispatch(addProperty(formData));
+
+    console.log("Submitting...");
+    for (let pair of formData.entries()) {
+      console.log(pair[0], pair[1]);
+    }
   };
-console.log(users)
+
   return (
     <div className="min-h-screen bg-white flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10">
-
-          {/* HEADER */}
+          {/* Header */}
           <div className="text-center mb-8">
-            <img src={logo} alt="" className="my-5 mx-auto size-30" />
+            <img
+              src={logo}
+              alt="Logo"
+              className="my-5 mx-auto size-30"
+            />
+
             <p className="mt-2 text-sm text-gray-600">
               Please Upload Properties here
             </p>
           </div>
 
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          <form
+            className="space-y-6"
+            onSubmit={handleSubmit}
+          >
+            {/* User Select */}
+            <div>
+              <select
+                value={selectedUserId}
+                onChange={(e) => {
+                  setSelectedUserId(e.target.value);
+                  setSelectedEstateId("");
+                }}
+                className="border p-2 w-full rounded"
+              >
+                <option value="">
+                  Select Property Owner
+                </option>
 
-            {propError && (
-              <p className="text-red-500">{propError}</p>
+                {users?.map((user) => (
+                  <option
+                    key={user.id}
+                    value={user.id}
+                  >
+                    {user.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Estate Memberships */}
+            {selectedUser?.estate_memberships?.length > 0 && (
+              <div>
+                <p className="font-semibold mb-2">
+                  Select Estate
+                </p>
+
+                {selectedUser.estate_memberships.map(
+                  (membership) => (
+                    <div
+                      key={membership.id}
+                      className="flex items-center gap-2 mb-2"
+                    >
+                      <input
+                        type="radio"
+                        name="estate"
+                        value={
+                          membership.estate_id ??
+                          membership.id
+                        }
+                        checked={
+                          selectedEstateId ===
+                          String(
+                            membership.estate_id ??
+                              membership.id
+                          )
+                        }
+                        onChange={(e) =>
+                          setSelectedEstateId(
+                            e.target.value
+                          )
+                        }
+                      />
+
+                      <label>
+                        {membership.estate_name}
+                      </label>
+                    </div>
+                  )
+                )}
+              </div>
             )}
 
-            {/* USER SELECT */}
-            
-
-          <div>
-  {/* <label className="block mb-1">Select User</label> */}
-
-   {/* User Select */}
-     <select
-  value={selectedUserId}
-  onChange={(e) => {
-    setSelectedUserId(e.target.value);
-    setSelectedEstateId("");
-  }}
-  className="border p-2 w-full"
->
-  <option value="">Select User</option>
-
-  {users.map((user) => (
-    <option key={user.id} value={user.id}>
-      {user.name}
-    </option>
-  ))}
-</select>
-
-</div>
-
- {selectedUser?.estate_memberships?.map((membership) => (
-  <div key={membership.id}>
-    <input
-      type="radio"
-      name="estate_membership"
-      // className="border p-2 w-full"
-      value={membership.id}
-      checked={selectedEstateId === String(membership.id)}
-      onChange={(e) => setSelectedEstateId(e.target.value)}
-    />
-
-    <label>{membership.estate_name}</label>
-  </div>
-))}
-            {/* FIELDS */}
+            {/* Property Type */}
             <input
-              name="title"
-              placeholder="Property Name"
-              value={data.title}
+              name="type"
+              placeholder="Property Type (Duplex, Flat, Bungalow)"
+              value={data.type}
               onChange={handleChange}
-              className="border p-2 w-full"
+              className="border p-2 w-full rounded"
             />
 
-            <input
-              name="location"
-              placeholder="Location"
-              value={data.location}
-              onChange={handleChange}
-              className="border p-2 w-full"
-            />
-
-            <input
-              name="price"
-              placeholder="Price"
-              type="number"
-              value={data.price}
-              onChange={handleChange}
-              className="border p-2 w-full"
-            />
-
-            <input
-              name="rooms"
-              placeholder="Rooms"
-              type="number"
-              value={data.rooms}
-              onChange={handleChange}
-              className="border p-2 w-full"
-            />
-
-            <input
-              name="baths"
-              placeholder="Baths"
-              type="number"
-              value={data.baths}
-              onChange={handleChange}
-              className="border p-2 w-full"
-            />
-
+            {/* Size */}
             <input
               name="size"
-              placeholder="Size"
-              type="number"
+              placeholder="Size e.g 1800 sqft"
               value={data.size}
               onChange={handleChange}
-              className="border p-2 w-full"
+              className="border p-2 w-full rounded"
             />
 
-            {/* MAIN IMAGE */}
-            <div>
-              <label>Main Image</label>
+            {/* Address */}
+            <input
+              name="address"
+              placeholder="Address"
+              value={data.address}
+              onChange={handleChange}
+              className="border p-2 w-full rounded"
+            />
 
-              <label htmlFor="image">
+            {/* Rent */}
+            <input
+              name="rent_amount"
+              type="number"
+              placeholder="Rent Amount"
+              value={data.rent_amount}
+              onChange={handleChange}
+              className="border p-2 w-full rounded"
+            />
+
+            {/* Service Charge */}
+            <input
+              name="service_charge"
+              type="number"
+              placeholder="Service Charge"
+              value={data.service_charge}
+              onChange={handleChange}
+              className="border p-2 w-full rounded"
+            />
+
+            {/* Bathrooms */}
+            <input
+              name="bathrooms"
+              type="number"
+              placeholder="Number of Bathrooms"
+              value={data.bathrooms}
+              onChange={handleChange}
+              className="border p-2 w-full rounded"
+            />
+
+            {/* Bedrooms */}
+            <input
+              name="bedrooms"
+              type="number"
+              placeholder="Number of Bedrooms"
+              value={data.bedrooms}
+              onChange={handleChange}
+              className="border p-2 w-full rounded"
+            />
+
+            {/* Main Image */}
+            <div>
+              <label className="block mb-2 font-medium">
+                Main Image
+              </label>
+
+              <label
+                htmlFor="image"
+                className="cursor-pointer inline-block"
+              >
                 {image ? (
                   <img
                     src={URL.createObjectURL(image)}
-                    alt=""
-                    className="w-40 h-40 object-cover"
+                    alt="Preview"
+                    className="w-40 h-40 object-cover rounded"
                   />
                 ) : (
                   <IoCloudUploadOutline size={40} />
@@ -202,35 +276,71 @@ console.log(users)
                 id="image"
                 type="file"
                 hidden
-                onChange={(e) => setImage(e.target.files[0])}
+                accept="image/*"
+                onChange={(e) =>
+                  setImage(e.target.files[0])
+                }
               />
             </div>
 
-            {/* GALLERY */}
-            <input
-              type="file"
-              multiple
-              onChange={(e) => setImages([...e.target.files])}
-            />
+            {/* Gallery Images */}
+            <div>
+              <p className="font-semibold mb-2">
+                Upload Property Gallery Images
+              </p>
 
-            {/* DESCRIPTION */}
+              <input
+                type="file"
+                multiple
+                accept="image/*"
+                onChange={(e) =>
+                  setImages(
+                    Array.from(e.target.files)
+                  )
+                }
+                className="border p-2 rounded-lg w-full"
+              />
+
+              <div className="grid grid-cols-3 gap-3 mt-4">
+                {images.map((img, index) => (
+                  <img
+                    key={index}
+                    src={URL.createObjectURL(img)}
+                    alt={`gallery-${index}`}
+                    className="w-32 h-32 object-cover rounded-lg"
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Description */}
             <textarea
               name="description"
+              placeholder="Property Description"
               value={data.description}
               onChange={handleChange}
-              className="border p-2 w-full"
+              rows={4}
+              className="border p-2 w-full rounded"
             />
 
-            {/* SUBMIT */}
+            {propError && (
+              <p className="text-red-500">{propError}</p>
+            )}
+
+            {propStatus==='succeeded' && (
+              <p className="text-green-500">Property Created Successfully!</p>
+            )}
+
+            {/* Submit */}
             <button
               type="submit"
-              className="w-full bg-blue-600 text-white py-2"
+              disabled={propStatus === "loading"}
+              className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
             >
               {propStatus === "loading"
                 ? "Creating..."
                 : "Create Property"}
             </button>
-
           </form>
         </div>
       </div>

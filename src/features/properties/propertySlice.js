@@ -72,9 +72,9 @@ export const fetchProperty = createAsyncThunk(
 
 export const addProperty = createAsyncThunk(
   'properties/addProperty',
-  async (property, thunkAPI) => {
+  async (formData, thunkAPI) => {
     try {
-      const response = await propertyAPI.createPropertyAPI(property);
+      const response = await propertyAPI.createPropertyAPI(formData);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);

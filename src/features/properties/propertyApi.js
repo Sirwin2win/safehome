@@ -6,7 +6,7 @@ const API_BASE = 'https://api.safehomeproperties.com/api/properties';
 
 export const fetchPropertiesAPI = () => axios.get(API_BASE);
 export const fetchPropertyByIdAPI = (id) => axios.get(`${API_BASE}/${id}`);
-export const createPropertyAPI = (property) => axios.post(API_BASE, product,{
+export const createPropertyAPI = (formData) => axios.post(API_BASE, formData,{
     headers: {
       Authorization: `Bearer ${token}`,
     },
