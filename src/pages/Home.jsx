@@ -15,6 +15,7 @@ import HomeCard4 from '../components/HomeCard4'
 import HomePhoneCard from '../components/HomePhoneCard'
 import LatestProperties from '../components/LatestProperties'
 import PropertyCard from '../components/PropertyCard'
+import PropertyListingPage from '../components/PropertyListingPage'
 import Testimonials from '../components/Testimonials'
 import FAQ from '../components/FAQ'
 import HomeLastCard from '../components/HomeLastCard'
@@ -55,7 +56,8 @@ const Home = () => {
       <br />
     <HomePhoneCard />
     <LatestProperties />
-    <PropertyCard />
+    {/* <PropertyCard /> */}
+    <PropertyListingPage />
     {/* <Testimonials /> */}
     <TestSlider />
     <FAQ />
