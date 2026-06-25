@@ -6,17 +6,21 @@ const API_BASE = 'https://api.safehomeproperties.com/api/properties';
 
 export const fetchPropertiesAPI = () => axios.get(API_BASE);
 export const fetchPropertyByIdAPI = (id) => axios.get(`${API_BASE}/${id}`);
-export const createPropertyAPI = (formData) => axios.post(API_BASE, formData,{
+export const createPropertyAPI = (formData, token) => {
+  console.log("createPropertyAPI token:", token);
+
+  return axios.post(API_BASE, formData, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
+};
 export const updatePropertyAPI = (id, property, token) => {
   console.log("API:", { id, property });
 
   return axios.patch(
     `${API_BASE}/${id}`,
-    { property },
+     property ,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -25,7 +29,7 @@ export const updatePropertyAPI = (id, property, token) => {
     }
   );
 };
-export const deletePropertyAPI = (id) => axios.delete(`${API_BASE}/${id}`, {
+export const deletePropertyAPI = (id,token) => axios.delete(`${API_BASE}/${id}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

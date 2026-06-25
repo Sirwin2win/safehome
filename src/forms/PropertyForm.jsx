@@ -186,6 +186,7 @@ const PropertyForm = () => {
 
             {/* Property Type */}
             <input
+            type="text"
               name="type"
               placeholder="Property Type (Duplex, Flat, Bungalow)"
               value={data.type}
@@ -196,6 +197,7 @@ const PropertyForm = () => {
             {/* Size */}
             <input
               name="size"
+              type="text"
               placeholder="Size e.g 1800 sqft"
               value={data.size}
               onChange={handleChange}
@@ -205,6 +207,7 @@ const PropertyForm = () => {
             {/* Address */}
             <input
               name="address"
+              type="text"
               placeholder="Address"
               value={data.address}
               onChange={handleChange}
@@ -214,7 +217,7 @@ const PropertyForm = () => {
             {/* Rent */}
             <input
               name="rent_amount"
-              type="number"
+              type="text"
               placeholder="Rent Amount"
               value={data.rent_amount}
               onChange={handleChange}
@@ -224,7 +227,7 @@ const PropertyForm = () => {
             {/* Service Charge */}
             <input
               name="service_charge"
-              type="number"
+              type="text"
               placeholder="Service Charge"
               value={data.service_charge}
               onChange={handleChange}
@@ -234,7 +237,7 @@ const PropertyForm = () => {
             {/* Bathrooms */}
             <input
               name="bathrooms"
-              type="number"
+              type="text"
               placeholder="Number of Bathrooms"
               value={data.bathrooms}
               onChange={handleChange}
@@ -244,7 +247,7 @@ const PropertyForm = () => {
             {/* Bedrooms */}
             <input
               name="bedrooms"
-              type="number"
+              type="text"
               placeholder="Number of Bedrooms"
               value={data.bedrooms}
               onChange={handleChange}

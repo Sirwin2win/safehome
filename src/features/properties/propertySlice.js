@@ -25,6 +25,7 @@ export const fetchProperties =
 
     async (_, thunkAPI) => {
       try {
+        // const token = localStorage.getItem('token')
         const state =
           thunkAPI.getState();
 
@@ -62,6 +63,7 @@ export const fetchProperty = createAsyncThunk(
   'properties/fetchProperty',
   async (id, thunkAPI) => {
     try {
+      // const token = localStorage.getItem('token')
       const response = await propertyAPI.fetchPropertyByIdAPI(id);
       return response.data.data;
     } catch (err) {
@@ -71,13 +73,26 @@ export const fetchProperty = createAsyncThunk(
 );
 
 export const addProperty = createAsyncThunk(
-  'properties/addProperty',
+  "properties/addProperty",
   async (formData, thunkAPI) => {
     try {
-      const response = await propertyAPI.createPropertyAPI(formData);
+      const token = localStorage.getItem("token");
+
+      console.log("Token:", token);
+      console.log("API Function:", propertyAPI.createPropertyAPI);
+
+      const response = await propertyAPI.createPropertyAPI(
+        formData,
+        token
+      );
+
       return response.data;
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+      console.error(err);
+
+      return thunkAPI.rejectWithValue(
+        err.response?.data || err.message
+      );
     }
   }
 );
@@ -86,7 +101,14 @@ export const updateProperty = createAsyncThunk(
   'properties/updateProperty',
   async ({ id, property }, thunkAPI) => {
     try {
-      const response = await axios.patch(`${url}/${id}`, property);
+      const token = localStorage.getItem('token');
+
+      const response = await propertyAPI.updatePropertyAPI(
+        id,
+        property,
+        token
+      );
+
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(
@@ -100,7 +122,8 @@ export const deleteProperty = createAsyncThunk(
   'properties/deleteProperty',
   async (id, thunkAPI) => {
     try {
-      await propertyAPI.deletePropertyAPI(id);
+      const token = localStorage.getItem('token')
+      await propertyAPI.deletePropertyAPI(id,token);
       return id;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);
