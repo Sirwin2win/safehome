@@ -18,7 +18,7 @@ export const fetchEstateMember = createAsyncThunk(
   "estateMembers/fetchEstateMember",
   async (id, thunkAPI) => {
     try {
-      const response = await estateMemberAPI.fetchEstateMemberByIdAPI(id);
+      const response = await estateMemberAPI.fetchEstateMemberIdAPI(id);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);
