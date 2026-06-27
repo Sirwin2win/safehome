@@ -32,229 +32,371 @@ const Tenant = () => {
   const currentStep = 2; // 1-based index of current step
   const [columns, setColumns] = useState(initialColumns);
   return (
-    <div>
-      {/* Search , notification bell and profile flex */}
-      <div className="flex justify-between shadow-xl bg-white pb-3 border-b border-gray-300">
-        <form>
-          <label htmlFor="search" className="relative">
-            <input
-              type="search"
-              id="search"
-              className="rounded-full bg-gray-200 placeholder:ps-10 w-50"
-              placeholder="Search operations..."
+    <div className="min-h-screen bg-gray-100">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-6">
+        {/* ================= NAVBAR ================= */}
+
+        <div className="bg-white rounded-xl shadow border border-gray-200 p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          {/* Search */}
+
+          <form className="w-full md:w-auto">
+            <label htmlFor="search" className="relative block">
+              <IoIosSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 text-xl" />
+
+              <input
+                id="search"
+                type="search"
+                placeholder="Search operations..."
+                className="w-full md:w-80 rounded-full bg-gray-100 py-2.5 pl-10 pr-4 outline-none focus:ring-2 focus:ring-[#00236F]"
+              />
+            </label>
+          </form>
+
+          {/* User */}
+
+          <div className="flex items-center justify-end gap-4 flex-wrap">
+            <FaRegBell className="text-2xl text-gray-700" />
+
+            <div className="hidden sm:block border-l pl-4">
+              <p className="font-medium">Alex Resident</p>
+
+              <p className="text-sm text-gray-500">Unit 402B</p>
+            </div>
+
+            <img
+              src={pix}
+              alt=""
+              className="w-11 h-11 rounded-full object-cover"
             />
-            <IoIosSearch className="absolute bottom-0.5 ms-2" />
-          </label>
-        </form>
-        <div className="flex justify-between">
-          <FaRegBell className="size-8" />
-          <div className="border-s-2 border-gray-300 mx-1 px-3">
-            <p className="text-gray-500">Alex Resident</p>
-            <p className="text-gray-500">Unit 402B</p>
           </div>
-          <img src={pix} alt="" className="size-10 rounded-full" />
         </div>
-      </div>
 
-      {/* Search , notification bell and profile flex END*/}
-      <p className="text-gray-500 mt-10">Welcome home, Alex.</p>
-      <div className="flex justify-between">
-        <p className="text-gray-500">
-          Everything looks good for your upcoming payment.
-        </p>
-        <div className="flex justify-between">
-          <button className="text-white bg-[#00236F] rounded-lg border border-gray-300 font-bold flex justify-between">
-            {" "}
-            <MdOutlinePayments className="size-7 ps-2 text-white" />{" "}
-            <span className="ms-2 pe-3">Make Payment</span>
-          </button>
-          <button className="text-[#00236F] rounded-lg font-bold border border-gray-300 flex justify-between ms-5">
-            {" "}
-            <FaTools className="size-7 ps-2 mt-1" />{" "}
-            <span className="ms-2 pe-3 pt-1">Report Issue</span>
-          </button>
-        </div>
-      </div>
-      {/* Dashboard figures */}
-      <div className="flex justify-evenly my-5">
-        <div className="bg-white shadow-xl p-5 w-60 border border-gray-300 rounded-lg">
-          <div className="flex justify-between my-5">
-            <MdOutlineAccountBalanceWallet className="size-8 rounded-lg bg-gray-300 p-2" />
-            <span className="text-[#444651] text-xs">Status: Paid</span>
-          </div>
-          <p className="text-xs text-[#444651]">Current Balance</p>
-          <p className="text-lg font-bold my-3">$0.00</p>
-        </div>
-        <div className="bg-white shadow-xl p-5 w-60 border border-gray-300 mx-5 rounded-lg">
-          <div className="flex justify-between my-5">
-            <MdOutlineCalendarToday className="text-[#9D4300] bg-[#FD761A1A] size-8 p-2" />
-            <span className="text-[#9D4300] font-bold text-xs">
-              14 Days left
-            </span>
-          </div>
-          <p className="text-xs text-[#444651]">Next Due Date</p>
-          <p className="text-lg font-bold my-3">Oct 1st</p>
-        </div>
-        <div className="bg-white shadow-xl p-5 w-60 border border-gray-300 me-5 rounded-lg">
-          <div className="flex justify-between my-5">
-            <TbCalendarClock className="text-[#1B2B3F] font-bold bg-[#D3E4FE] size-8 p-2" />
-            <span className="text-[#BA1A1A] bg-[#FFDAD633]"></span>
-          </div>
-          <p className="text-xs text-[#444651]">Maintenance Status</p>
-          <p className="text-lg font-bold my-3 text-[#191C1E]">1 Pending</p>
-        </div>
-        <div className="bg-white shadow-xl p-5 w-60 border border-gray-300 rounded-lg">
-          <div className="flex justify-between my-5">
-            <BsStopwatch lassName="size-8 rounded-lg bg-gray-300 p-2" />
-            <span className="text-[#38485D] bg-[#D3E4FE80]"></span>
-          </div>
-          <p className="text-xs text-[#444651]">Lease Expiry</p>
-          <p className="text-lg font-bold my-3">240 Days</p>
-        </div>
-      </div>
-      {/*  ACtivity request */}
-      <div className="flex justify-between my-10">
-        <div>
-          <div className="w-150 border border-gray-300 rounded-lg p-5">
-            <div className="flex justify-between">
-              <p>Active Request: Kitchen Tap Leak</p>
-              <p className="bg-[#FD761A1A] text-[#9D4300] rounded-full">
-                Ticket #4928
-              </p>
-            </div>
-            <div className="flex items-center w-full max-w-3xl mx-auto mt-10">
-              {steps.map((step, idx) => {
-                const completed = idx + 1 <= currentStep;
+        {/* ================= WELCOME ================= */}
 
-                return (
-                  <React.Fragment key={idx}>
-                    {/* Circle */}
-                    <div className="flex flex-col items-center">
-                      <div
-                        className={`w-8 h-8 rounded-full flex items-center justify-center ${completed ? "bg-blue-500 text-white" : "bg-gray-300 text-gray-500"}`}
-                      >
-                        {idx + 1}
-                      </div>
-                      <p className="mt-2 text-sm font-medium">{step}</p>
-                    </div>
+        <div className="mt-8 flex flex-col lg:flex-row lg:justify-between lg:items-center gap-6">
+          <div>
+            <p className="text-gray-500">Welcome home, Alex.</p>
 
-                    {/* Line (except after last circle) */}
-                    {idx !== steps.length - 1 && (
-                      <div
-                        className={`flex-1 h-1 mt-4 ${idx + 1 < currentStep ? "bg-blue-500" : "bg-gray-300"}`}
-                      ></div>
-                    )}
-                  </React.Fragment>
-                );
-              })}
-            </div>
-            <div className="flex justify-spaced mt-20 bg-gray-200 rounded-md p-5">
-              <RiErrorWarningLine />
-              <div className="ms-5 -mt-2">
-                <p>Maintenance scheduled for Tuesday morning</p>
-                <p className="text-gray-600">
-                  Technician: Marcus J. (Certified Plumber)
-                </p>
-              </div>
-            </div>
-          </div>
-          {/* Table  */}
+            <h1 className="text-3xl font-bold text-[#00236F] mt-2">
+              Tenant Dashboard
+            </h1>
 
-          <div className="my-10">
-            <div className="flex justify-between bg-white border border-gray-300 p-5 rounded-t-lg">
-              <p className="font-bold text-gray-500">Recent Payments</p>
-              <p className="font-bold text-[#00236F]">View All</p>
-            </div>
-            <table className="w-full text-left border border-gray-300 rounded-b-lg">
-              <thead>
-                <tr className="bg-[#F2F4F6]">
-                  <th className="p-3 text-[#757682] text-sm ">DATE</th>
-                  <th className="p-3 text-[#757682] text-sm">REFERENCE</th>
-                  <th className="p-3 text-[#757682] text-sm">AMOUNT</th>
-                  <th className="p-3 text-[#757682] text-sm">STATUS</th>
-                </tr>
-              </thead>
-
-              <tbody className="p-50">
-                <tr className="">
-                  <td className="p-3">Sep 01, 2023</td>
-                  <td className="p-3">Rent Unit 402B</td>
-                  <td className="p-3 ">$2,450.00</td>
-                  <td className="bg-[#DCFCE7] text-[#15803D] rounded-full px-5">
-                    Paid
-                  </td>
-                </tr>
-                <tr className="">
-                  <td className="p-3">Sep 01, 2023</td>
-                  <td className="p-3">Rent Unit 402B</td>
-                  <td className="p-3 ">$2,450.00</td>
-                  <td className="bg-[#DCFCE7] text-[#15803D] rounded-full px-5">
-                    Paid
-                  </td>
-                </tr>
-                <tr className="">
-                  <td className="p-3">Sep 01, 2023</td>
-                  <td className="p-3">Rent Unit 402B</td>
-                  <td className="p-3 ">$2,450.00</td>
-                  <td className="bg-[#DCFCE7] text-[#15803D] rounded-full px-5">
-                    Paid
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        {/* Left Hand side i.e Lease Agreement */}
-        <div>
-          <div className="bg-[#00236F] p-5 w-100 rounded-lg">
-            <p className="text-white">Lease Agreement</p>
-            <p className="text-white">
-              Your current lease or Unit 402B is valid until May 1, 2024
+            <p className="text-gray-600 mt-2">
+              Everything looks good for your upcoming payment.
             </p>
-            {/* Kanban Board started */}
-            <div className="p-6 bg-blue-50 min-h-screen my-5 rounded-lg">
-              <h1 className="text-2xl font-bold mb-6 text-blue-900">
-                Kanban Board
-              </h1>
-              <div className="flex gap-6 overflow-x-auto">
-                {Object.entries(columns).map(([columnId, cards]) => (
-                  <div
-                    key={columnId}
-                    className="bg-blue-200 rounded-lg p-4 flex-shrink-0 w-72"
-                  >
-                    <h2 className="text-lg font-semibold mb-4 text-blue-900 capitalize">
-                      {columnId.replace(/([A-Z])/g, " $1")}
-                    </h2>
-                    <div className="flex flex-col gap-4">
-                      {cards.map((card) => (
-                        <div
-                          key={card.id}
-                          className="bg-blue-100 p-3 rounded shadow cursor-pointer hover:bg-blue-300 transition"
-                        >
-                          {card.title}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <button className="rounded-lg w-90 bg-white py-2">
-              View Full Document
+          </div>
+
+          {/* Buttons */}
+
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button className="bg-[#00236F] text-white rounded-lg px-5 py-3 flex items-center justify-center gap-2 font-semibold">
+              <MdOutlinePayments />
+              Make Payment
+            </button>
+
+            <button className="border border-gray-300 bg-white rounded-lg px-5 py-3 flex items-center justify-center gap-2 font-semibold hover:bg-gray-50">
+              <FaTools />
+              Report Issue
             </button>
           </div>
-          <div className="rounded-lg bg-white p-5 border border-gray-300 mt-5">
-            <p className="my-5">Your Property</p>
-            <img src={yourProperty} alt="" className="h-40 w-80 rounded-lg" />
-            <p className="mt-3 text-[#1E3A8A]">Address</p>
-            <p>1200 Highland Ave, Unit 402B, Seattle, WA</p>
+        </div>
 
-            <div className="mt-5 border-t-2 border-gray-300 flex justify-between">
-              <div className="mt-5">
-                <MdOutlinePermContactCalendar className="size-5 text-[#1E3A8A]" />
-                <p className="ms-8 -mt-6">Property Manager</p>
+        {/* ================= STAT CARDS ================= */}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mt-8">
+          {/* Card */}
+
+          <div className="bg-white rounded-xl shadow border border-gray-200 p-6">
+            <div className="flex justify-between items-start">
+              <MdOutlineAccountBalanceWallet className="w-10 h-10 p-2 rounded-lg bg-gray-100 text-[#00236F]" />
+
+              <span className="text-sm text-green-600">Paid</span>
+            </div>
+
+            <p className="text-xs uppercase text-gray-500 mt-6">
+              Current Balance
+            </p>
+
+            <h2 className="text-3xl font-bold mt-2">$0.00</h2>
+          </div>
+
+          {/* Card */}
+
+          <div className="bg-white rounded-xl shadow border border-gray-200 p-6">
+            <div className="flex justify-between items-start">
+              <MdOutlineCalendarToday className="w-10 h-10 p-2 rounded-lg bg-orange-100 text-orange-600" />
+
+              <span className="text-sm text-orange-600">14 Days Left</span>
+            </div>
+
+            <p className="text-xs uppercase text-gray-500 mt-6">
+              Next Due Date
+            </p>
+
+            <h2 className="text-3xl font-bold mt-2">Oct 1st</h2>
+          </div>
+
+          {/* Card */}
+
+          <div className="bg-white rounded-xl shadow border border-gray-200 p-6">
+            <div className="flex justify-between items-start">
+              <TbCalendarClock className="w-10 h-10 p-2 rounded-lg bg-blue-100 text-blue-700" />
+            </div>
+
+            <p className="text-xs uppercase text-gray-500 mt-6">Maintenance</p>
+
+            <h2 className="text-3xl font-bold mt-2">1 Pending</h2>
+          </div>
+
+          {/* Card */}
+
+          <div className="bg-white rounded-xl shadow border border-gray-200 p-6">
+            <div className="flex justify-between items-start">
+              <BsStopwatch className="w-10 h-10 p-2 rounded-lg bg-gray-100 text-gray-700" />
+            </div>
+
+            <p className="text-xs uppercase text-gray-500 mt-6">Lease Expiry</p>
+
+            <h2 className="text-3xl font-bold mt-2">240 Days</h2>
+          </div>
+        </div>
+
+        {/* ================= ACTIVITY REQUEST STARTS IN PART 2 ================= */}
+        {/* ================= MAIN CONTENT ================= */}
+
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-10">
+          {/* ================= LEFT COLUMN ================= */}
+
+          <div className="xl:col-span-2 space-y-8">
+            {/* Maintenance Request */}
+
+            <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                <div>
+                  <h2 className="text-lg font-bold text-[#00236F]">
+                    Active Request
+                  </h2>
+
+                  <p className="text-gray-600">Kitchen Tap Leak</p>
+                </div>
+
+                <span className="self-start rounded-full bg-orange-100 text-orange-700 px-4 py-2 text-sm font-semibold">
+                  Ticket #4928
+                </span>
               </div>
-              <p className="mt-5 text-[#1E3A8A]">Contact</p>
+
+              {/* Progress */}
+
+              <div className="mt-10 overflow-x-auto">
+                <div className="flex items-center min-w-[650px]">
+                  {steps.map((step, idx) => {
+                    const completed = idx + 1 <= currentStep;
+
+                    return (
+                      <React.Fragment key={idx}>
+                        <div className="flex flex-col items-center">
+                          <div
+                            className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
+                              completed
+                                ? "bg-[#00236F] text-white"
+                                : "bg-gray-300 text-gray-600"
+                            }`}
+                          >
+                            {idx + 1}
+                          </div>
+
+                          <p className="mt-3 text-sm whitespace-nowrap">
+                            {step}
+                          </p>
+                        </div>
+
+                        {idx !== steps.length - 1 && (
+                          <div
+                            className={`flex-1 h-1 mx-2 ${
+                              idx + 1 < currentStep
+                                ? "bg-[#00236F]"
+                                : "bg-gray-300"
+                            }`}
+                          />
+                        )}
+                      </React.Fragment>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Notification */}
+
+              <div className="mt-10 rounded-lg bg-blue-50 border border-blue-100 p-5 flex gap-4">
+                <RiErrorWarningLine className="text-2xl text-blue-700 flex-shrink-0" />
+
+                <div>
+                  <h3 className="font-semibold">Maintenance Scheduled</h3>
+
+                  <p className="text-gray-600 text-sm mt-1">
+                    Tuesday morning with Marcus J. (Certified Plumber)
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* ================= PAYMENTS ================= */}
+
+            <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
+              <div className="flex items-center justify-between p-5 border-b">
+                <h2 className="text-lg font-bold text-[#00236F]">
+                  Recent Payments
+                </h2>
+
+                <button className="text-[#00236F] font-semibold hover:underline">
+                  View All
+                </button>
+              </div>
+
+              <div className="overflow-x-auto">
+                <table className="min-w-full">
+                  <thead className="bg-gray-100">
+                    <tr>
+                      <th className="p-4 text-left text-sm text-gray-500">
+                        DATE
+                      </th>
+
+                      <th className="p-4 text-left text-sm text-gray-500">
+                        REFERENCE
+                      </th>
+
+                      <th className="p-4 text-left text-sm text-gray-500">
+                        AMOUNT
+                      </th>
+
+                      <th className="p-4 text-left text-sm text-gray-500">
+                        STATUS
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {[1, 2, 3].map((item) => (
+                      <tr key={item} className="border-b hover:bg-gray-50">
+                        <td className="p-4">Sep 01, 2023</td>
+
+                        <td className="p-4">Rent Unit 402B</td>
+
+                        <td className="p-4 font-semibold">$2,450.00</td>
+
+                        <td className="p-4">
+                          <span className="rounded-full bg-green-100 text-green-700 px-3 py-1 text-xs font-semibold">
+                            Paid
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          {/* ================= RIGHT COLUMN STARTS IN PART 3 ================= */}
+          {/* ================= RIGHT COLUMN ================= */}
+
+          <div className="space-y-6">
+            {/* Lease Agreement */}
+
+            <div className="bg-[#00236F] rounded-xl p-6 shadow-sm">
+              <h2 className="text-xl font-bold text-white">Lease Agreement</h2>
+
+              <p className="text-blue-100 mt-2 text-sm leading-6">
+                Your current lease for Unit 402B is valid until May 1, 2024.
+              </p>
+
+              {/* ================= KANBAN ================= */}
+
+              <div className="bg-blue-50 rounded-xl p-5 mt-6">
+                <h3 className="text-xl font-bold text-[#00236F] mb-5">
+                  Lease Progress
+                </h3>
+
+                <div className="overflow-x-auto">
+                  <div className="flex gap-4 min-w-[850px]">
+                    {Object.entries(columns).map(([columnId, cards]) => (
+                      <div
+                        key={columnId}
+                        className="bg-blue-200 rounded-lg p-4 w-64 flex-shrink-0"
+                      >
+                        <h4 className="font-bold capitalize text-[#00236F] mb-4">
+                          {columnId.replace(/([A-Z])/g, " $1")}
+                        </h4>
+
+                        <div className="space-y-3">
+                          {cards.map((card) => (
+                            <div
+                              key={card.id}
+                              className="bg-white rounded-lg shadow-sm p-3 hover:bg-blue-100 transition"
+                            >
+                              {card.title}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <button
+                className="
+          mt-6
+          w-full
+          rounded-lg
+          bg-white
+          py-3
+          font-semibold
+          text-[#00236F]
+          hover:bg-gray-100
+          transition
+        "
+              >
+                View Full Document
+              </button>
+            </div>
+
+            {/* ================= PROPERTY CARD ================= */}
+
+            <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+              <h2 className="text-xl font-bold text-[#00236F]">
+                Your Property
+              </h2>
+
+              <img
+                src={yourProperty}
+                alt=""
+                className="mt-5 w-full h-52 object-cover rounded-lg"
+              />
+
+              <div className="mt-5">
+                <p className="font-semibold text-[#1E3A8A]">Address</p>
+
+                <p className="text-gray-600 mt-1">
+                  1200 Highland Ave, Unit 402B, Seattle, WA
+                </p>
+              </div>
+
+              <div className="border-t mt-6 pt-5 flex items-start justify-between gap-4">
+                <div className="flex gap-3">
+                  <MdOutlinePermContactCalendar className="text-2xl text-[#1E3A8A]" />
+
+                  <div>
+                    <p className="font-semibold">Property Manager</p>
+
+                    <p className="text-sm text-gray-500">Marcus Johnson</p>
+                  </div>
+                </div>
+
+                <button className="text-[#1E3A8A] font-semibold hover:underline">
+                  Contact
+                </button>
+              </div>
             </div>
           </div>
         </div>

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import { login } from "../features/auth/authSlice";
-import { useLocation } from "react-router-dom";
 import bot from "../assets/vectors/safe_home_properties_loginBot.png";
 import { FaArrowRightLong } from "react-icons/fa6";
 import { PiWalletBold } from "react-icons/pi";
@@ -12,12 +11,11 @@ import { GiFamilyHouse } from "react-icons/gi";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const auth = useSelector((state) => state.auth);
-  const { user, loading, error, status } = useSelector((state) => state.auth);
+  const { user, status } = auth;
 
-  // Handle redirects
-  const location = useLocation();
   const from = location.state?.from?.pathname || "/dashboard";
 
   useEffect(() => {
@@ -34,118 +32,144 @@ const Login = () => {
   console.log(user);
 
   const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(form)
     dispatch(login(form));
   };
+
   return (
-    <div className="flex justify-center my-5">
-      {/* Left Div */}
-      <div className="shadow-lg p-10 border border-gray-200 rounded-lg">
-        <img
-          src={bot}
-          alt="safe_home_properties_bot"
-          className="size-40 mx-auto"
-        />
-        <p className="text-[#999999] text-3xl font-lg mt-5">
-          Login to SafeHome
-        </p>
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4 py-8">
+      <div className="w-full max-w-6xl flex flex-col lg:flex-row gap-6">
+        {/* ================= LEFT SIDE ================= */}
+        <div className="w-full lg:w-1/2 bg-white shadow-lg border border-gray-200 rounded-2xl p-6 sm:p-8 lg:p-10">
+          <img
+            src={bot}
+            alt="Safe Home Bot"
+            className="w-28 h-28 sm:w-36 sm:h-36 mx-auto"
+          />
 
-        <form>
-          {auth.error && <p style={{ color: "red" }}>{auth.error}</p>}
-          <div className="bg-white  my-10">
-            <input
-              type="text"
-              placeholder="example@name.com"
-              className="bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2"
-              name="email"
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="bg-white my-10">
-            <input
-              type="password"
-              placeholder="Enter your password"
-              className="bg-white shadow-lg w-full border border-gray-200 rounded-lg p-2"
-              onChange={handleChange}
-              name="password"
-              required
-            />
-          </div>
-          <div className="my-5">
-            <Link to="#" className="text-blue-500">
-              Forgot your password?
-            </Link>
-          </div>
-          <button
-            disabled={auth.status === "loading"}
-            onClick={handleSubmit}
-            className="bg-[#223B7EC9] rounded-lg w-full text-white flex justify-evenly py-2 border-r border-r-gray-300"
-          >
-            <span>
-              {" "}
-              {auth.status === "loading"
-                ? "Login you in..."
-                : "Continue with Email"}
-            </span>
+          <h2 className="text-center text-2xl sm:text-3xl font-semibold text-gray-700 mt-6">
+            Login to SafeHome
+          </h2>
 
-            <FaArrowRightLong />
-          </button>
-          <div className="my-5 flex justify-center">
-            <p>Don't have an account?</p>
-            <Link to="/signup" className="text-blue-500">
-              Sign Up
-            </Link>
+          <form onSubmit={handleSubmit} className="mt-8">
+            {auth.error && (
+              <p className="text-red-500 text-sm mb-4">{auth.error}</p>
+            )}
+
+            <div className="mb-5">
+              <input
+                type="email"
+                name="email"
+                placeholder="example@name.com"
+                value={form.email}
+                onChange={handleChange}
+                required
+                className="w-full rounded-lg border border-gray-300 p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#223B7E]"
+              />
+            </div>
+
+            <div className="mb-5">
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                value={form.password}
+                onChange={handleChange}
+                required
+                className="w-full rounded-lg border border-gray-300 p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#223B7E]"
+              />
+            </div>
+
+            <div className="flex justify-end mb-6">
+              <Link to="#" className="text-sm text-blue-600 hover:underline">
+                Forgot your password?
+              </Link>
+            </div>
+
+            <button
+              type="submit"
+              disabled={auth.status === "loading"}
+              className="w-full bg-[#223B7EC9] hover:bg-[#1c3169] transition duration-300 text-white rounded-lg py-3 flex items-center justify-center gap-3 disabled:opacity-70"
+            >
+              <span>
+                {auth.status === "loading"
+                  ? "Logging you in..."
+                  : "Continue with Email"}
+              </span>
+
+              <FaArrowRightLong />
+            </button>
+
+            <div className="mt-6 flex justify-center gap-2 text-sm">
+              <span>Don't have an account?</span>
+
+              <Link
+                to="/signup"
+                className="text-blue-600 hover:underline font-medium"
+              >
+                Sign Up
+              </Link>
+            </div>
+          </form>
+        </div>
+
+        {/* ================= RIGHT SIDE ================= */}
+        <div className="w-full lg:w-1/2 bg-[#223B7EC9] rounded-2xl p-8 lg:p-10 text-white">
+          <h2 className="text-center text-2xl lg:text-4xl font-semibold mb-12">
+            Let’s help you with
+            <span className="block mt-2">smarter living.</span>
+          </h2>
+
+          {/* Feature 1 */}
+          <div className="flex items-start gap-5 mb-10">
+            <PiWalletBold className="w-14 h-14 sm:w-16 sm:h-16 p-3 rounded-full bg-gray-200 text-[#223B7EC9] flex-shrink-0 shadow-md" />
+
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Make Payments</h3>
+
+              <p className="text-gray-100 text-sm sm:text-base leading-relaxed">
+                Pay online, track payment status, and view your payment history
+                with ease.
+              </p>
+            </div>
           </div>
-        </form>
-      </div>
-      {/* Right Div */}
-      <div className="bg-[#223B7EC9] ms-3 rounded-lg px-8 pb-20">
-        <p className="pt-20 px-10 text-center text-3xl font-500 text-white">
-          Let’s help you with{" "}
-          <span className="block">smarter living.</span>{" "}
-        </p>
-        {/* Make Payments Div */}
-        <div className="flex justify-between my-10">
-          <PiWalletBold className="size-20 text-[#223B7EC9] bg-gray-300 rounded-full p-2 shadow-lg" />
-          <div className="ms-5">
-            <p className="text-lg font-bold text-white">Make Payments</p>
-            <p className="text-white">
-              Pay online, track payment{" "}
-              <span className="block">status, and view your payment</span>{" "}
-              history with ease.
-            </p>
+
+          {/* Feature 2 */}
+          <div className="flex items-start gap-5 mb-10">
+            <BsTools className="w-14 h-14 sm:w-16 sm:h-16 p-3 rounded-full bg-gray-200 text-[#223B7EC9] flex-shrink-0 shadow-md" />
+
+            <div>
+              <h3 className="text-lg font-semibold mb-2">
+                Maintenance Requests
+              </h3>
+
+              <p className="text-gray-100 text-sm sm:text-base leading-relaxed">
+                Submit and manage maintenance requests directly online without
+                the hassle of phone calls.
+              </p>
+            </div>
+          </div>
+
+          {/* Feature 3 */}
+          <div className="flex items-start gap-5">
+            <GiFamilyHouse className="w-14 h-14 sm:w-16 sm:h-16 p-3 rounded-full bg-gray-200 text-[#223B7EC9] flex-shrink-0 shadow-md" />
+
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Renter Essentials</h3>
+
+              <p className="text-gray-100 text-sm sm:text-base leading-relaxed">
+                Easily set up and manage your utilities, services, and important
+                rental documents from one place.
+              </p>
+            </div>
           </div>
         </div>
-        {/* Maintenance Requests Div */}
-        <div className="flex justify-between my-10">
-          <BsTools className="size-20 text-[#223B7EC9] bg-gray-300 rounded-full p-2 shadow-lg" />
-          <div className="ms-5">
-            <p className="text-lg font-bold text-white">Maintenance Requests</p>
-            <p className="text-white">
-              Submit and manage
-              <span className="block">maintenance requests directly </span>
-              online.
-            </p>
-          </div>
-        </div>
-        {/* Renter Essentials Div */}
-        <div className="flex justify-between my-10">
-          <GiFamilyHouse className="size-20 text-[#223B7EC9] bg-gray-300 rounded-full p-2 shadow-lg" />
-          <div className="ms-5">
-            <p className="text-lg font-bold text-white">Renter Essentials</p>
-            <p className="text-white">
-              Easily set up and handle your
-              <span className="block">utilities, services, and important </span>
-              documents.
-            </p>
-          </div>
-        </div>
-        {/* Renter Essentials Div End */}
       </div>
     </div>
   );
