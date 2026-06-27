@@ -17,27 +17,27 @@ import { fetchProperties } from "../features/properties/propertySlice";
 
 const HomeAnimation = () => {
   //initializations
-  const dispatch = useDispatch();
-  const { properties, propStatus, propError } = useSelector(
-    (state) => state.properties,
-  );
+  // const dispatch = useDispatch();
+  // const { properties, propStatus, propError } = useSelector(
+  //   (state) => state.properties,
+  // );
 
-  useEffect(() => {
-    if (propStatus === "idle") {
-      dispatch(fetchProperties());
-    }
-  }, [propStatus, dispatch]);
+  // useEffect(() => {
+  //   if (propStatus === "idle") {
+  //     dispatch(fetchProperties());
+  //   }
+  // }, [propStatus, dispatch]);
 
   // RETURNS SHOULD COME AFTER HOOKS
 
-  if (propStatus === "loading") {
-    return <p>Loading properties...</p>;
-  }
+  // if (propStatus === "loading") {
+  //   return <p>Loading properties...</p>;
+  // }
 
-  if (propStatus === "failed") {
-    return <p>Error: {propError}</p>;
-  }
-  console.log(properties);
+  // if (propStatus === "failed") {
+  //   return <p>Error: {propError}</p>;
+  // }
+  // console.log(properties);
   return (
     <div className="static">
       <div class="hero h-200 bg-cover w-full"></div>
