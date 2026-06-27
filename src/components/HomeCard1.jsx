@@ -12,7 +12,7 @@ const HomeCard1 = () => {
       </div>
 
       <div className="mt-0 w-60 md:w-150 md:ms-5">
-        <p className="md:text-3xl font-bold mb-5 md:mb-1 md:mt-15 px-2">
+        <p className="md:text-3xl font-bold mb-5 md:mb-1 pt-2 md:mt-15 px-2">
           Your Personalized Property Hub
         </p>
         <p className="md:mt-10 p-2 -mt-7 md:p-5 text-xs pt-5 md:text-xl">

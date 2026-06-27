@@ -18,7 +18,7 @@ const HomeCard3 = () => {
       </div>
 
       <div className="mt-0 w-50 md:w-150 md:ms-5">
-        <p className="md:text-3xl font-bold mb-5 md:mb-1 md:mt-15 px-2">
+        <p className="md:text-3xl font-bold mb-5 md:mb-1 md:mt-15 pt-2 px-2">
           Smart Property Dashboard
         </p>
         <p className="-mt-5 md:mt-10 px-2 pt-5 text-xs md:text-xl">

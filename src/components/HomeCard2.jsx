@@ -6,7 +6,7 @@ const HomeCard2 = () => {
     <div className="flex justify-center bg-[#AAD7EB80] mx-5 h-60 md:mx-20 md:justify-evenly mt-10 rounded-md md:h-120">
       {/* Left side */}
       <div className="mt-0 w-60 md:w-150 md:ms-5 md:pe-20">
-        <p className="text-sm md:text-3xl font-bold mb-5 md:text-right md:my-10 px-2">
+        <p className="text-sm md:text-3xl font-bold mb-5 md:text-right pt-2 md:my-10 px-2">
           Seamless Property Management & Real-Time Oversight
         </p>
         <p className="px-2 text-xs md:text-xl md:text-right">
