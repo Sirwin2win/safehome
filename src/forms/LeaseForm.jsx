@@ -9,14 +9,9 @@ const LeaseForm = () => {
   const navigate = useNavigate();
 
   const [data, setData] = useState({
-    type: "",
-    size: "",
-    description: "",
-    address: "",
-    rent_amount: "",
-    service_charge: "",
-    bedrooms: "",
-    bathrooms: "",
+    occupation: "",
+    moveInDate: "",
+    duration: "",
   });
 
   const handleChange = (e) => {
@@ -49,29 +44,29 @@ const LeaseForm = () => {
             {/* Property Type */}
             <input
               type="text"
-              name="type"
+              name="occupation"
               placeholder="Occupation"
-              value={data.type}
+              value={data.occupation}
               onChange={handleChange}
               className="border p-2 w-full rounded"
             />
 
             {/* Size */}
             <input
-              name="size"
-              type="text"
+              name="moveInDate"
+              type="date"
               placeholder="Move-in Date"
-              value={data.size}
+              value={data.moveInDate}
               onChange={handleChange}
               className="border p-2 w-full rounded"
             />
 
             {/* Address */}
             <input
-              name="address"
+              name="duration"
               type="text"
               placeholder="Duration"
-              value={data.address}
+              value={data.duration}
               onChange={handleChange}
               className="border p-2 w-full rounded"
             />

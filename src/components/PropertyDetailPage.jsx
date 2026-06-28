@@ -17,7 +17,7 @@ const PropertyDetailPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
 
-  // console.log(currentProperty)
+  console.log(currentProperty);
   // console.log(id)
 
   useEffect(() => {
@@ -87,8 +87,14 @@ const PropertyDetailPage = () => {
           )}
 
           <p className="my-5 text-lg">{currentProperty?.description}</p>
+          <Link
+            to={"/dashboard/lease-form"}
+            className="font-semibold rounded-lg bg-[#1B2B3F] text-white p-3"
+          >
+            Apply for Lease
+          </Link>
           {/* Lease Application Form Request */}
-          {currentProperty.status === "AVAILABLE" ? (
+          {/* {currentProperty.status === "AVAILABLE" ? (
             <Link
               to={"/dashboard/lease-form"}
               className="font-semibold rounded-lg bg-[#1B2B3F] text-white p-3"
@@ -99,7 +105,7 @@ const PropertyDetailPage = () => {
             <p className="text-red-500 font-bold text-lg">
               Property unavailable at the moment
             </p>
-          )}
+          )} */}
         </div>
         {/* right hand */}
         <div className="bg-white w-80 rounded-xl md:ms-10 -ms-12 pe-5 h-100 shadow-2xl md:mt-40 mt-10 pt-10 ps-10">

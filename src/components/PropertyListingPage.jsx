@@ -74,7 +74,7 @@ const PropertyListingPage = () => {
                 </div>
                 <Link
                   to={`/detail/${property.id}`}
-                  className="text-[#C8C8C8] underline"
+                  className="text-blue-500 underline"
                 >
                   View Details
                 </Link>
