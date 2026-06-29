@@ -95,7 +95,6 @@ export default function App() {
           <Route path="edit/:id" element={<EditProduct />} />
           <Route path="detail/:id" element={<PropertyDetailPage />} />
           <Route path="procard" element={<PropertyCard />} />
-          <Route path="estates" element={<Estates />} />
         </Route>
 
         {/* DASHBOARD ROUTES */}
@@ -118,6 +117,7 @@ export default function App() {
           <Route path="homeowner" element={<Homeowner />} />
           <Route path="estate-manager" element={<EstateManager />} />
           <Route path="create-estate" element={<CreateEstateForm />} />
+          <Route path="estates" element={<Estates />} />
           <Route path="admin" element={<Admin />} />
           <Route path="assign-permission" element={<AssignPermission />} />
           <Route path="user-role" element={<UserRoles />} />

@@ -130,7 +130,7 @@ const DashboardLayout = () => {
                     No estate? click join
                   </p>
                   <Link
-                    to={"/estates"}
+                    to={"/dashboard/estates"}
                     className="text-lg font-bold ms-3 text-orange-500"
                   >
                     Join
@@ -161,7 +161,7 @@ const DashboardLayout = () => {
               <span
                 className={`ml-4 text-[#B7C8E1] md:block ${isOpen ? "block" : "hidden"}`}
               >
-                <Link to={"/estates"}>Estates</Link>
+                <Link to={"estates"}>Estates</Link>
               </span>
             </li>
 

@@ -9,6 +9,7 @@ import { TiClipboard } from "react-icons/ti";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import pix from "../assets/images/safehome_profile.jpg";
 import skyline from "../assets/images/safehome_skyline.jpg";
+import { Link } from "react-router-dom";
 
 const stats = [
   {
@@ -110,10 +111,13 @@ const Landlords = () => {
               Approve Tenant
             </button>
 
-            <button className="bg-[#00236F] hover:bg-[#00184f] text-white rounded-lg px-5 py-3 font-semibold flex items-center justify-center gap-2">
+            <Link
+              to={"/dashboard/property-form"}
+              className="bg-[#00236F] hover:bg-[#00184f] text-white rounded-lg px-5 py-3 font-semibold flex items-center justify-center gap-2"
+            >
               <FaPlus />
               Add Property
-            </button>
+            </Link>
           </div>
         </div>
 
