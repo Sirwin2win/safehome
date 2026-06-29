@@ -2,15 +2,27 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import logo from "../assets/images/logo.jpg";
 import { IoCloudUploadOutline } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { fetchProperty } from "../features/properties/propertySlice";
 
 const LeaseForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  const { currentProperty, propStatus } = useSelector(
+    (state) => state.properties,
+  );
+
+  useEffect(() => {
+    if (propStatus === "idle") {
+      fetchProperty(id);
+    }
+  }, [propStatus, id]);
 
   const [data, setData] = useState({
     occupation: "",
-    moveInDate: "",
+    moveIn_date: "",
     duration: "",
   });
 
@@ -25,6 +37,13 @@ const LeaseForm = () => {
 
   const handleSubmit = () => {
     e.preventDefault();
+    const form = {
+      occupation,
+      property_id,
+      duration,
+      property_id: currentProperty.id,
+      rent_amount: currentProperty.rent_amount,
+    };
     // dispatch(addCategory(categoryData));
   };
   return (
@@ -53,10 +72,10 @@ const LeaseForm = () => {
 
             {/* Size */}
             <input
-              name="moveInDate"
+              name="moveIn_date"
               type="date"
               placeholder="Move-in Date"
-              value={data.moveInDate}
+              value={data.moveIn_date}
               onChange={handleChange}
               className="border p-2 w-full rounded"
             />

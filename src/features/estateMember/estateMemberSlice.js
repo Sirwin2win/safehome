@@ -6,7 +6,7 @@ export const fetchEstateMembers = createAsyncThunk(
   "estateMembers/fetchEstateMembers",
   async (_, thunkAPI) => {
     try {
-       const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token");
       const response = await estateMemberAPI.fetchEstateMembersAPI(token);
       return response.data; // assuming your API returns array of products
     } catch (err) {
@@ -50,7 +50,11 @@ export const updateEstateMember = createAsyncThunk(
   async ({ id, status }, thunkAPI) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await estateMemberAPI.updateEstateMemberAPI(id, status, token);
+      const response = await estateMemberAPI.updateEstateMemberAPI(
+        id,
+        status,
+        token,
+      );
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);
@@ -125,44 +129,47 @@ const estateMemberSlice = createSlice({
         state.emStatus = "failed";
         state.error = action.payload;
       })
-    // update Estate
-    .addCase(updateEstateMember.pending, (state) => {
-      state.emStatus = "loading";
-      state.error = null;
-    })
-    .addCase(updateEstateMember.fulfilled, (state, action) => {
-      state.emStatus = "succeeded";
-      const updated = action.payload;
-      const index = state.estateMembers.findIndex((p) => p.id === updated.id);
-      if (index !== -1) {
-        state.estateMembers[index] = updated;
-      }
-      // if currentEstate is the one updated, update that too
-      if (state.currentEstateMember && state.currentEstateMember.id === updated.id) {
-        state.currentEstateMember = updated;
-      }
-    })
-    .addCase(updateEstateMember.rejected, (state, action) => {
-      state.emStatus = "failed";
-      state.error = action.payload;
-    })
-    // // delete Category
-    .addCase(deleteEstateMember.pending, (state) => {
-      state.emStatus = "loading";
-      state.error = null;
-    })
-    .addCase(deleteEstateMember.fulfilled, (state, action) => {
-      state.emStatus = "succeeded";
-      const id = action.payload;
-state.estateMembers = state.estateMembers.filter((p) => p.id !== id);      // clear currentEstate if it was deleted
-      if (state.currentEstateMember && state.currentEstateMember.id === id) {
-        state.currentEstateMember = null;
-      }
-    })
-    .addCase(deleteEstateMember.rejected, (state, action) => {
-      state.emStatus = "failed";
-      state.error = action.payload;
-    });
+      // update Estate
+      .addCase(updateEstateMember.pending, (state) => {
+        state.emStatus = "loading";
+        state.error = null;
+      })
+      .addCase(updateEstateMember.fulfilled, (state, action) => {
+        state.emStatus = "succeeded";
+        const updated = action.payload;
+        const index = state.estateMembers.findIndex((p) => p.id === updated.id);
+        if (index !== -1) {
+          state.estateMembers[index] = updated;
+        }
+        // if currentEstate is the one updated, update that too
+        if (
+          state.currentEstateMember &&
+          state.currentEstateMember.id === updated.id
+        ) {
+          state.currentEstateMember = updated;
+        }
+      })
+      .addCase(updateEstateMember.rejected, (state, action) => {
+        state.emStatus = "failed";
+        state.error = action.payload;
+      })
+      // // delete Category
+      .addCase(deleteEstateMember.pending, (state) => {
+        state.emStatus = "loading";
+        state.error = null;
+      })
+      .addCase(deleteEstateMember.fulfilled, (state, action) => {
+        state.emStatus = "succeeded";
+        const id = action.payload;
+        state.estateMembers = state.estateMembers.filter((p) => p.id !== id); // clear currentEstate if it was deleted
+        if (state.currentEstateMember && state.currentEstateMember.id === id) {
+          state.currentEstateMember = null;
+        }
+      })
+      .addCase(deleteEstateMember.rejected, (state, action) => {
+        state.emStatus = "failed";
+        state.error = action.payload;
+      });
   },
 });
 export const { clearCurrentEstate } = estateMemberSlice.actions;

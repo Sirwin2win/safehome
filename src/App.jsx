@@ -124,7 +124,7 @@ export default function App() {
           <Route path="edit-estate/:id" element={<EditEstateForm />} />
           <Route path="notifications" element={<NotificationPage />} />
           <Route path="property-form" element={<PropertyForm />} />
-          <Route path="lease-form" element={<LeaseForm />} />
+          <Route path="lease-form/:id" element={<LeaseForm />} />
           <Route
             path="estate-member-approval"
             element={<EstateMemberApproval />}
