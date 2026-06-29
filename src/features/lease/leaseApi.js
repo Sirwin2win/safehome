@@ -17,6 +17,14 @@ export const createLeaseAPI = (form, token) =>
       Authorization: `Bearer ${token}`,
     },
   });
+// Get My leases
+export const fetchMyLeasesAPI = (token) =>
+  axios.get(`${API_BASE}/my-leases`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
 export const updateLeaseAPI = (id, form, token) => {
   console.log("API:", { id, form });
 

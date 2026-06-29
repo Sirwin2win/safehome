@@ -2,6 +2,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as leaseAPI from "./leaseApi";
 // Thunks
+// Fetch all leases
 export const fetchLeases = createAsyncThunk(
   "leases/fetchLeases",
   async (_, thunkAPI) => {
@@ -14,6 +15,20 @@ export const fetchLeases = createAsyncThunk(
     }
   },
 );
+// Fetch My leases
+export const fetchMyLeases = createAsyncThunk(
+  "leases/fetchMyLeases",
+  async (_, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await leaseAPI.fetchMyLeasesAPI(token);
+      return response.data; // assuming your API returns array of products
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  },
+);
+// Fetch Lease by Id
 export const fetchLease = createAsyncThunk(
   "leases/fetchLease",
   async (id, thunkAPI) => {
@@ -77,6 +92,7 @@ const leaseSlice = createSlice({
     currentLease: null, // for editing / viewing one
     leStatus: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
+    myLease: null,
   },
   reducers: {
     // optional non-async actions
@@ -86,7 +102,7 @@ const leaseSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // fetch all estates
+      // fetch all leases
       .addCase(fetchLeases.pending, (state) => {
         state.leStatus = "loading";
         state.error = null;
@@ -99,7 +115,20 @@ const leaseSlice = createSlice({
         state.leStatus = "failed";
         state.error = action.payload;
       })
-      // fetch one product
+      // fetch my leases
+      .addCase(fetchMyLeases.pending, (state) => {
+        state.leStatus = "loading";
+        state.error = null;
+      })
+      .addCase(fetchMyLeases.fulfilled, (state, action) => {
+        state.leStatus = "succeeded";
+        state.myLease = action.payload.data || action.payload;
+      })
+      .addCase(fetchMyLeases.rejected, (state, action) => {
+        state.leStatus = "failed";
+        state.error = action.payload;
+      })
+      // fetch one lease
       .addCase(fetchLease.pending, (state) => {
         state.leStatus = "loading";
         state.error = null;
