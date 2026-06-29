@@ -1,95 +1,118 @@
-import React from 'react'
-import memebers from '../assets/images/safe_home_members.jpg'
+import React from "react";
+import memebers from "../assets/images/safe_home_members.jpg";
 import { MdOutlineHomeWork } from "react-icons/md";
 import { TbBuildingCommunity } from "react-icons/tb";
 import { PiUsers } from "react-icons/pi";
-import HomeCard1 from '../components/HomeCard1';
-import FeaturesCard from '../components/FeaturesCard';
-import FAQ from '../components/FAQ';
-import HomeLastCard from '../components/HomeLastCard';
-import ContactCard from '../components/ContactCard';
-import TestSlider from '../components/TestSlider';
-import UtilityVending from '../components/UtilityVending';
-import PropertyDashboard from '../components/PropertyDashboard';
 
-
-
-
+import HomeCard1 from "../components/HomeCard1";
+import FeaturesCard from "../components/FeaturesCard";
+import FAQ from "../components/FAQ";
+import HomeLastCard from "../components/HomeLastCard";
+import ContactCard from "../components/ContactCard";
+import TestSlider from "../components/TestSlider";
+// import UtilityVending from "../components/UtilityVending";
+// import PropertyDashboard from "../components/PropertyDashboard";
 
 const Services = () => {
   return (
-    <div>
-      <div className='flex justify-center my-10'>
-        <button className='bg-[#223B7E99] rounded-full p-1'>SafeHome Management</button>
-      </div>
-      <p className='text-center text-2xl font-bold mb-5'>Seamless Living Experience</p>
-      <div className="max-w-4xl mx-auto text-center px-6">
+    <div className="w-full overflow-x-hidden">
+      {/* Hero Section */}
+      <section className="py-10">
+        <div className="flex justify-center px-4">
+          <button className="bg-[#223B7E99] text-white rounded-full px-6 py-2 text-sm md:text-base">
+            SafeHome Management
+          </button>
+        </div>
 
-<p className="text-gray-700 text-lg leading-relaxed mb-6">
-  We provide end-to-end property management solutions tailored for discerning property owners who demand excellence:
-</p>
+        <h1 className="text-center text-3xl md:text-5xl font-bold mt-6 mb-6 px-4">
+          Seamless Living Experience
+        </h1>
 
-<ul className="text-gray-700 text-base leading-relaxed space-y-3 text-left mx-auto max-w-2xl">
-  <li>• Strategic tenant sourcing and screening</li>
-  <li>• Rent collection and financial accountability</li>
-  <li>• Property maintenance and value preservation</li>
-  <li>• Asset performance monitoring and reporting</li>
-  <li>• Professional oversight with structured systems</li>
-</ul>
+        <div className="max-w-4xl mx-auto text-center px-5 md:px-8">
+          <p className="text-gray-700 text-base md:text-lg leading-relaxed mb-6">
+            We provide end-to-end property management solutions tailored for
+            discerning property owners who demand excellence:
+          </p>
 
-<p className="text-gray-800 font-medium mt-6">
-  Our goal is not just to manage but to optimize.
-</p>
+          <ul className="max-w-2xl mx-auto text-left text-gray-700 text-base md:text-lg leading-8 space-y-2">
+            <li>• Strategic tenant sourcing and screening</li>
+            <li>• Rent collection and financial accountability</li>
+            <li>• Property maintenance and value preservation</li>
+            <li>• Asset performance monitoring and reporting</li>
+            <li>• Professional oversight with structured systems</li>
+          </ul>
 
-</div>
-      <img src={memebers} alt="membesr" className='my-10 px-20' />
-      {/* Counts Started */}
+          <p className="text-gray-800 font-medium mt-6 text-base md:text-lg">
+            Our goal is not just to manage but to optimize.
+          </p>
+        </div>
+      </section>
 
-      <div className='flex justify-evenly px-2'>
-          <div className='flex justify-center'>
-            <TbBuildingCommunity  className='size-10 md:size-20 bg-[#223B7EC9] text-white rounded-full p-1 md:p-5' />
-            <div className='ms-3 mt-4'>
-              <p className='text-md md:text-2xl font-bold'>14 Cities</p>
-              <p>Across Africa</p>
+      {/* Hero Image */}
+      <section className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 mb-14">
+        <img
+          src={memebers}
+          alt="SafeHome Members"
+          className="w-full rounded-2xl object-cover shadow-lg"
+        />
+      </section>
+
+      {/* Stats */}
+      <section className="max-w-7xl mx-auto px-4 md:px-8 lg:px-12 mb-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Cities */}
+          <div className="flex items-center justify-center sm:justify-start bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition">
+            <TbBuildingCommunity className="w-16 h-16 md:w-20 md:h-20 bg-[#223B7EC9] text-white rounded-full p-4" />
+
+            <div className="ml-4">
+              <h2 className="text-2xl md:text-3xl font-bold">14 Cities</h2>
+              <p className="text-gray-600">Across Africa</p>
             </div>
-
           </div>
-          <div className='flex justify-center'>
-            <MdOutlineHomeWork className='size-10 md:size-20 bg-[#223B7EC9] text-white rounded-full p-1 md:p-5'/>
-            <div className='ms-3 mt-4'>
-              <p className='text-md md:text-2xl font-bold'>20,000</p>
-              <p>Property Units</p>
+
+          {/* Property Units */}
+          <div className="flex items-center justify-center sm:justify-start bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition">
+            <MdOutlineHomeWork className="w-16 h-16 md:w-20 md:h-20 bg-[#223B7EC9] text-white rounded-full p-4" />
+
+            <div className="ml-4">
+              <h2 className="text-2xl md:text-3xl font-bold">20,000</h2>
+              <p className="text-gray-600">Property Units</p>
             </div>
-
           </div>
-          <div className='flex justify-center'>
-            <PiUsers  className='size-10 md:size-20 bg-[#223B7EC9] text-white rounded-full p-1 md:p-5'/>
-            <div className='ms-3 mt-4'>
-              <p className='text-md md:text-2xl font-bold'>22,000</p>
-              <p>Residents</p>
+
+          {/* Residents */}
+          <div className="flex items-center justify-center sm:justify-start bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition sm:col-span-2 lg:col-span-1">
+            <PiUsers className="w-16 h-16 md:w-20 md:h-20 bg-[#223B7EC9] text-white rounded-full p-4" />
+
+            <div className="ml-4">
+              <h2 className="text-2xl md:text-3xl font-bold">22,000</h2>
+              <p className="text-gray-600">Residents</p>
             </div>
-
           </div>
-      </div>
-      <HomeCard1 />
-      <FeaturesCard />
-                      {/* Utility Vending and Payments Started */}
-                {/* <UtilityVending /> */}
-                {/* Utility Vending and Payments Ended */}
+        </div>
+      </section>
 
-                {/* Property Daashboard and vending started */}
-                {/* <PropertyDashboard /> */}
-                {/* Property Daashboard and vending ended */}
-      {/* Counts Ended */}
-       <TestSlider />
-                {/* FAQ */}
-                <FAQ />
-                <HomeLastCard />
-                <ContactCard />
-      
-      
+      {/* Other Sections */}
+      <section className="space-y-16 md:space-y-24">
+        <HomeCard1 />
+
+        <FeaturesCard />
+
+        {/* Uncomment when needed */}
+        {/* <UtilityVending /> */}
+
+        {/* <PropertyDashboard /> */}
+
+        <TestSlider />
+
+        <FAQ />
+
+        <HomeLastCard />
+
+        <ContactCard />
+      </section>
     </div>
-  )
-}
+  );
+};
 
-export default Services
+export default Services;
