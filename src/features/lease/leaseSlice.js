@@ -28,6 +28,19 @@ export const fetchMyLeases = createAsyncThunk(
     }
   },
 );
+// Fetch Landlord leases
+export const fetchLandlordLeases = createAsyncThunk(
+  "leases/fetchLandlordLeases",
+  async (_, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await leaseAPI.fetchLandlordLeasesAPI(token);
+      return response.data; // assuming your API returns array of products
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  },
+);
 // Fetch Lease by Id
 export const fetchLease = createAsyncThunk(
   "leases/fetchLease",
@@ -93,6 +106,7 @@ const leaseSlice = createSlice({
     leStatus: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
     myLease: null,
+    landlordLeases: [],
   },
   reducers: {
     // optional non-async actions
@@ -125,6 +139,19 @@ const leaseSlice = createSlice({
         state.myLease = action.payload.data || action.payload;
       })
       .addCase(fetchMyLeases.rejected, (state, action) => {
+        state.leStatus = "failed";
+        state.error = action.payload;
+      })
+      // fetch Landlord leases
+      .addCase(fetchLandlordLeases.pending, (state) => {
+        state.leStatus = "loading";
+        state.error = null;
+      })
+      .addCase(fetchLandlordLeases.fulfilled, (state, action) => {
+        state.leStatus = "succeeded";
+        state.landlordLeases = action.payload.data || action.payload;
+      })
+      .addCase(fetchLandlordLeases.rejected, (state, action) => {
         state.leStatus = "failed";
         state.error = action.payload;
       })

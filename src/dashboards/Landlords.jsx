@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegBell, FaUserPlus, FaPlus } from "react-icons/fa";
 import { IoIosSearch, IoIosCheckmarkCircleOutline } from "react-icons/io";
 import { MdOutlineHomeWork } from "react-icons/md";
@@ -9,7 +9,11 @@ import { TiClipboard } from "react-icons/ti";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import pix from "../assets/images/safehome_profile.jpg";
 import skyline from "../assets/images/safehome_skyline.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { markAsReadLocal } from "../features/notifications/notificationSlice";
+import NotificationBell from "../components/NotificationBell";
+import { fetchMyProperties } from "../features/properties/propertySlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const stats = [
   {
@@ -54,7 +58,31 @@ const stats = [
   },
 ];
 
+const handleClick = async (id) => {
+  dispatch(markAsReadLocal(id));
+
+  try {
+    await axios.patch(
+      `https://api.safehomeproperties.com/notifications/${id}/read`,
+    );
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const Landlords = () => {
+  const { properties, propStatus, propError } = useSelector(
+    (state) => state.properties,
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (propStatus === "idle") {
+      dispatch(fetchMyProperties());
+    }
+  }, [dispatch, propStatus]);
+  console.log({ properties: properties });
+
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Main Container */}
@@ -80,11 +108,12 @@ const Landlords = () => {
           {/* Right */}
 
           <div className="flex items-center justify-end gap-5">
-            <button className="relative">
-              <FaRegBell className="text-2xl text-gray-700" />
+            <div className="relative">
+              {/* <FaRegBell className="text-2xl text-gray-700" /> */}
+              <NotificationBell onClick={handleClick} />
 
               <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-red-500"></span>
-            </button>
+            </div>
 
             <img
               src={pix}
@@ -106,10 +135,13 @@ const Landlords = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3">
-            <button className="border border-gray-300 bg-white rounded-lg px-5 py-3 font-semibold flex items-center justify-center gap-2 hover:bg-gray-50">
+            <Link
+              to={"/dashboard/landlord-corner"}
+              className="border border-gray-300 bg-white rounded-lg px-5 py-3 font-semibold flex items-center justify-center gap-2 hover:bg-gray-50"
+            >
               <FaUserPlus />
               Approve Tenant
-            </button>
+            </Link>
 
             <Link
               to={"/dashboard/property-form"}
@@ -120,9 +152,7 @@ const Landlords = () => {
             </Link>
           </div>
         </div>
-
         {/* ================= STAT CARDS ================= */}
-
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mt-8">
           {stats.map((card, index) => (
             <div
@@ -195,93 +225,37 @@ const Landlords = () => {
                 <tbody>
                   {/* Row */}
 
-                  <tr className="border-b hover:bg-gray-50">
-                    <td className="p-4">
-                      <div className="flex items-center gap-3">
-                        <img
-                          src={skyline}
-                          alt=""
-                          className="w-12 h-12 rounded-lg object-cover"
-                        />
+                  {properties?.map((property) => (
+                    <tr className="border-b hover:bg-gray-50">
+                      <td className="p-4">
+                        <div className="flex items-center gap-3">
+                          <img
+                            src={`https://api.safehomeproperties.com/uploads/${property.image}`}
+                            alt=""
+                            className="w-12 h-12 rounded-lg object-cover"
+                          />
 
-                        <div>
-                          <p className="font-semibold">Skyline Heights #402</p>
+                          <div>
+                            <p className="font-semibold">{property.address}</p>
 
-                          <p className="text-xs text-gray-500">Apartment</p>
+                            <p className="text-xs text-gray-500">
+                              {property.type}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    </td>
+                      </td>
 
-                    <td className="p-4">Downtown Metro</td>
+                      <td className="p-4">{property.address}</td>
 
-                    <td className="p-4">
-                      <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">
-                        Occupied
-                      </span>
-                    </td>
+                      <td className="p-4">
+                        <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">
+                          {property.status}
+                        </span>
+                      </td>
 
-                    <td className="p-4 font-semibold">5.2%</td>
-                  </tr>
-
-                  {/* Row */}
-
-                  <tr className="border-b hover:bg-gray-50">
-                    <td className="p-4">
-                      <div className="flex items-center gap-3">
-                        <img
-                          src={skyline}
-                          alt=""
-                          className="w-12 h-12 rounded-lg object-cover"
-                        />
-
-                        <div>
-                          <p className="font-semibold">Maple Oaks Estate</p>
-
-                          <p className="text-xs text-gray-500">Duplex</p>
-                        </div>
-                      </div>
-                    </td>
-
-                    <td className="p-4">North Suburbs</td>
-
-                    <td className="p-4">
-                      <span className="bg-red-100 text-red-700 text-xs font-semibold px-3 py-1 rounded-full">
-                        Vacant
-                      </span>
-                    </td>
-
-                    <td className="p-4 font-semibold">0.0%</td>
-                  </tr>
-
-                  {/* Row */}
-
-                  <tr className="hover:bg-gray-50">
-                    <td className="p-4">
-                      <div className="flex items-center gap-3">
-                        <img
-                          src={skyline}
-                          alt=""
-                          className="w-12 h-12 rounded-lg object-cover"
-                        />
-
-                        <div>
-                          <p className="font-semibold">Glass Tower #12B</p>
-
-                          <p className="text-xs text-gray-500">Penthouse</p>
-                        </div>
-                      </div>
-                    </td>
-
-                    <td className="p-4">Financial District</td>
-
-                    <td className="p-4">
-                      <span className="bg-green-100 text-green-700 text-xs font-semibold px-3 py-1 rounded-full">
-                        Occupied
-                      </span>
-                    </td>
-
-                    <td className="p-4 font-semibold">4.8%</td>
-                  </tr>
+                      <td className="p-4 font-semibold">0%</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

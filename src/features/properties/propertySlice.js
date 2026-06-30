@@ -2,6 +2,9 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as propertyAPI from "./propertyAPI";
 import axios from "axios";
 
+console.log("propertyAPI:", propertyAPI);
+console.log("fetchMyPropertiesAPI:", propertyAPI.fetchMyPropertiesAPI);
+
 const url = "https://api.safehomeproperties.com/api/properties";
 
 // Thunks
@@ -43,6 +46,20 @@ export const fetchProperties = createAsyncThunk(
       return thunkAPI.rejectWithValue(
         error.response?.data?.message || error.message,
       );
+    }
+  },
+);
+
+// Fetch My Properties
+export const fetchMyProperties = createAsyncThunk(
+  "properties/fetchMyProperties",
+  async (_, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await propertyAPI.fetchMyPropertiesAPI(token);
+      return response.data; // assuming your API returns array of products
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
     }
   },
 );
@@ -117,6 +134,7 @@ const propertySlice = createSlice({
     currentProperty: null, // for editing / viewing one
     propStatus: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
     propError: null,
+    myProperties: [],
     total: 0,
 
     totalPages: 0,
@@ -175,6 +193,19 @@ const propertySlice = createSlice({
         state.properties = action.payload.data;
       })
       .addCase(fetchProperties.rejected, (state, action) => {
+        state.propStatus = "failed";
+        state.propError = action.payload;
+      })
+      // fetch all my products
+      .addCase(fetchMyProperties.pending, (state) => {
+        state.propStatus = "loading";
+        state.propError = null;
+      })
+      .addCase(fetchMyProperties.fulfilled, (state, action) => {
+        state.propStatus = "succeeded";
+        state.properties = action.payload.data;
+      })
+      .addCase(fetchMyProperties.rejected, (state, action) => {
         state.propStatus = "failed";
         state.propError = action.payload;
       })

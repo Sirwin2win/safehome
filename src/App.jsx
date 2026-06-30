@@ -53,6 +53,8 @@ import NotificationPage from "./dashboards/NotificationPage";
 import EstateMemberApproval from "./dashboards/EstateMemberApproval";
 import PropertyForm from "./forms/PropertyForm";
 import LeaseForm from "./forms/LeaseForm";
+import LandlordCorner from "./dashboards/LandlordCorner";
+import ApproveTenant from "./dashboards/ApproveTenant";
 
 /**
  * ✅ GLOBAL PROVIDER
@@ -125,6 +127,8 @@ export default function App() {
           <Route path="notifications" element={<NotificationPage />} />
           <Route path="property-form" element={<PropertyForm />} />
           <Route path="lease-form/:id" element={<LeaseForm />} />
+          <Route path="landlord-corner" element={<LandlordCorner />} />
+          <Route path="approve-tenant" element={<ApproveTenant />} />
           <Route
             path="estate-member-approval"
             element={<EstateMemberApproval />}
