@@ -8,6 +8,8 @@ const NotificationPage = () => {
 
   const notifications = useSelector((state) => state.notifications.items);
 
+  // console.log({ Notiti: notifications });
+
   // Unread first, newest first
   const sortedNotifications = [...notifications].sort((a, b) => {
     if (a.isRead !== b.isRead) {
@@ -60,7 +62,6 @@ const NotificationPage = () => {
       <p className="text-center text-gray-500 my-10">
         Click on each row to mark as read
       </p>
-
       {/* Notifications List */}
       <div className="bg-white rounded-lg shadow border">
         {sortedNotifications.length === 0 ? (
@@ -87,18 +88,15 @@ const NotificationPage = () => {
                   >
                     {notification.title}
                   </h3>
-
                   <p className="text-sm text-gray-600 mt-1">
                     {notification.message}
                   </p>
-
                   {notification.createdAt && (
                     <p className="text-xs text-gray-400 mt-2">
                       {new Date(notification.createdAt).toLocaleString()}
                     </p>
                   )}
                 </div>
-
                 {!notification.isRead && (
                   <span className="w-3 h-3 bg-blue-500 rounded-full"></span>
                 )}

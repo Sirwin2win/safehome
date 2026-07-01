@@ -14,6 +14,7 @@ import { markAsReadLocal } from "../features/notifications/notificationSlice";
 import NotificationBell from "../components/NotificationBell";
 import { fetchMyProperties } from "../features/properties/propertySlice";
 import { useDispatch, useSelector } from "react-redux";
+import { formatDistanceToNow } from "date-fns";
 
 const stats = [
   {
@@ -81,7 +82,8 @@ const Landlords = () => {
       dispatch(fetchMyProperties());
     }
   }, [dispatch, propStatus]);
-  console.log({ properties: properties });
+  const notifications = useSelector((state) => state.notifications.items);
+  // console.log({ Notice: notifications });
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -110,7 +112,7 @@ const Landlords = () => {
           <div className="flex items-center justify-end gap-5">
             <div className="relative">
               {/* <FaRegBell className="text-2xl text-gray-700" /> */}
-              <NotificationBell onClick={handleClick} />
+              {/* <NotificationBell onClick={handleClick} /> */}
 
               <span className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-red-500"></span>
             </div>
@@ -199,7 +201,7 @@ const Landlords = () => {
                 View All
               </button>
             </div>
-
+            {/* Table Started */}
             <div className="overflow-x-auto">
               <table className="min-w-full">
                 <thead className="bg-gray-100">
@@ -259,6 +261,7 @@ const Landlords = () => {
                 </tbody>
               </table>
             </div>
+            {/* Table ended */}
           </div>
 
           {/* ================= RECENT ACTIVITY ================= */}
@@ -270,71 +273,36 @@ const Landlords = () => {
 
             <div className="space-y-8">
               {/* Item */}
+              {notifications.map((notice) => (
+                <div className="flex gap-4">
+                  <div className="flex flex-col items-center">
+                    <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
+                      <IoIosCheckmarkCircleOutline className="text-green-600 text-xl" />
+                    </div>
 
-              <div className="flex gap-4">
-                <div className="flex flex-col items-center">
-                  <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
-                    <IoIosCheckmarkCircleOutline className="text-green-600 text-xl" />
+                    <div className="flex-1 w-px bg-gray-300 mt-2"></div>
                   </div>
 
-                  <div className="flex-1 w-px bg-gray-300 mt-2"></div>
-                </div>
+                  <div>
+                    <h3 className="font-semibold">{notice.title}</h3>
 
-                <div>
-                  <h3 className="font-semibold">Rent Paid - Unit 402</h3>
+                    <p className="text-gray-500 text-sm mt-1">
+                      {/* Sarah Jenkins paid */}
+                      <span className="font-semibold text-black">
+                        {" "}
+                        {notice.message}
+                      </span>{" "}
+                      {/* via Stripe. */}
+                    </p>
 
-                  <p className="text-gray-500 text-sm mt-1">
-                    Sarah Jenkins paid
-                    <span className="font-semibold text-black">
-                      {" "}
-                      ₦1,850,000
-                    </span>{" "}
-                    via Stripe.
-                  </p>
-
-                  <p className="text-xs text-gray-400 mt-2">2 hours ago</p>
-                </div>
-              </div>
-
-              {/* Item */}
-
-              <div className="flex gap-4">
-                <div className="flex flex-col items-center">
-                  <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
-                    <AiOutlineExclamationCircle className="text-red-600 text-xl" />
+                    <p className="text-xs text-gray-400 mt-2">
+                      {formatDistanceToNow(new Date(notice.createdAt), {
+                        addSuffix: true,
+                      })}
+                    </p>
                   </div>
-
-                  <div className="flex-1 w-px bg-gray-300 mt-2"></div>
                 </div>
-
-                <div>
-                  <h3 className="font-semibold">Maintenance Requested</h3>
-
-                  <p className="text-gray-500 text-sm mt-1">
-                    Kitchen sink leakage reported in Maple Oaks Estate.
-                  </p>
-
-                  <p className="text-xs text-gray-400 mt-2">5 hours ago</p>
-                </div>
-              </div>
-
-              {/* Item */}
-
-              <div className="flex gap-4">
-                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
-                  <TiClipboard className="text-blue-700 text-xl" />
-                </div>
-
-                <div>
-                  <h3 className="font-semibold">Lease Renewal Completed</h3>
-
-                  <p className="text-gray-500 text-sm mt-1">
-                    David Miller signed a new lease agreement for Unit 12B.
-                  </p>
-
-                  <p className="text-xs text-gray-400 mt-2">Yesterday</p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
