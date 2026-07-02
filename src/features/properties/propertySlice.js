@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as propertyAPI from "./propertyAPI";
 import axios from "axios";
 
-console.log("propertyAPI:", propertyAPI);
-console.log("fetchMyPropertiesAPI:", propertyAPI.fetchMyPropertiesAPI);
+// console.log("propertyAPI:", propertyAPI);
+// console.log("fetchMyPropertiesAPI:", propertyAPI.fetchMyPropertiesAPI);
 
 const url = "https://api.safehomeproperties.com/api/properties";
 
