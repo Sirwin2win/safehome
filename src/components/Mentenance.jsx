@@ -68,9 +68,7 @@ const Mentenance = () => {
 
           {/* UPLOAD */}
           <div className="mb-5">
-            <p className="text-sm font-medium mb-2">
-              Attach media (Photo / Video)
-            </p>
+            <p className="text-sm font-medium mb-2">Attach media</p>
 
             <label
               htmlFor="image"
