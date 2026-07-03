@@ -11,6 +11,13 @@ export const fetchMaintenancesAPI = (token) =>
     },
   });
 export const fetchMaintenanceIdAPI = (id) => axios.get(`${API_BASE}/${id}`);
+// Get My maintenance
+export const fetchMyMaintenanceAPI = (token) =>
+  axios.get(`${API_BASE}/my-maintenance`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 export const createMaintenanceAPI = (form, token) =>
   axios.post(API_BASE, form, {
     headers: {

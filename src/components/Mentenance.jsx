@@ -4,6 +4,7 @@ import ActivityReqHistory from "./ActivityReqHistory";
 import { useDispatch, useSelector } from "react-redux";
 import { addMaintenance } from "../features/maintenance/maintenanceSlice";
 import { fetchMyLeases } from "../features/lease/leaseSlice";
+import { fetchMyMaintenanceAPI } from "../features/maintenance/maintenanceApi";
 
 const Mentenance = () => {
   const dispatch = useDispatch();
@@ -60,7 +61,7 @@ const Mentenance = () => {
       image,
     };
 
-    console.log(payload);
+    // console.log(payload);
 
     dispatch(addMaintenance(payload));
   };

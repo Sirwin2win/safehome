@@ -14,6 +14,21 @@ export const fetchMaintenances = createAsyncThunk(
     }
   },
 );
+// fetchMyMaintenanceAPI
+// Fetch My leases
+export const fetchMyMaintenance = createAsyncThunk(
+  "maintenance/fetchMyMaintenance",
+  async (_, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await maintenanceAPI.fetchMyMaintenanceAPI(token);
+      return response.data; // assuming your API returns array of products
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  },
+);
+// fetch Maintenance
 export const fetchMaintenance = createAsyncThunk(
   "maintenance/fetchMaintenance",
   async (id, thunkAPI) => {
@@ -78,6 +93,7 @@ const maintenanceSlice = createSlice({
   name: "maintenance",
   initialState: {
     maintenance: [],
+    myMaintenance: [],
     currentMaintenance: null, // for editing / viewing one
     mainStatus: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
@@ -100,6 +116,19 @@ const maintenanceSlice = createSlice({
         state.maintenance = action.payload.data || action.payload;
       })
       .addCase(fetchMaintenances.rejected, (state, action) => {
+        state.mainStatus = "failed";
+        state.error = action.payload;
+      })
+      // fetch all myMaintenance
+      .addCase(fetchMyMaintenance.pending, (state) => {
+        state.mainStatus = "loading";
+        state.error = null;
+      })
+      .addCase(fetchMyMaintenance.fulfilled, (state, action) => {
+        state.mainStatus = "succeeded";
+        state.myMaintenance = action.payload.data || action.payload;
+      })
+      .addCase(fetchMyMaintenance.rejected, (state, action) => {
         state.mainStatus = "failed";
         state.error = action.payload;
       })
