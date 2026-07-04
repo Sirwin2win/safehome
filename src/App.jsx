@@ -55,6 +55,7 @@ import PropertyForm from "./forms/PropertyForm";
 import LeaseForm from "./forms/LeaseForm";
 import LandlordCorner from "./dashboards/LandlordCorner";
 import ApproveTenant from "./dashboards/ApproveTenant";
+import ApproveMaintenance from "./dashboards/ApproveMaintenance";
 
 /**
  * ✅ GLOBAL PROVIDER
@@ -129,6 +130,7 @@ export default function App() {
           <Route path="lease-form/:id" element={<LeaseForm />} />
           <Route path="landlord-corner" element={<LandlordCorner />} />
           <Route path="approve-tenant" element={<ApproveTenant />} />
+          <Route path="approve-maintenance" element={<ApproveMaintenance />} />
           <Route
             path="estate-member-approval"
             element={<EstateMemberApproval />}

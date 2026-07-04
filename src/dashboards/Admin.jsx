@@ -14,6 +14,14 @@ const Admin = () => {
       </div>
       <div className="mb-20">
         <Link
+          to={"/dashboard/approve-maintenance"}
+          className="bg-[#1B2B3F] text-white p-5 rounded-lg"
+        >
+          Approve Maintenance Request
+        </Link>
+      </div>
+      <div className="mb-20">
+        <Link
           to={"/dashboard/assign-permission"}
           className="bg-[#1B2B3F] text-white p-5 rounded-lg"
         >

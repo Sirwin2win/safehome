@@ -7,9 +7,9 @@ import { GiSpanner } from "react-icons/gi";
 import { jwtDecode } from "jwt-decode";
 import { getUserById } from "../features/auth/authSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { markAsReadLocal } from "../features/notifications/notificationSlice";
 import NotificationBell from "./NotificationBell";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -96,23 +96,29 @@ const Dashboard = () => {
             </div>
           </button>
 
-          <button className="bg-white rounded-xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition">
+          <Link
+            to={"/dashboard/mentenance"}
+            className="bg-white rounded-xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition"
+          >
             <FaTools className="text-[#223B7E] text-4xl bg-gray-100 rounded-full p-2" />
 
             <div className="text-left">
               <p className="font-semibold">Maintenance Request</p>
               <p className="text-sm text-gray-500">Submit a repair request</p>
             </div>
-          </button>
+          </Link>
 
-          <button className="bg-white rounded-xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition">
+          <Link
+            to={"/dashboard/lease-docs"}
+            className="bg-white rounded-xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition"
+          >
             <IoDocumentTextSharp className="text-[#223B7E] text-4xl bg-gray-100 rounded-full p-2" />
 
             <div className="text-left">
               <p className="font-semibold">Lease Details</p>
               <p className="text-sm text-gray-500">View lease documents</p>
             </div>
-          </button>
+          </Link>
         </div>
 
         {/* Recent Activity + Autopay */}
