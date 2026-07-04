@@ -1,74 +1,112 @@
-import React from 'react'
+import React from "react";
 import { TfiEmail } from "react-icons/tfi";
 import { MdOutlinePhone } from "react-icons/md";
 import { IoLocationOutline } from "react-icons/io5";
 
-
-
-
 const ContactCard = () => {
   return (
-    <div className='md:flex md:justify-evenly -mt-20 md:-mt-85 px-3'>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:-mt-24">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+        {/* Left Side */}
         <div>
-            <p className='text-4xl font-bold md:mb-10 text-center'>Contact Us</p>
-            <div className='flex justify-betweeen my-5'>
-                <div className='flex justify-spaced'>
-                       <TfiEmail className=''/>
-                       <div className='-mt-1'>
-                <p className='ms-1 text-sm md:text-md'>Email</p>
-                <p className='-ms-4 text-sm md:text-md'>sales@safehomeproperties.com</p>
-                       </div>
-                </div>
-                <div className='flex justify-spaced ms-5 md:ms-50'>
-                       <MdOutlinePhone />
-                <div className='-mt-1 '>
-                    <p className='ms-1 text-sm md:text-md'>Phone</p>
-                    <p className='md:-ms-4 text-sm md:text-md'>+2347041005315</p>
-                </div>
-                </div>
-               
-            </div>
-            {/* Location */}
-            <div className='flex justify-between'>
-            <div>
-            <div className='flex justify-spaced my-5'>
-            <IoLocationOutline  />
-            <p className='-mt-1 ms-2 text-sm md:text-md'>Location</p>
-            </div>
-            <p className='-mt-4 text-sm md:text-md'>Plot 12/14 Korstin Muller Complex
-             <span className='block'> Industrial layout, Idu Abuja</span> 
-             </p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-center lg:text-left mb-8">
+            Contact Us
+          </h2>
+
+          {/* Email & Phone */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="flex items-start gap-3">
+              <TfiEmail className="text-xl text-[#223B7E] mt-1" />
+
+              <div>
+                <p className="font-semibold">Email</p>
+                <p className="text-gray-600 break-all">
+                  sales@safehomeproperties.com
+                </p>
+              </div>
             </div>
 
-            {/* Business Hours */}
-            <div className='ms-8 md:ms-0'>
-            <div className='flex justify-spaced my-5'>
-            <MdOutlinePhone  />
-            <p className='-mt-1 md:ms-2 text-sm md:text-md'>Business Hours</p>
+            <div className="flex items-start gap-3">
+              <MdOutlinePhone className="text-xl text-[#223B7E] mt-1" />
+
+              <div>
+                <p className="font-semibold">Phone</p>
+                <p className="text-gray-600">+234 704 100 5315</p>
+              </div>
             </div>
-            <p className='-mt-4 ms-3 text-sm md:text-md'>Monday-Friday 9:00AM - 6:00PM</p>
-            </div>
+          </div>
+
+          {/* Location & Business Hours */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
+            <div className="flex items-start gap-3">
+              <IoLocationOutline className="text-xl text-[#223B7E] mt-1" />
+
+              <div>
+                <p className="font-semibold">Location</p>
+
+                <p className="text-gray-600">
+                  Plot 12/14 Korstin Muller Complex
+                  <br />
+                  Industrial Layout, Idu, Abuja
+                </p>
+              </div>
             </div>
 
-            <div className='my-5'>
-                <p className='text-sm md:text-md'>We’re here to help you navigate the real estate market. Reach out with any questions!</p>
+            <div className="flex items-start gap-3">
+              <MdOutlinePhone className="text-xl text-[#223B7E] mt-1" />
+
+              <div>
+                <p className="font-semibold">Business Hours</p>
+
+                <p className="text-gray-600">
+                  Monday – Friday
+                  <br />
+                  9:00 AM – 6:00 PM
+                </p>
+              </div>
             </div>
+          </div>
+
+          <p className="mt-8 text-gray-600 leading-7">
+            We're here to help you navigate the real estate market. Reach out
+            with any questions—we'd love to hear from you.
+          </p>
         </div>
 
-        <div className='bg-[#F4F4F4] my-20'>
-            <p className='font-bold p-10'>Let's Find Your Property</p>
-            <div className='mx-10'>
-            <form>
-               <div> <input type="text" className='bg-white w-full rounded-lg' name="" id="" placeholder='Name' /></div>
-               <div> <input type="text" className='bg-white my-5 w-full rounded-lg' name="" id="" placeholder='Email' /></div>
-               <div><textarea name="" className='bg-white w-full rounded-lg' id="" placeholder='Message'></textarea></div>
-               <button className='bg-[#223B7EC9] text-white px-5 w-full rounded-full my-8'>Send Message</button>
-            </form>
-            </div>
-        </div>
+        {/* Right Side */}
+        <div className="bg-[#F4F4F4] rounded-2xl shadow-sm p-6 sm:p-8">
+          <h3 className="text-2xl font-bold mb-6">Let's Find Your Property</h3>
 
+          <form className="space-y-5">
+            <input
+              type="text"
+              placeholder="Name"
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-[#223B7E]"
+            />
+
+            <input
+              type="email"
+              placeholder="Email"
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-[#223B7E]"
+            />
+
+            <textarea
+              rows={6}
+              placeholder="Message"
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 resize-none outline-none focus:ring-2 focus:ring-[#223B7E]"
+            />
+
+            <button
+              type="submit"
+              className="w-full rounded-full bg-[#223B7EC9] py-3 text-white font-semibold hover:bg-[#223B7E] transition"
+            >
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default ContactCard
+export default ContactCard;

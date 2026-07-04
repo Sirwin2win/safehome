@@ -1,29 +1,56 @@
-import React from 'react'
-import smart from '../assets/images/safe_home_properties_smart.jpg'
-import woman from '../assets/images/safe_home_properties_woman.png'
-import { Link } from 'react-router-dom'
+import React from "react";
+import smart from "../assets/images/safe_home_properties_smart.jpg";
+import woman from "../assets/images/safe_home_properties_woman.png";
+import { Link } from "react-router-dom";
 
 const HomeLastCard = () => {
   return (
-    <div className='relative w-full'>
-        <img src={smart} alt="Smart" className='md:h-120 md:w-full' />
-        <div className='flex justify-spaced absolute w-92 h-50 md:h-90 bottom-50 md:bottom-110 md:w-300 md:mx-20 border border-orange-700 rounded-lg'>
-            <div className='text-white md:pt-20 ps-1 md:ps-3 md:ps-10'>
-                <p className='md:text-5xl font-[500] my-5'>Start Living Smarter Today</p>
-                <p>Unlock the potential of a seamless
-                     <span className='block'>community management system!</span>
-                     </p>
-                <div className='flex justify-evenly mt-3 md:mt-10'>
+    <div className="relative w-full overflow-hidden">
+      {/* Background Image */}
+      <img
+        src={smart}
+        alt="Smart"
+        className="w-full h-[320px] sm:h-[420px] md:h-[550px] object-cover"
+      />
 
-                <button className='bg-omaOrange py-1 md:py-2 px-1 md:px-5 rounded-2xl'><Link to={'/get-started'}>Get Started</Link></button>
-                <button className='border-2 py-1 md:py-2 px-1 md:px-5 rounded-2xl ms-2'><Link to={'/listings'}>See Property Listings</Link></button>
-                </div>
+      {/* Overlay Content */}
+      <div className="absolute inset-0 flex items-center justify-center px-4">
+        <div className="w-full max-w-5xl bg-black/50 backdrop-blur-sm border border-orange-500 rounded-xl p-5 sm:p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+          {/* Text Section */}
+          <div className="text-white text-center md:text-left">
+            <h2 className="text-xl sm:text-2xl md:text-5xl font-semibold leading-tight">
+              Start Living Smarter Today
+            </h2>
+
+            <p className="mt-3 text-sm sm:text-base text-gray-200">
+              Unlock the potential of a seamless
+              <span className="block">community management system!</span>
+            </p>
+
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 mt-6 justify-center md:justify-start">
+              <button className="bg-omaOrange px-5 py-2 rounded-xl font-medium hover:opacity-90 transition">
+                <Link to="/get-started">Get Started</Link>
+              </button>
+
+              <button className="border border-white px-5 py-2 rounded-xl hover:bg-white hover:text-black transition">
+                <Link to="/listings">See Property Listings</Link>
+              </button>
             </div>
-           
-        </div>
- <img src={woman} alt="safe home properties" className='relative bottom-50 left-60 md:bottom-100 md:left-180 size-40 md:size-100 -ms-[25px] md:-ms-30' />
-    </div>
-  )
-}
+          </div>
 
-export default HomeLastCard
+          {/* Woman Image */}
+          <div className="flex justify-center md:justify-end">
+            <img
+              src={woman}
+              alt="woman"
+              className="w-24 sm:w-32 md:w-56 lg:w-64 object-contain"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default HomeLastCard;
