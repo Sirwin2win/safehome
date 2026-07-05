@@ -32,12 +32,12 @@ export const fetchLandlordLeasesAPI = (token) =>
     },
   });
 
-export const updateLeaseAPI = (id, form, token) => {
-  console.log("API:", { id, form });
+export const updateLeaseAPI = (id, status, token) => {
+  console.log("API:", { id, status });
 
   return axios.patch(
     `${API_BASE}/${id}`,
-    { form },
+    { status },
     {
       headers: {
         Authorization: `Bearer ${token}`,

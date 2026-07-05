@@ -75,10 +75,10 @@ export const addLease = createAsyncThunk(
 
 export const updateLease = createAsyncThunk(
   "leases/updateLease",
-  async ({ id, form }, thunkAPI) => {
+  async ({ id, status }, thunkAPI) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await leaseAPI.updateLeaseAPI(id, form, token);
+      const response = await leaseAPI.updateLeaseAPI(id, status, token);
       return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);
