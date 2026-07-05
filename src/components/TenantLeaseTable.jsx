@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { fetchLeases } from "../features/lease/leaseSlice";
+import { fetchMyLeases } from "../features/lease/leaseSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import LeaseSignForm from "../forms/LeaseSignForm";
 
-const LeaseDocsTable = () => {
+const TenantLeaseTable = () => {
   const dispacth = useDispatch();
   const navigate = useNavigate();
-  const { leases, leStatus, error } = useSelector((state) => state.leases);
+  const { myLease, leStatus, error } = useSelector((state) => state.leases);
 
   useEffect(() => {
     if (leStatus === "idle") {
-      dispacth(fetchLeases());
+      dispacth(fetchMyLeases());
     }
   }, [leStatus, dispacth]);
-  console.log(leases);
   return (
     <div className="rounded-lg mt-10">
+      <p className="text-center my-10">Tenant Leases Table</p>
       <table className="min-w-full border border-gray-200 rounded-lg">
         <thead className="bg-[#9B9B9BCC] rounded-lg">
           <tr className="rounded-lg">
@@ -41,7 +40,7 @@ const LeaseDocsTable = () => {
           </tr>
         </thead>
         <tbody className="divide-y bg-[#F5F5F5] divide-gray-200">
-          {leases?.map((lease) => (
+          {myLease?.map((lease) => (
             <tr className="hover:bg-gray-50">
               <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
                 <input type="checkbox" />
@@ -67,7 +66,9 @@ const LeaseDocsTable = () => {
               <td className="px-6 py-4 text-sm text-blue-700">
                 <span href="#">
                   {lease.status === "LEASE-READY" ? (
-                    <Link to={"lease-sign-form"}>Sign Here</Link>
+                    <Link to={`/dashboard/lease-sign-form/${lease.id}`}>
+                      Sign Here
+                    </Link>
                   ) : lease.status === "LEASE-SIGNED" ? (
                     <Link to={"lease-sign-form"}>Sign Here</Link>
                   ) : (
@@ -83,4 +84,4 @@ const LeaseDocsTable = () => {
   );
 };
 
-export default LeaseDocsTable;
+export default TenantLeaseTable;

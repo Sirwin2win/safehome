@@ -17,7 +17,7 @@ export const createLeaseAPI = (form, token) =>
       Authorization: `Bearer ${token}`,
     },
   });
-// Get My leases
+// Get My leases(tenant)
 export const fetchMyLeasesAPI = (token) =>
   axios.get(`${API_BASE}/my-leases`, {
     headers: {
@@ -33,11 +33,9 @@ export const fetchLandlordLeasesAPI = (token) =>
   });
 
 export const updateLeaseAPI = (id, status, token) => {
-  console.log("API:", { id, status });
-
   return axios.patch(
     `${API_BASE}/${id}`,
-    { status },
+    { id, status }, // 👈 IMPORTANT FIX
     {
       headers: {
         Authorization: `Bearer ${token}`,

@@ -105,7 +105,7 @@ const leaseSlice = createSlice({
     currentLease: null, // for editing / viewing one
     leStatus: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
-    myLease: null,
+    myLease: [],
     landlordLeases: [],
   },
   reducers: {
@@ -129,7 +129,7 @@ const leaseSlice = createSlice({
         state.leStatus = "failed";
         state.error = action.payload;
       })
-      // fetch my leases
+      // fetch my leases (tenant)
       .addCase(fetchMyLeases.pending, (state) => {
         state.leStatus = "loading";
         state.error = null;

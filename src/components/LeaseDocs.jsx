@@ -3,9 +3,44 @@ import LeaseDocsTable from "./LeaseDocsTable";
 import { FaFileUpload, FaSearch } from "react-icons/fa";
 import { fetchLeases } from "../features/lease/leaseSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
+import { getUserById } from "../features/auth/authSlice";
+import LandlordLeaseTable from "./LandlordLeaseTable";
+import TenantLeaseTable from "./TenantLeaseTable";
 
 const LeaseDocs = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // Get token from localStorage
+  const token = localStorage.getItem("token");
+  let userId = null;
+
+  if (token) {
+    // Decode token
+    const decoded = jwtDecode(token);
+
+    // console.log(decoded);
+
+    // Access user id
+    userId = decoded.uuid;
+
+    // console.log("User uuid:", userId);
+  }
+
+  // get auth info from the state
+  const { user, status, error } = useSelector((state) => state.auth);
+
+  // initialize dispatch
+  // const dispatch = useDispatch();
+
+  // dispatch for the actual user
+  useEffect(() => {
+    if (userId) {
+      dispatch(getUserById(userId));
+    }
+  }, [dispatch, userId]);
+
   return (
     <div>
       {/* First Div */}
@@ -16,10 +51,13 @@ const LeaseDocs = () => {
             Review, manage and sign your important lease and documents here.
           </p>
         </div>
-        <button className="flex justify-evenly bg-[#223B7E] text-white px-2 pt-3 rounded-lg">
+        <Link
+          to={"/dashboard/lease-sign-form"}
+          className="flex justify-evenly bg-[#223B7E] text-white px-2 pt-3 rounded-lg"
+        >
           <FaFileUpload className="size-5" />
-          <p className="ms-2">Upload Document</p>
-        </button>
+          <p className="ms-2">Sign Lease Document</p>
+        </Link>
       </div>
       {/* Second Div */}
       <div className="flex justify-between my-5">
@@ -36,7 +74,15 @@ const LeaseDocs = () => {
         </select>
       </div>
       {/* Table */}
-      <LeaseDocsTable />
+      {user?.roles?.includes("landlord") ? (
+        <LandlordLeaseTable />
+      ) : user?.roles?.includes("tenant") ? (
+        <TenantLeaseTable />
+      ) : user?.roles?.includes("admin") ? (
+        <LeaseDocsTable />
+      ) : (
+        "You're not eligible for leases"
+      )}
     </div>
   );
 };

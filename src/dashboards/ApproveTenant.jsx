@@ -23,7 +23,7 @@ const ApproveTenant = () => {
 
   const handleUpdateStatus = (id, status) => {
     if (window.confirm(`Are you sure you want to ${status} this request?`)) {
-      console.log(status);
+      console.log({ id, status });
       dispatch(updateLease({ id, status }));
     }
   };
@@ -108,7 +108,7 @@ const ApproveTenant = () => {
 
                 <td className="px-4 py-3 text-center">
                   <button
-                    onClick={() => handleUpdateStatus(member.id, "APPROVED")}
+                    onClick={() => handleUpdateStatus(lease.id, "LEASE-READY")}
                     className="rounded-md bg-green-600 px-3 py-2 text-sm font-medium text-white transition hover:bg-green-700"
                   >
                     Approve
@@ -117,7 +117,7 @@ const ApproveTenant = () => {
 
                 <td className="px-4 py-3 text-center">
                   <button
-                    onClick={() => handleUpdateStatus(member.id, "REJECTED")}
+                    onClick={() => handleUpdateStatus(lease.id, "REJECTED")}
                     className="rounded-md bg-amber-500 px-3 py-2 text-sm font-medium text-white transition hover:bg-amber-600"
                   >
                     Reject
@@ -126,7 +126,7 @@ const ApproveTenant = () => {
 
                 <td className="px-4 py-3 text-center">
                   <button
-                    onClick={() => handleDelete(member.id)}
+                    onClick={() => handleDelete(lease.id)}
                     className="rounded-md bg-red-600 px-3 py-2 text-sm font-medium text-white transition hover:bg-red-700"
                   >
                     Delete
