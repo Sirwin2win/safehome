@@ -11,7 +11,7 @@ const LandlordCorner = () => {
         to={"/dashboard/approve-tenant"}
         className="bg-[#00236F] text-white font-semibold rounded-lg p-3"
       >
-        Approve Tenant
+        Approve Lease Request
       </Link>
     </div>
   );

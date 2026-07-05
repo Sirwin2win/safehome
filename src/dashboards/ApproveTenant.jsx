@@ -52,6 +52,10 @@ const ApproveTenant = () => {
       <p className="text-center font-semibold text-[#00236F] my-5">
         Dear Landlord, kindly engage the customer before giving your approval
       </p>
+      <p className="text-center font-semibold text-[#00236F] my-5">
+        Do note that by clicking Approve button below makes the lease document
+        available to the tenant for signing
+      </p>
       {/* Table Started */}
       <div className="overflow-x-auto">
         <table className="min-w-full">
