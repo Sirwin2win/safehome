@@ -45,8 +45,8 @@ const LeaseForm = () => {
 
     const form = {
       occupation: data.occupation,
-      moveIn_date: data.moveIn_date,
-      duration: data.duration,
+      population: data.population,
+      // duration: data.duration,
       property_id: currentProperty.id,
       rent_amount: currentProperty.rent_amount,
     };
@@ -58,8 +58,7 @@ const LeaseForm = () => {
       // Reset form
       setData({
         occupation: "",
-        moveIn_date: "",
-        duration: "",
+        population: "",
       });
 
       // Redirect after successful submission
@@ -108,42 +107,21 @@ const LeaseForm = () => {
                 required
               />
             </div>
-
-            {/* Move In Date */}
+            {/* Population */}
             <div>
               <label
-                htmlFor="moveIn_date"
+                htmlFor="population"
                 className="block mb-2 text-sm font-medium"
               >
-                Move In Date
+                How many persons are going to live there?
               </label>
 
               <input
-                id="moveIn_date"
-                name="moveIn_date"
-                type="date"
-                value={data.moveIn_date}
-                onChange={handleChange}
-                className="border p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-[#1B2B3F]"
-                required
-              />
-            </div>
-
-            {/* Duration */}
-            <div>
-              <label
-                htmlFor="duration"
-                className="block mb-2 text-sm font-medium"
-              >
-                Duration
-              </label>
-
-              <input
-                id="duration"
-                name="duration"
+                id="population"
+                name="population"
                 type="text"
-                placeholder="e.g. 12 Months"
-                value={data.duration}
+                placeholder="Number of persons moving in e.g 2"
+                value={data.population}
                 onChange={handleChange}
                 className="border p-2 w-full rounded focus:outline-none focus:ring-2 focus:ring-[#1B2B3F]"
                 required
@@ -155,12 +133,12 @@ const LeaseForm = () => {
               <div className="bg-gray-100 rounded p-4">
                 <p>
                   <strong>Property:</strong>{" "}
-                  {currentProperty.title || currentProperty.name}
+                  {currentProperty?.title || currentProperty?.name}
                 </p>
 
                 <p>
                   <strong>Rent:</strong> ₦
-                  {Number(currentProperty.rent_amount).toLocaleString()}
+                  {Number(currentProperty?.rent_amount).toLocaleString()}
                 </p>
               </div>
             )}

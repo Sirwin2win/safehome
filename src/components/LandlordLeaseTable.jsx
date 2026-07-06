@@ -45,7 +45,7 @@ const LandlordLeaseTable = () => {
         </thead>
         <tbody className="divide-y bg-[#F5F5F5] divide-gray-200">
           {landlordLeases?.map((lease) => (
-            <tr className="hover:bg-gray-50">
+            <tr className="hover:bg-gray-50 key={lease.id}">
               <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
                 <input type="checkbox" />
               </th>

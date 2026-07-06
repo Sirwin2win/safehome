@@ -15,7 +15,7 @@ export const fetchLeases = createAsyncThunk(
     }
   },
 );
-// Fetch My leases
+// Fetch My leases(tenant)
 export const fetchMyLeases = createAsyncThunk(
   "leases/fetchMyLeases",
   async (_, thunkAPI) => {
@@ -28,6 +28,20 @@ export const fetchMyLeases = createAsyncThunk(
     }
   },
 );
+//Fetch lease by Id
+export const fetchLeaseById = createAsyncThunk(
+  "leases/fetchLeaseById",
+  async (id, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await leaseAPI.fetchLeaseByIdAPI(id, token);
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  },
+);
+
 // Fetch Landlord leases
 export const fetchLandlordLeases = createAsyncThunk(
   "leases/fetchLandlordLeases",
@@ -42,17 +56,18 @@ export const fetchLandlordLeases = createAsyncThunk(
   },
 );
 // Fetch Lease by Id
-export const fetchLease = createAsyncThunk(
-  "leases/fetchLease",
-  async (id, thunkAPI) => {
-    try {
-      const response = await leaseAPI.fetchLeaseByIdAPI(id);
-      return response.data;
-    } catch (err) {
-      return thunkAPI.rejectWithValue(err.response?.data || err.message);
-    }
-  },
-);
+// export const fetchLease = createAsyncThunk(
+//   "leases/fetchLease",
+//   async (id, thunkAPI) => {
+//     try {
+//       const token
+//       const response = await leaseAPI.fetchMyLeasesAPI(id);
+//       return response.data;
+//     } catch (err) {
+//       return thunkAPI.rejectWithValue(err.response?.data || err.message);
+//     }
+//   },
+// );
 // create estate logic
 export const addLease = createAsyncThunk(
   "leases/addLease",
@@ -156,19 +171,19 @@ const leaseSlice = createSlice({
         state.error = action.payload;
       })
       // fetch one lease
-      .addCase(fetchLease.pending, (state) => {
+      .addCase(fetchLeaseById.pending, (state) => {
         state.leStatus = "loading";
         state.error = null;
       })
-      .addCase(fetchLease.fulfilled, (state, action) => {
+      .addCase(fetchLeaseById.fulfilled, (state, action) => {
         state.leStatus = "succeeded";
         state.currentLease = action.payload;
       })
-      .addCase(fetchLease.rejected, (state, action) => {
+      .addCase(fetchLeaseById.rejected, (state, action) => {
         state.leStatus = "failed";
         state.error = action.payload;
       })
-      // add product
+      // add Lease
       .addCase(addLease.pending, (state) => {
         state.leStatus = "loading";
         state.error = null;

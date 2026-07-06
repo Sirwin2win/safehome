@@ -10,7 +10,15 @@ export const fetchLeasesAPI = (token) =>
       Authorization: `Bearer ${token}`,
     },
   });
-export const fetchLeaseByIdAPI = (id) => axios.get(`${API_BASE}/${id}`);
+
+// Fetch lease by Id
+export const fetchLeaseByIdAPI = (id, token) =>
+  axios.get(`${API_BASE}/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
 export const createLeaseAPI = (form, token) =>
   axios.post(API_BASE, form, {
     headers: {
