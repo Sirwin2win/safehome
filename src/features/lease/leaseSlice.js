@@ -87,7 +87,7 @@ export const addLease = createAsyncThunk(
     }
   },
 );
-
+// update lease status
 export const updateLease = createAsyncThunk(
   "leases/updateLease",
   async ({ id, status }, thunkAPI) => {
@@ -100,6 +100,25 @@ export const updateLease = createAsyncThunk(
     }
   },
 );
+// update lease agreement
+export const updateLeaseAgreement = createAsyncThunk(
+  "leases/updateLeaseAgreement",
+  async ({ id, payload }, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await leaseAPI.updateLeaseAgreementAPI(
+        id,
+        payload,
+        token,
+      );
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  },
+);
+
+// delete a lease
 export const deleteLease = createAsyncThunk(
   "leases/deleteLease",
   async (id, thunkAPI) => {
@@ -196,7 +215,7 @@ const leaseSlice = createSlice({
         state.leStatus = "failed";
         state.error = action.payload;
       })
-      // update Estate
+      // update Lease status
       .addCase(updateLease.pending, (state) => {
         state.leStatus = "loading";
         state.error = null;
@@ -208,7 +227,7 @@ const leaseSlice = createSlice({
         if (index !== -1) {
           state.leases[index] = updated;
         }
-        // if currentEstate is the one updated, update that too
+        // if currentLease is the one updated, update that too
         if (state.currentLease && state.currentLease.id === updated.id) {
           state.currentLease = updated;
         }
@@ -217,7 +236,28 @@ const leaseSlice = createSlice({
         state.leStatus = "failed";
         state.error = action.payload;
       })
-      // // delete Category
+      // update Lease Agreement
+      .addCase(updateLeaseAgreement.pending, (state) => {
+        state.leStatus = "loading";
+        state.error = null;
+      })
+      .addCase(updateLeaseAgreement.fulfilled, (state, action) => {
+        state.leStatus = "succeeded";
+        const updated = action.payload;
+        const index = state.leases.findIndex((p) => p.id === updated.id);
+        if (index !== -1) {
+          state.leases[index] = updated;
+        }
+        // if currentLease is the one updated, update that too
+        if (state.currentLease && state.currentLease.id === updated.id) {
+          state.currentLease = updated;
+        }
+      })
+      .addCase(updateLeaseAgreement.rejected, (state, action) => {
+        state.leStatus = "failed";
+        state.error = action.payload;
+      })
+      // // delete Lease
       .addCase(deleteLease.pending, (state) => {
         state.leStatus = "loading";
         state.error = null;

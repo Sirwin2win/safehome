@@ -39,10 +39,10 @@ export const fetchLandlordLeasesAPI = (token) =>
       Authorization: `Bearer ${token}`,
     },
   });
-
+// update lease statuses
 export const updateLeaseAPI = (id, status, token) => {
   return axios.patch(
-    `${API_BASE}/${id}`,
+    `${API_BASE}/${id}/status`,
     { id, status }, // 👈 IMPORTANT FIX
     {
       headers: {
@@ -52,6 +52,21 @@ export const updateLeaseAPI = (id, status, token) => {
     },
   );
 };
+// update lease agreement
+export const updateLeaseAgreementAPI = (id, payload, token) => {
+  return axios.patch(
+    `${API_BASE}/${id}/agreement`,
+    { id, payload }, // 👈 IMPORTANT FIX
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    },
+  );
+};
+
+// delete lease
 export const deleteLeaseAPI = (id, token) =>
   axios.delete(`${API_BASE}/${id}`, {
     headers: {
