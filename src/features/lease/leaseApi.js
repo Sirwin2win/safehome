@@ -54,16 +54,12 @@ export const updateLeaseAPI = (id, status, token) => {
 };
 // update lease agreement
 export const updateLeaseAgreementAPI = (id, payload, token) => {
-  return axios.patch(
-    `${API_BASE}/${id}/agreement`,
-    { id, payload }, // 👈 IMPORTANT FIX
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
+  return axios.patch(`${API_BASE}/${id}/agreement`, payload, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     },
-  );
+  });
 };
 
 // delete lease

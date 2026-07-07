@@ -1,29 +1,33 @@
-import React, { useEffect, useEffectEvent, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { fetchLeaseById } from "../features/lease/leaseSlice";
 import { jwtDecode } from "jwt-decode";
+
+import {
+  fetchLeaseById,
+  updateLeaseAgreement,
+} from "../features/lease/leaseSlice";
+
 import { getUserById } from "../features/auth/authSlice";
 
 const LeaseSignForm = () => {
   // Get token from localStorage
-  const token = localStorage.getItem("token");
   const dispatch = useDispatch();
   const { id } = useParams();
+
+  const token = localStorage.getItem("token");
+
   let userId = null;
 
   if (token) {
-    // Decode token
-    const decoded = jwtDecode(token);
-
-    // console.log(decoded);
-
-    // Access user id
-    userId = decoded.uuid;
-
-    // console.log("User uuid:", userId);
+    try {
+      const decoded = jwtDecode(token);
+      userId = decoded.uuid;
+    } catch (error) {
+      console.error("Invalid token:", error);
+      localStorage.removeItem("token");
+    }
   }
-
   // get auth info from the state
   const { user, status, error } = useSelector((state) => state.auth);
 
@@ -37,7 +41,7 @@ const LeaseSignForm = () => {
     }
   }, [dispatch, userId]);
 
-  console.log(user);
+  // console.log(user);
   // const { id } = useParams();
   // const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -47,8 +51,7 @@ const LeaseSignForm = () => {
       dispatch(fetchLeaseById(id));
     }
   }, [id, dispatch]);
-  console.log(currentLease);
-
+  // console.log(currentLease);
   const [form, setForm] = useState({
     start_date: "",
     end_date: "",
@@ -65,6 +68,25 @@ const LeaseSignForm = () => {
     landlordSigned: false,
     tenantSigned: false,
   });
+  useEffect(() => {
+    if (currentLease?.data) {
+      setForm({
+        start_date: currentLease.data.start_date || "",
+        end_date: currentLease.data.end_date || "",
+        landlord_name: currentLease.data.landlord_name || "",
+        landlord_email: currentLease.data.landlord_email || "",
+        landlord_phone: currentLease.data.landlord_phone || "",
+        tenant_name: currentLease.data.tenant_name || "",
+        tenant_email: currentLease.data.tenant_email || "",
+        tenant_phone: currentLease.data.tenant_phone || "",
+      });
+
+      setSignature({
+        landlordSigned: currentLease.data.landlord_signed || false,
+        tenantSigned: currentLease.data.tenant_signed || false,
+      });
+    }
+  }, [currentLease]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -84,6 +106,7 @@ const LeaseSignForm = () => {
   const canEditLandlord =
     isLandlordOfLease && !currentLease?.data?.landlord_signed;
   const canEditTenant = isTenantOfLease && !currentLease?.data?.tenant_signed;
+  const canSubmit = canEditLandlord || canEditTenant;
 
   // const canSubmit = canEditLandlord || canEditTenant;
 
@@ -92,7 +115,6 @@ const LeaseSignForm = () => {
     e.preventDefault();
 
     const payload = {
-      id: id,
       start_date: form.start_date,
       end_date: form.end_date,
       landlord_name: form.landlord_name,
@@ -104,17 +126,23 @@ const LeaseSignForm = () => {
       landlord_signed: signature.landlordSigned,
       tenant_signed: signature.tenantSigned,
     };
+    // const payload = { id, form };
 
-    // console.log(payload);
+    console.log(payload);
 
     // dispatch(signLease(payload));
     try {
-      if (!signature.landlordSigned && !signature.tenantSigned) {
-        alert("You must sign before you submit");
-        return; // Stop the function
+      if (canEditLandlord && !signature.landlordSigned) {
+        alert("Please sign as landlord.");
+        return;
       }
-      console.log(payload);
-      // await dispatch(addLease(payload)).unwrap();
+
+      if (canEditTenant && !signature.tenantSigned) {
+        alert("Please sign as tenant.");
+        return;
+      }
+      // console.log(payload);
+      await dispatch(updateLeaseAgreement({ id, payload })).unwrap();
 
       // Reset form
       setForm({
@@ -130,7 +158,7 @@ const LeaseSignForm = () => {
 
       // Redirect after successful submission
       // navigate("/leases");
-      return <p>Lease created!!!</p>;
+      // return <p>Lease created!!!</p>;
     } catch (error) {
       console.error("Failed to submit lease:", error);
     }
@@ -460,11 +488,10 @@ const LeaseSignForm = () => {
         </div>
         <button
           type="submit"
-          // disabled={leStatus === "loading" || propStatus === "loading"}
+          disabled={!canSubmit || leStatus === "loading"}
           className="w-full bg-[#1B2B3F] text-white py-2 my-3 rounded hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
         >
-          {/* {leStatus === "loading" ? "Sending..." : "Send Request"} */}
-          Submit Lease Agreement
+          {leStatus === "loading" ? "Submitting..." : "Submit Lease Agreement"}
         </button>
       </form>
     </div>

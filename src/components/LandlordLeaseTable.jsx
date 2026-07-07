@@ -74,7 +74,9 @@ const LandlordLeaseTable = () => {
                       Sign Here
                     </Link>
                   ) : lease.status === "LEASE-SIGNED" ? (
-                    <Link to={"lease-sign-form"}>Sign Here</Link>
+                    <Link to={`/dashboard/download-lease/${lease.id}`}>
+                      Download
+                    </Link>
                   ) : (
                     lease.status
                   )}
