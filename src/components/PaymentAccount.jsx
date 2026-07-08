@@ -61,22 +61,7 @@ const PaymentAccount = () => {
                 required
               />
             </div>
-            <div>
-              <label
-                className="block text-sm font-medium text-gray-700"
-                htmlFor="account_name"
-              >
-                Account Name
-              </label>
-              <input
-                type="text"
-                id="account_name"
-                onChange={onChange}
-                name="account_name"
-                className="mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-blue-500"
-                required
-              />
-            </div>
+
             <div>
               <label
                 className="block text-sm font-medium text-gray-700"
@@ -89,6 +74,22 @@ const PaymentAccount = () => {
                 id="bank_name"
                 onChange={onChange}
                 name="bank_name"
+                className="mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-blue-500"
+                required
+              />
+            </div>
+            <div>
+              <label
+                className="block text-sm font-medium text-gray-700"
+                htmlFor="account_name"
+              >
+                Account Name
+              </label>
+              <input
+                type="text"
+                id="account_name"
+                onChange={onChange}
+                name="account_name"
                 className="mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-blue-500"
                 required
               />
