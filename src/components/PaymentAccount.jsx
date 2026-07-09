@@ -7,10 +7,43 @@ import {
   fetchBanks,
   verifyAccount,
 } from "../features/paymentAccount/paymentAccountSlice";
+import { getUserById } from "../features/auth/authSlice";
 
 const PaymentAccount = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // get user from the token
+  const token = localStorage.getItem("token");
+  let userId = null;
+  try {
+    if (token) {
+      // Decode token
+      const decoded = jwtDecode(token);
+
+      // console.log(decoded);
+
+      // Access user id
+      userId = decoded.uuid;
+
+      // console.log("User uuid:", userId);
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+
+  // get auth info from the state
+  const { user, status, error } = useSelector((state) => state.auth);
+
+  // initialize dispatch
+  // const dispatch = useDispatch();
+
+  // dispatch for the actual user
+  useEffect(() => {
+    if (userId) {
+      dispatch(getUserById(userId));
+    }
+  }, [dispatch, userId]);
+  console.log(user);
 
   const { fwBanks, BStatus, PAStatus, verify } = useSelector(
     (state) => state.paymentAccounts,
@@ -21,6 +54,8 @@ const PaymentAccount = () => {
     bank_name: "",
     bank_code: "",
     account_name: "",
+    // email: user.email,
+    // phone: user.phone,
   });
 
   const { account_number, bank_name, bank_code, account_name } = formData;
@@ -47,7 +82,7 @@ const PaymentAccount = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(addPaymentAccount(formData));
-    navigate("/dashboard");
+    // navigate("/dashboard");
     setFormData({
       account_number: "",
       bank_name: "",

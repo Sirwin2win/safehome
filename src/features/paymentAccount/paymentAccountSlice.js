@@ -142,7 +142,7 @@ const paymentAccountSlice = createSlice({
       })
       .addCase(fetchMyPaymentAccount.fulfilled, (state, action) => {
         state.PAStatus = "succeeded";
-        state.myAccount = action.payload;
+        state.myAccount = action.payload.data || action.payload;
       })
       .addCase(fetchMyPaymentAccount.rejected, (state, action) => {
         state.PAStatus = "failed";

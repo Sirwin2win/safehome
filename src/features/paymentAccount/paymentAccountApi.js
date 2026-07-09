@@ -10,17 +10,26 @@ const API_BASE = "https://api.safehomeproperties.com/api/paymentAccounts";
 // Fetch Landlord account Details
 // Get My leases(tenant)
 export const fetchMyPaymentAccountAPI = (token) =>
-  axios.get(`${API_BASE}/landlord-account`, {
+  axios.get(`${API_BASE}/my-account`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
+// Fetch banks
 export const fetchBanksAPI = (token) =>
   axios.get(`${API_BASE}/banks`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
+// Fetch My account details
+// export const fetchMyAccountAPI = (token) =>
+//   axios.get(`${API_BASE}/my-account`, {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
+
 export const verifyAccountAPI = (form, token) =>
   axios.post(`${API_BASE}/verify-account`, form, {
     headers: {
@@ -28,7 +37,7 @@ export const verifyAccountAPI = (form, token) =>
     },
   });
 export const createPaymentAccountAPI = (form, token) =>
-  axios.post(API_BASE, form, {
+  axios.post(`${API_BASE}/payment-account`, form, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
