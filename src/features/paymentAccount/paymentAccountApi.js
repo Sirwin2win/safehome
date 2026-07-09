@@ -22,7 +22,7 @@ export const fetchBanksAPI = (token) =>
     },
   });
 export const verifyAccountAPI = (form, token) =>
-  axios.post(API_BASE, form, {
+  axios.post(`${API_BASE}/verify-account`, form, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
