@@ -2,10 +2,18 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import logo from "../assets/images/logo.jpg";
+import {
+  addPaymentAccount,
+  fetchBanks,
+  verifyAccount,
+} from "../features/paymentAccount/paymentAccountSlice";
 
 const PaymentAccount = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { fwBanks, BStatus, PAStatus, verify } = useSelector(
+    (state) => state.paymentAccounts,
+  );
   const [formData, setFormData] = useState({
     name: "",
   });
@@ -29,6 +37,11 @@ const PaymentAccount = () => {
       name: "",
     });
   };
+
+  useEffect(() => {
+    dispatch(fetchBanks());
+  }, [dispatch]);
+  console.log(fwBanks);
   return (
     <div className="min-h-screen bg-white flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <h1 className="text-2xl font-semibold text-center">

@@ -1,29 +1,34 @@
 // src/features/products/productSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as estateAPI from "./estateApi";
+import * as paymentAccountAPI from "./paymentAccountApi";
 // Thunks
-export const fetchEstates = createAsyncThunk(
-  "estates/fetchEstates",
+// Fetch Landord Payment Account
+export const fetchMyPaymentAccount = createAsyncThunk(
+  "paymentAccounts/fetchMyPaymentAccount",
   async (_, thunkAPI) => {
     try {
-      const response = await estateAPI.fetchEstatesAPI();
+      const token = localStorage.getItem("token");
+      const response = await paymentAccountAPI.fetchMyPaymentAccountAPI(token);
       return response.data; // assuming your API returns array of products
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);
     }
   },
 );
-export const fetchEstate = createAsyncThunk(
-  "estates/fetchEstate",
-  async (id, thunkAPI) => {
+// Fetch Nigerian Banks
+export const fetchBanks = createAsyncThunk(
+  "paymentAccounts/fetchBanks",
+  async (_, thunkAPI) => {
     try {
-      const response = await estateAPI.fetchEstateByIdAPI(id);
-      return response.data;
+      const token = localStorage.getItem("token");
+      const response = await paymentAccountAPI.fetchBanksAPI(token);
+      return response.data; // assuming your API returns array of products
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);
     }
   },
 );
+
 // verify landlord payment account
 export const verifyAccount = createAsyncThunk(
   "paymentAccounts/verifyAccount",
@@ -40,7 +45,7 @@ export const verifyAccount = createAsyncThunk(
     }
   },
 );
-// create estate logic
+// create payment account logic
 export const addPaymentAccount = createAsyncThunk(
   "paymentAccounts/addPaymentAccount",
   async (form, thunkAPI) => {
@@ -88,10 +93,13 @@ const paymentAccountSlice = createSlice({
   name: "paymentAccounts",
   initialState: {
     paymentAccounts: [],
+    fwBanks: [],
     currentpaymentAccount: null, // for editing / viewing one
     PAStatus: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
+    BStatus: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
     verify: null,
+    myAccount: null,
   },
   reducers: {
     // optional non-async actions
@@ -101,29 +109,42 @@ const paymentAccountSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // fetch all estates
-      .addCase(fetchEstates.pending, (state) => {
-        state.PAStatus = "loading";
+      // // fetch all payment account
+      // .addCase(fetchEstates.pending, (state) => {
+      //   state.PAStatus = "loading";
+      //   state.error = null;
+      // })
+      // .addCase(fetchEstates.fulfilled, (state, action) => {
+      //   state.PAStatus = "succeeded";
+      //   state.estates = action.payload.data || action.payload;
+      // })
+      // .addCase(fetchEstates.rejected, (state, action) => {
+      //   state.PAStatus = "failed";
+      //   state.error = action.payload;
+      // })
+      // fetch all the banks in NG from flutterwave
+      .addCase(fetchBanks.pending, (state) => {
+        state.BStatus = "loading";
         state.error = null;
       })
-      .addCase(fetchEstates.fulfilled, (state, action) => {
-        state.PAStatus = "succeeded";
-        state.estates = action.payload.data || action.payload;
+      .addCase(fetchBanks.fulfilled, (state, action) => {
+        state.BStatus = "succeeded";
+        state.fwBanks = action.payload.data || action.payload;
       })
-      .addCase(fetchEstates.rejected, (state, action) => {
-        state.PAStatus = "failed";
+      .addCase(fetchBanks.rejected, (state, action) => {
+        state.BStatus = "failed";
         state.error = action.payload;
       })
       // fetch one product
-      .addCase(fetchEstate.pending, (state) => {
+      .addCase(fetchMyPaymentAccount.pending, (state) => {
         state.PAStatus = "loading";
         state.error = null;
       })
-      .addCase(fetchEstate.fulfilled, (state, action) => {
+      .addCase(fetchMyPaymentAccount.fulfilled, (state, action) => {
         state.PAStatus = "succeeded";
-        state.currentEstate = action.payload;
+        state.myAccount = action.payload;
       })
-      .addCase(fetchEstate.rejected, (state, action) => {
+      .addCase(fetchMyPaymentAccount.rejected, (state, action) => {
         state.PAStatus = "failed";
         state.error = action.payload;
       })
@@ -147,52 +168,52 @@ const paymentAccountSlice = createSlice({
       })
       .addCase(addPaymentAccount.fulfilled, (state, action) => {
         state.PAStatus = "succeeded";
-        state.estates.push(action.payload);
+        state.paymentAccounts = action.payload;
       })
       .addCase(addPaymentAccount.rejected, (state, action) => {
         state.PAStatus = "failed";
         state.error = action.payload;
-      })
-      // update Estate
-      .addCase(updateEstate.pending, (state) => {
-        state.PAStatus = "loading";
-        state.error = null;
-      })
-      .addCase(updateEstate.fulfilled, (state, action) => {
-        state.PAStatus = "succeeded";
-        const updated = action.payload;
-        const index = state.estates.findIndex((p) => p.id === updated.id);
-        if (index !== -1) {
-          state.estates[index] = updated;
-        }
-        // if currentEstate is the one updated, update that too
-        if (state.currentEstate && state.currentEstate.id === updated.id) {
-          state.currentEstate = updated;
-        }
-      })
-      .addCase(updateEstate.rejected, (state, action) => {
-        state.PAStatus = "failed";
-        state.error = action.payload;
-      })
-      // delete Category
-      .addCase(deleteEstate.pending, (state) => {
-        state.PAStatus = "loading";
-        state.error = null;
-      })
-      .addCase(deleteEstate.fulfilled, (state, action) => {
-        state.PAStatus = "succeeded";
-        const id = action.payload;
-        state.estates = state.estates.filter((p) => p.id !== id);
-        // clear currentEstate if it was deleted
-        if (state.currentEstate && state.currentEstate.id === id) {
-          state.currentEstate = null;
-        }
-      })
-      .addCase(deleteEstate.rejected, (state, action) => {
-        state.PAStatus = "failed";
-        state.error = action.payload;
       });
+    // update Estate
+    // .addCase(updateEstate.pending, (state) => {
+    //   state.PAStatus = "loading";
+    //   state.error = null;
+    // })
+    // .addCase(updateEstate.fulfilled, (state, action) => {
+    //   state.PAStatus = "succeeded";
+    //   const updated = action.payload;
+    //   const index = state.estates.findIndex((p) => p.id === updated.id);
+    //   if (index !== -1) {
+    //     state.estates[index] = updated;
+    //   }
+    // if currentEstate is the one updated, update that too
+    //   if (state.currentEstate && state.currentEstate.id === updated.id) {
+    //     state.currentEstate = updated;
+    //   }
+    // })
+    // .addCase(updateEstate.rejected, (state, action) => {
+    //   state.PAStatus = "failed";
+    //   state.error = action.payload;
+    // })
+    // // delete Category
+    // .addCase(deleteEstate.pending, (state) => {
+    //   state.PAStatus = "loading";
+    //   state.error = null;
+    // })
+    // .addCase(deleteEstate.fulfilled, (state, action) => {
+    //   state.PAStatus = "succeeded";
+    //   const id = action.payload;
+    //   state.estates = state.estates.filter((p) => p.id !== id);
+    //   // clear currentEstate if it was deleted
+    //   if (state.currentEstate && state.currentEstate.id === id) {
+    //     state.currentEstate = null;
+    //   }
+    // })
+    // .addCase(deleteEstate.rejected, (state, action) => {
+    //   state.PAStatus = "failed";
+    //   state.error = action.payload;
+    // });
   },
 });
-export const { clearCurrentEstate } = estateSlice.actions;
-export default estateSlice.reducer;
+export const { clearCurrentpaymentAccount } = paymentAccountSlice.actions;
+export default paymentAccountSlice.reducer;
