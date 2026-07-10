@@ -5,6 +5,7 @@ import logo from "../assets/images/logo.jpg";
 import {
   addPaymentAccount,
   fetchBanks,
+  fetchMyPaymentAccount,
   verifyAccount,
 } from "../features/paymentAccount/paymentAccountSlice";
 import { getUserById } from "../features/auth/authSlice";
@@ -45,7 +46,7 @@ const PaymentAccount = () => {
   }, [dispatch, userId]);
   console.log(user);
 
-  const { fwBanks, BStatus, PAStatus, verify } = useSelector(
+  const { fwBanks, BStatus, PAStatus, verify, myAccount } = useSelector(
     (state) => state.paymentAccounts,
   );
 
@@ -96,6 +97,11 @@ const PaymentAccount = () => {
     dispatch(fetchBanks());
   }, [dispatch]);
 
+  // 1. Initial Load: Fetch payment account
+  useEffect(() => {
+    dispatch(fetchMyPaymentAccount());
+  }, [dispatch]);
+
   // 2. Automated Trigger: Passes bank_code and account_number to verifyAccount()
   useEffect(() => {
     // Verifies as soon as bank_code exists and account_number reaches standard 10 digits
@@ -115,8 +121,20 @@ const PaymentAccount = () => {
     }
   }, [verify]);
 
+  console.log(myAccount);
+
   return (
     <div className="min-h-screen bg-white flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      {myAccount && (
+        <div>
+          <p>Find Account Details Below</p>
+          <div className="my-5">
+            <p>Account Name: {myAccount.account_name}</p>
+            <p>Account Number: {myAccount.account_number}</p>
+            <p>Bank Name: {myAccount.bank_name}</p>
+          </div>
+        </div>
+      )}
       <h1 className="text-2xl font-semibold text-center px-4">
         Kindly fill up your account details where rent should be paid to
       </h1>

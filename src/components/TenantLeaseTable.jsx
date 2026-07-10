@@ -13,6 +13,7 @@ const TenantLeaseTable = () => {
       dispacth(fetchMyLeases());
     }
   }, [leStatus, dispacth]);
+  console.log(myLease);
   return (
     <div className="rounded-lg mt-10">
       <p className="text-center my-10">Tenant Leases Table</p>
@@ -70,9 +71,21 @@ const TenantLeaseTable = () => {
                       Sign Here
                     </Link>
                   ) : lease.status === "LEASE-SIGNED" ? (
-                    <Link to={`/dashboard/download-lease/${lease.id}`}>
-                      Download
-                    </Link>
+                    <div>
+                      <Link
+                        className="font-bold"
+                        to={`/dashboard/download-lease/${lease.id}`}
+                      >
+                        Download
+                      </Link>{" "}
+                      |
+                      <Link
+                        className="font-bold text-red-500 ms-2"
+                        to={`/dashboard/pay-rent/${lease.landlord_id}`}
+                      >
+                        Pay Rent
+                      </Link>
+                    </div>
                   ) : (
                     lease.status
                   )}

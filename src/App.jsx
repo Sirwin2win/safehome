@@ -135,7 +135,7 @@ export default function App() {
           <Route path="approve-tenant" element={<ApproveTenant />} />
           <Route path="approve-maintenance" element={<ApproveMaintenance />} />
           <Route path="lease-sign-form/:id" element={<LeaseSignForm />} />
-          <Route path="pay-rent" element={<PayRent />} />
+          <Route path="pay-rent/:id" element={<PayRent />} />
           <Route path="download-lease/:id" element={<DownloadLease />} />
           <Route
             path="estate-member-approval"

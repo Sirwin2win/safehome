@@ -15,6 +15,24 @@ export const fetchMyPaymentAccount = createAsyncThunk(
     }
   },
 );
+// Fetch account by landlord Id
+export const fetchAccountByLandlordId = createAsyncThunk(
+  "paymentAccounts/fetchAccountByLandlordId",
+  async (landlordId, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await paymentAccountAPI.fetchAccountByLandlordIdAPI(
+        landlordId,
+        token,
+      );
+
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  },
+);
+
 // Fetch Nigerian Banks
 export const fetchBanks = createAsyncThunk(
   "paymentAccounts/fetchBanks",
@@ -109,19 +127,7 @@ const paymentAccountSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // // fetch all payment account
-      // .addCase(fetchEstates.pending, (state) => {
-      //   state.PAStatus = "loading";
-      //   state.error = null;
-      // })
-      // .addCase(fetchEstates.fulfilled, (state, action) => {
-      //   state.PAStatus = "succeeded";
-      //   state.estates = action.payload.data || action.payload;
-      // })
-      // .addCase(fetchEstates.rejected, (state, action) => {
-      //   state.PAStatus = "failed";
-      //   state.error = action.payload;
-      // })
+
       // fetch all the banks in NG from flutterwave
       .addCase(fetchBanks.pending, (state) => {
         state.BStatus = "loading";
@@ -133,6 +139,20 @@ const paymentAccountSlice = createSlice({
       })
       .addCase(fetchBanks.rejected, (state, action) => {
         state.BStatus = "failed";
+        state.error = action.payload;
+      });
+    // fetch by landlord id
+    builder
+      .addCase(fetchAccountByLandlordId.pending, (state) => {
+        state.PAStatus = "loading";
+        state.error = null;
+      })
+      .addCase(fetchAccountByLandlordId.fulfilled, (state, action) => {
+        state.PAStatus = "succeeded";
+        state.myAccount = action.payload.data || action.payload; // or action.payload depending on your API response
+      })
+      .addCase(fetchAccountByLandlordId.rejected, (state, action) => {
+        state.PAStatus = "failed";
         state.error = action.payload;
       })
       // fetch one product
