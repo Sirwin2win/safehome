@@ -21,7 +21,7 @@ export const fetchMyTransactions = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await leaseAPI.fetchMyTransactionsAPI(token);
+      const response = await transactionAPI.fetchMyTransactionsAPI(token);
       return response.data; // assuming your API returns array of products
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);
@@ -157,125 +157,125 @@ const transactionSlice = createSlice({
         state.TranStatus = "loading";
         state.error = null;
       })
-      .addCase(fetchLeases.fulfilled, (state, action) => {
+      .addCase(fetchTransactions.fulfilled, (state, action) => {
         state.TranStatus = "succeeded";
         state.leases = action.payload.data || action.payload;
       })
-      .addCase(fetchLeases.rejected, (state, action) => {
+      .addCase(fetchTransactions.rejected, (state, action) => {
         state.TranStatus = "failed";
         state.error = action.payload;
       })
       // fetch my leases (tenant)
-      .addCase(fetchMyLeases.pending, (state) => {
+      .addCase(fetchMyTransactions.pending, (state) => {
         state.TranStatus = "loading";
         state.error = null;
       })
-      .addCase(fetchMyLeases.fulfilled, (state, action) => {
+      .addCase(fetchMyTransactions.fulfilled, (state, action) => {
         state.TranStatus = "succeeded";
         state.myLease = action.payload.data || action.payload;
       })
-      .addCase(fetchMyLeases.rejected, (state, action) => {
+      .addCase(fetchMyTransactions.rejected, (state, action) => {
         state.TranStatus = "failed";
         state.error = action.payload;
       })
       // fetch Landlord leases
-      .addCase(fetchLandlordLeases.pending, (state) => {
+      .addCase(fetchLandlordTransactions.pending, (state) => {
         state.TranStatus = "loading";
         state.error = null;
       })
-      .addCase(fetchLandlordLeases.fulfilled, (state, action) => {
+      .addCase(fetchLandlordTransactions.fulfilled, (state, action) => {
         state.TranStatus = "succeeded";
         state.landlordLeases = action.payload.data || action.payload;
       })
-      .addCase(fetchLandlordLeases.rejected, (state, action) => {
+      .addCase(fetchLandlordTransactions.rejected, (state, action) => {
         state.TranStatus = "failed";
         state.error = action.payload;
       })
       // fetch one lease
-      .addCase(fetchLeaseById.pending, (state) => {
-        state.TranStatus = "loading";
-        state.error = null;
-      })
-      .addCase(fetchLeaseById.fulfilled, (state, action) => {
-        state.TranStatus = "succeeded";
-        state.currentLease = action.payload.data || action.payload;
-      })
-      .addCase(fetchLeaseById.rejected, (state, action) => {
-        state.TranStatus = "failed";
-        state.error = action.payload;
-      })
+      // .addCase(fetchLeaseById.pending, (state) => {
+      //   state.TranStatus = "loading";
+      //   state.error = null;
+      // })
+      // .addCase(fetchLeaseById.fulfilled, (state, action) => {
+      //   state.TranStatus = "succeeded";
+      //   state.currentLease = action.payload.data || action.payload;
+      // })
+      // .addCase(fetchLeaseById.rejected, (state, action) => {
+      //   state.TranStatus = "failed";
+      //   state.error = action.payload;
+      // })
       // add Lease
-      .addCase(addLease.pending, (state) => {
+      .addCase(initialize.pending, (state) => {
         state.TranStatus = "loading";
         state.error = null;
       })
-      .addCase(addLease.fulfilled, (state, action) => {
+      .addCase(initialize.fulfilled, (state, action) => {
         state.TranStatus = "succeeded";
         state.leases.push(action.payload);
       })
-      .addCase(addLease.rejected, (state, action) => {
-        state.TranStatus = "failed";
-        state.error = action.payload;
-      })
-      // update Lease status
-      .addCase(updateLease.pending, (state) => {
-        state.TranStatus = "loading";
-        state.error = null;
-      })
-      .addCase(updateLease.fulfilled, (state, action) => {
-        state.TranStatus = "succeeded";
-        const updated = action.payload;
-        const index = state.leases.findIndex((p) => p.id === updated.id);
-        if (index !== -1) {
-          state.leases[index] = updated;
-        }
-        // if currentLease is the one updated, update that too
-        if (state.currentLease && state.currentLease.id === updated.id) {
-          state.currentLease = updated;
-        }
-      })
-      .addCase(updateLease.rejected, (state, action) => {
-        state.TranStatus = "failed";
-        state.error = action.payload;
-      })
-      // update Lease Agreement
-      .addCase(updateLeaseAgreement.pending, (state) => {
-        state.TranStatus = "loading";
-        state.error = null;
-      })
-      .addCase(updateLeaseAgreement.fulfilled, (state, action) => {
-        state.TranStatus = "succeeded";
-        const updated = action.payload;
-        const index = state.leases.findIndex((p) => p.id === updated.id);
-        if (index !== -1) {
-          state.leases[index] = updated;
-        }
-        // if currentLease is the one updated, update that too
-        if (state.currentLease && state.currentLease.id === updated.id) {
-          state.currentLease = updated;
-        }
-      })
-      .addCase(updateLeaseAgreement.rejected, (state, action) => {
-        state.TranStatus = "failed";
-        state.error = action.payload;
-      })
-      // // delete Lease
-      .addCase(deleteLease.pending, (state) => {
-        state.TranStatus = "loading";
-        state.error = null;
-      })
-      .addCase(deleteLease.fulfilled, (state, action) => {
-        state.TranStatus = "succeeded";
-        const id = action.payload;
-        state.leases = state.leases.filter((p) => p.id !== id); // clear currentEstate if it was deleted
-        if (state.currentLease && state.currentLease.id === id) {
-          state.currentLease = null;
-        }
-      })
-      .addCase(deleteLease.rejected, (state, action) => {
+      .addCase(initialize.rejected, (state, action) => {
         state.TranStatus = "failed";
         state.error = action.payload;
       });
+    // update Lease status
+    // .addCase(updateLease.pending, (state) => {
+    //   state.TranStatus = "loading";
+    //   state.error = null;
+    // })
+    // .addCase(updateLease.fulfilled, (state, action) => {
+    //   state.TranStatus = "succeeded";
+    //   const updated = action.payload;
+    //   const index = state.leases.findIndex((p) => p.id === updated.id);
+    //   if (index !== -1) {
+    //     state.leases[index] = updated;
+    //   }
+    //   // if currentLease is the one updated, update that too
+    //   if (state.currentLease && state.currentLease.id === updated.id) {
+    //     state.currentLease = updated;
+    //   }
+    // })
+    // .addCase(updateLease.rejected, (state, action) => {
+    //   state.TranStatus = "failed";
+    //   state.error = action.payload;
+    // })
+    // // update Lease Agreement
+    // .addCase(updateLeaseAgreement.pending, (state) => {
+    //   state.TranStatus = "loading";
+    //   state.error = null;
+    // })
+    // .addCase(updateLeaseAgreement.fulfilled, (state, action) => {
+    //   state.TranStatus = "succeeded";
+    //   const updated = action.payload;
+    //   const index = state.leases.findIndex((p) => p.id === updated.id);
+    //   if (index !== -1) {
+    //     state.leases[index] = updated;
+    //   }
+    //   // if currentLease is the one updated, update that too
+    //   if (state.currentLease && state.currentLease.id === updated.id) {
+    //     state.currentLease = updated;
+    //   }
+    // })
+    // .addCase(updateLeaseAgreement.rejected, (state, action) => {
+    //   state.TranStatus = "failed";
+    //   state.error = action.payload;
+    // })
+    // // // delete Lease
+    // .addCase(deleteLease.pending, (state) => {
+    //   state.TranStatus = "loading";
+    //   state.error = null;
+    // })
+    // .addCase(deleteLease.fulfilled, (state, action) => {
+    //   state.TranStatus = "succeeded";
+    //   const id = action.payload;
+    //   state.leases = state.leases.filter((p) => p.id !== id); // clear currentEstate if it was deleted
+    //   if (state.currentLease && state.currentLease.id === id) {
+    //     state.currentLease = null;
+    //   }
+    // })
+    // .addCase(deleteLease.rejected, (state, action) => {
+    //   state.TranStatus = "failed";
+    //   state.error = action.payload;
+    // });
   },
 });
 export const { clearCurrentTransactions } = transactionSlice.actions;
