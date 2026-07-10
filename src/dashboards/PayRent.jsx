@@ -29,7 +29,7 @@ const PayRent = () => {
       <p>Click the pay button to proceed</p>
       <button>
         <span>Pay</span>
-        {currentLease.map((lease) => (
+        {currentLease?.map((lease) => (
           <span key={lease.id}>({lease.rent_amount})</span>
         ))}
       </button>
