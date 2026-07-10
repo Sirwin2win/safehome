@@ -39,6 +39,14 @@ export const fetchLandlordLeasesAPI = (token) =>
       Authorization: `Bearer ${token}`,
     },
   });
+//Fetch Lease By Id
+// export const fetchLeaseByIdAPI = (id,token) =>
+//   axios.get(`${API_BASE}/${id}`, {
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
+
 // update lease statuses
 export const updateLeaseAPI = (id, status, token) => {
   return axios.patch(

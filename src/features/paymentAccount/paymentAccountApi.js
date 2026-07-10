@@ -22,13 +22,13 @@ export const fetchBanksAPI = (token) =>
       Authorization: `Bearer ${token}`,
     },
   });
-// Fetch My account details
-// export const fetchMyAccountAPI = (token) =>
-//   axios.get(`${API_BASE}/my-account`, {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
+//Fetch Landlord account details
+export const fetchAccountByLandlordIdAPI = (id, token) =>
+  axios.get(`${API_BASE}/landlord-account/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
 export const verifyAccountAPI = (form, token) =>
   axios.post(`${API_BASE}/verify-account`, form, {

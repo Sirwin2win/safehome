@@ -56,12 +56,14 @@ export const fetchLandlordLeases = createAsyncThunk(
   },
 );
 // Fetch Lease by Id
-// export const fetchLease = createAsyncThunk(
-//   "leases/fetchLease",
-//   async (id, thunkAPI) => {
+// Fetch account by landlord Id
+// export const fetchLeaseById = createAsyncThunk(
+//   "leases/fetchLeaseById",
+//   async (landlordId, thunkAPI) => {
 //     try {
-//       const token
-//       const response = await leaseAPI.fetchMyLeasesAPI(id);
+//       const token = localStorage.getItem("token");
+//       const response = await leaseAPI.fetchLeaseByIdAPI(landlordId, token);
+
 //       return response.data;
 //     } catch (err) {
 //       return thunkAPI.rejectWithValue(err.response?.data || err.message);
