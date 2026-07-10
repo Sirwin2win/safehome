@@ -198,7 +198,7 @@ const leaseSlice = createSlice({
       })
       .addCase(fetchLeaseById.fulfilled, (state, action) => {
         state.leStatus = "succeeded";
-        state.currentLease = action.payload;
+        state.currentLease = action.payload.data || action.payload;
       })
       .addCase(fetchLeaseById.rejected, (state, action) => {
         state.leStatus = "failed";

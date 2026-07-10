@@ -26,7 +26,13 @@ const PayRent = () => {
   console.log(currentLease);
   return (
     <div>
-      <p>PayRent Here({id})</p>
+      <p>Click the pay button to proceed</p>
+      <button>
+        <span>Pay</span>
+        {currentLease.map((lease) => (
+          <span key={lease.id}>({lease.rent_amount})</span>
+        ))}
+      </button>
     </div>
   );
 };
