@@ -51,7 +51,7 @@ const LeaseSignForm = () => {
       dispatch(fetchLeaseById(id));
     }
   }, [id, dispatch]);
-  // console.log(currentLease);
+  console.log(currentLease);
   const [form, setForm] = useState({
     start_date: "",
     end_date: "",
@@ -71,19 +71,19 @@ const LeaseSignForm = () => {
   useEffect(() => {
     if (currentLease?.data) {
       setForm({
-        start_date: currentLease.data.start_date || "",
-        end_date: currentLease.data.end_date || "",
-        landlord_name: currentLease.data.landlord_name || "",
-        landlord_email: currentLease.data.landlord_email || "",
-        landlord_phone: currentLease.data.landlord_phone || "",
-        tenant_name: currentLease.data.tenant_name || "",
-        tenant_email: currentLease.data.tenant_email || "",
-        tenant_phone: currentLease.data.tenant_phone || "",
+        start_date: currentLease.start_date || "",
+        end_date: currentLease.end_date || "",
+        landlord_name: currentLease.landlord_name || "",
+        landlord_email: currentLease.landlord_email || "",
+        landlord_phone: currentLease.landlord_phone || "",
+        tenant_name: currentLease.tenant_name || "",
+        tenant_email: currentLease.tenant_email || "",
+        tenant_phone: currentLease.tenant_phone || "",
       });
 
       setSignature({
-        landlordSigned: currentLease.data.landlord_signed || false,
-        tenantSigned: currentLease.data.tenant_signed || false,
+        landlordSigned: currentLease.landlord_signed || false,
+        tenantSigned: currentLease.tenant_signed || false,
       });
     }
   }, [currentLease]);
@@ -100,12 +100,11 @@ const LeaseSignForm = () => {
   // const landlordReadOnly = user?.roles?.includes("landlord");
   // const tenantReadOnly = user?.roles?.includes("tenant");
 
-  const isLandlordOfLease = user?.id === currentLease?.data?.landlord_id;
-  const isTenantOfLease = user?.id === currentLease?.data?.tenant_id;
+  const isLandlordOfLease = user?.id === currentLease?.landlord_id;
+  const isTenantOfLease = user?.id === currentLease?.tenant_id;
 
-  const canEditLandlord =
-    isLandlordOfLease && !currentLease?.data?.landlord_signed;
-  const canEditTenant = isTenantOfLease && !currentLease?.data?.tenant_signed;
+  const canEditLandlord = isLandlordOfLease && !currentLease?.landlord_signed;
+  const canEditTenant = isTenantOfLease && !currentLease?.tenant_signed;
   const canSubmit = canEditLandlord || canEditTenant;
 
   // const canSubmit = canEditLandlord || canEditTenant;
@@ -168,7 +167,7 @@ const LeaseSignForm = () => {
     return <p>Loading lease...</p>;
   }
 
-  if (!currentLease?.data) {
+  if (!currentLease) {
     return <p>Lease not found.</p>;
   }
   return (
@@ -187,21 +186,21 @@ const LeaseSignForm = () => {
               {" "}
               Name:{" "}
               <span className="font-semibold">
-                {currentLease?.data?.landlord_name}
+                {currentLease?.landlord_name}
               </span>{" "}
             </div>
             <div>
               {" "}
               Email:{" "}
               <span className="font-semibold">
-                {currentLease?.data?.landlord_email}
+                {currentLease?.landlord_email}
               </span>{" "}
             </div>
             <div>
               {" "}
               Phone:{" "}
               <span className="font-semibold">
-                {currentLease?.data?.landlord_phone}
+                {currentLease?.landlord_phone}
               </span>{" "}
             </div>
           </div>
@@ -211,21 +210,21 @@ const LeaseSignForm = () => {
               {" "}
               Name:{" "}
               <span className="font-semibold">
-                {currentLease?.data?.tenant_name}
+                {currentLease?.tenant_name}
               </span>{" "}
             </div>
             <div>
               {" "}
               Email:{" "}
               <span className="font-semibold">
-                {currentLease?.data?.tenant_email}
+                {currentLease?.tenant_email}
               </span>{" "}
             </div>
             <div>
               {" "}
               Phone:{" "}
               <span className="font-semibold">
-                {currentLease?.data?.tenant_phone}
+                {currentLease?.tenant_phone}
               </span>{" "}
             </div>
           </div>
@@ -240,7 +239,7 @@ const LeaseSignForm = () => {
         <div className="my-5">
           Property Address:{" "}
           <span className="font-semibold">
-            {currentLease?.data?.property_address}
+            {currentLease?.property_address}
           </span>
         </div>
         <p>The premises shall be used solely for residential purposes.</p>
@@ -285,9 +284,7 @@ const LeaseSignForm = () => {
         <p className="text-center text-lg font-semibold my-10">Rent</p>
         <div>
           Annual Rent:{" "}
-          <span className="font-semibold">
-            ₦{currentLease?.data?.rent_amount}
-          </span>
+          <span className="font-semibold">₦{currentLease?.rent_amount}</span>
         </div>
         {/* Rent ended */}
         {/* Utilities Started */}

@@ -69,7 +69,7 @@ const LandlordLeaseTable = () => {
               </td>
               <td className="px-6 py-4 text-sm text-blue-700">
                 <span href="#">
-                  {lease.status === "LEASE-READY" ? (
+                  {lease.status === "TENANT-SIGNED" ? (
                     <Link to={`/dashboard/lease-sign-form/${lease.id}`}>
                       Sign Here
                     </Link>
