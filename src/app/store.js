@@ -14,6 +14,7 @@ import productReducer from "../features/products/productSlice";
 import paymentAccountReducer from "../features/paymentAccount/paymentAccountSlice";
 import propertyReducer from "../features/properties/propertySlice";
 import mailReducer from "../features/mail/mailSlice";
+import transactionReducer from "../features/transaction/transactionSlice";
 import notificationReducer from "../features/notifications/notificationSlice";
 
 const store = configureStore({
@@ -36,6 +37,7 @@ const store = configureStore({
     paymentAccounts: paymentAccountReducer,
     rolePermissions: rolePermissionReducer,
     mails: mailReducer,
+    transactions: transactionReducer,
     notifications: notificationReducer,
 
     //  carts:cartReducer

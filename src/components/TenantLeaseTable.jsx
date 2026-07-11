@@ -81,7 +81,7 @@ const TenantLeaseTable = () => {
                       |
                       <Link
                         className="font-bold text-red-500 ms-2"
-                        to={`/dashboard/pay-rent/${lease.landlord_id}`}
+                        to={`/dashboard/pay-rent/${lease.id}`}
                       >
                         Pay Rent
                       </Link>

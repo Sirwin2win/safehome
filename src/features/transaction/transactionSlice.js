@@ -211,7 +211,7 @@ const transactionSlice = createSlice({
       })
       .addCase(initialize.fulfilled, (state, action) => {
         state.TranStatus = "succeeded";
-        state.leases.push(action.payload);
+        state.currentTransactions = action.payload.data || action.payload;
       })
       .addCase(initialize.rejected, (state, action) => {
         state.TranStatus = "failed";
