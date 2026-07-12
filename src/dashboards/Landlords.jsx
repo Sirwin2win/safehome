@@ -12,9 +12,14 @@ import skyline from "../assets/images/safehome_skyline.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { markAsReadLocal } from "../features/notifications/notificationSlice";
 import NotificationBell from "../components/NotificationBell";
-import { fetchMyProperties } from "../features/properties/propertySlice";
+import {
+  fetchMyProperties,
+  fetchProperty,
+} from "../features/properties/propertySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDistanceToNow } from "date-fns";
+import { jwtDecode } from "jwt-decode";
+import { getUserById } from "../features/auth/authSlice";
 
 const stats = [
   {
@@ -58,6 +63,29 @@ const stats = [
     badgeColor: "bg-blue-100 text-blue-700 px-2 py-1 rounded-full",
   },
 ];
+
+const token = localStorage.getItem("token");
+
+let userId = null;
+
+if (token) {
+  try {
+    const decoded = jwtDecode(token);
+    userId = decoded.uuid;
+  } catch (error) {
+    console.error("Invalid token:", error);
+    localStorage.removeItem("token");
+  }
+}
+
+// dispatch for the actual user
+useEffect(() => {
+  if (userId) {
+    dispatch(getUserById(userId));
+  }
+}, [dispatch, userId]);
+// get auth info from the state
+const { user, status, error } = useSelector((state) => state.auth);
 
 const handleClick = async (id) => {
   dispatch(markAsReadLocal(id));
