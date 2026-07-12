@@ -59,6 +59,8 @@ import ApproveMaintenance from "./dashboards/ApproveMaintenance";
 import LeaseSignForm from "./forms/LeaseSignForm";
 import PayRent from "./dashboards/PayRent";
 import DownloadLease from "./dashboards/DownloadLease";
+import PropertyTable from "./components/PropertyTable";
+import EditPropertyForm from "./forms/EditPropertyForm";
 
 /**
  * ✅ GLOBAL PROVIDER
@@ -137,6 +139,8 @@ export default function App() {
           <Route path="lease-sign-form/:id" element={<LeaseSignForm />} />
           <Route path="pay-rent/:id" element={<PayRent />} />
           <Route path="download-lease/:id" element={<DownloadLease />} />
+          <Route path="property-table" element={<PropertyTable />} />
+          <Route path="edit-property/:id" element={<EditPropertyForm />} />
           <Route
             path="estate-member-approval"
             element={<EstateMemberApproval />}

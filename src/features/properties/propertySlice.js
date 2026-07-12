@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import * as propertyAPI from "./propertyAPI";
+import * as propertyAPI from "./propertyApi";
 import axios from "axios";
 
 // console.log("propertyAPI:", propertyAPI);
@@ -8,43 +8,41 @@ import axios from "axios";
 const url = "https://api.safehomeproperties.com/api/properties";
 
 // Thunks
-// export const fetchProducts = createAsyncThunk(
-//   'products/fetchProducts',
-//   async (_, thunkAPI) => {
-//     try {
-//       const response = await productAPI.fetchProductsAPI();
-//       return response.data;  // assuming your API returns array of products
-//     } catch (err) {
-//       return thunkAPI.rejectWithValue(err.response?.data || err.message);
-//     }
-//   }
-// );
 
 export const fetchProperties = createAsyncThunk(
   "properties/fetchProperties",
-
   async (_, thunkAPI) => {
     try {
-      // const token = localStorage.getItem('token')
-      const state = thunkAPI.getState();
+      const { filters } = thunkAPI.getState().properties;
 
-      const filters = state.properties.filters;
-
-      // REMOVE EMPTY VALUES
       const cleanFilters = Object.fromEntries(
         Object.entries(filters).filter(
           ([_, value]) => value !== "" && value !== null && value !== undefined,
         ),
       );
 
-      const response = await axios.get(url, {
-        params: cleanFilters,
-      });
+      const response = await propertyAPI.fetchPropertiesAPI(cleanFilters);
 
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(
         error.response?.data?.message || error.message,
+      );
+    }
+  },
+);
+// Fetch Property filters
+export const fetchPropertyFilters = createAsyncThunk(
+  "properties/fetchPropertyFilters",
+
+  async (_, thunkAPI) => {
+    try {
+      const response = await propertyAPI.fetchPropertyFiltersAPI();
+
+      return response.data.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        err.response?.data?.message || err.message,
       );
     }
   },
@@ -56,10 +54,24 @@ export const fetchMyProperties = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await propertyAPI.fetchMyPropertiesAPI(token);
-      return response.data; // assuming your API returns array of products
+      const { filters } = thunkAPI.getState().properties;
+
+      const cleanFilters = Object.fromEntries(
+        Object.entries(filters).filter(
+          ([_, value]) => value !== "" && value !== null && value !== undefined,
+        ),
+      );
+
+      const response = await propertyAPI.fetchMyPropertiesAPI(
+        cleanFilters,
+        token,
+      );
+
+      return response.data;
     } catch (err) {
-      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+      return thunkAPI.rejectWithValue(
+        err.response?.data?.message || err.message,
+      );
     }
   },
 );
@@ -99,11 +111,11 @@ export const addProperty = createAsyncThunk(
 
 export const updateProperty = createAsyncThunk(
   "properties/updateProperty",
-  async ({ id, property }, thunkAPI) => {
+  async ({ id, formData }, thunkAPI) => {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await propertyAPI.updatePropertyAPI(id, property, token);
+      const response = await propertyAPI.updatePropertyAPI(id, formData, token);
 
       return response.data;
     } catch (err) {
@@ -129,39 +141,54 @@ export const deleteProperty = createAsyncThunk(
 
 const propertySlice = createSlice({
   name: "properties",
+
   initialState: {
     properties: [],
-    currentProperty: null, // for editing / viewing one
-    propStatus: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
-    propError: null,
-    myProperties: [],
-    total: 0,
+    currentProperty: null,
 
+    propStatus: "idle",
+    propError: null,
+
+    myProperties: [],
+
+    total: 0,
     totalPages: 0,
 
+    // Selected filters sent to API
     filters: {
       search: "",
       address: "",
-      // category: "",
+      type: "",
+      status: "",
       minPrice: "",
       maxPrice: "",
-      rooms: "",
-      baths: "",
       page: 1,
       limit: 12,
     },
+
+    // Options received from /properties/filters
+    filterOptions: {
+      types: [],
+      statuses: [],
+      locations: [],
+      priceRange: {
+        minPrice: 0,
+        maxPrice: 0,
+      },
+    },
   },
+
   reducers: {
-    // optional non-async actions
     clearCurrentProperty(state) {
       state.currentProperty = null;
     },
+
     setFilter: (state, action) => {
       const { key, value } = action.payload;
 
       state.filters[key] = value;
 
-      // reset page when changing filters
+      // Reset pagination when filters change
       if (key !== "page") {
         state.filters.page = 1;
       }
@@ -171,16 +198,16 @@ const propertySlice = createSlice({
       state.filters = {
         search: "",
         address: "",
-        // category: "",
+        type: "",
+        status: "",
         minPrice: "",
         maxPrice: "",
-        rooms: "",
-        baths: "",
         page: 1,
         limit: 12,
       };
     },
   },
+
   extraReducers: (builder) => {
     builder
       // fetch all products
@@ -194,6 +221,22 @@ const propertySlice = createSlice({
       })
       .addCase(fetchProperties.rejected, (state, action) => {
         state.propStatus = "failed";
+        state.propError = action.payload;
+      })
+      // fetch property filter options
+      .addCase(fetchPropertyFilters.pending, (state) => {
+        state.propStatus = "loading";
+      })
+
+      .addCase(fetchPropertyFilters.fulfilled, (state, action) => {
+        state.propStatus = "succeeded";
+
+        state.filterOptions = action.payload;
+      })
+
+      .addCase(fetchPropertyFilters.rejected, (state, action) => {
+        state.propStatus = "failed";
+
         state.propError = action.payload;
       })
       // fetch all my products

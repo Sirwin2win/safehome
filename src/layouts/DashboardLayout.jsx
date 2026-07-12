@@ -337,7 +337,7 @@ const DashboardLayout = () => {
                 <span
                   className={`ml-4 md:block ${isOpen ? "block" : "hidden"}`}
                 >
-                  <Link to={"manage-category"}>Manage Category</Link>
+                  <Link to={"property-table"}>Manage Properties</Link>
                 </span>
               </li>
             )}
@@ -347,7 +347,7 @@ const DashboardLayout = () => {
                 <span
                   className={`ml-4 md:block ${isOpen ? "block" : "hidden"}`}
                 >
-                  <Link to={"property-form"}>Manage Properties</Link>
+                  <Link to={"property-form"}>Create Properties</Link>
                 </span>
               </li>
             )}
