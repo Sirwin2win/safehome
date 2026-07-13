@@ -109,16 +109,50 @@ const DashboardLayout = () => {
 
         <nav className="mt-4">
           <ul>
-            {hasEstate && (
-              <li className="flex items-center p-4 m-3 rounded-lg bg-gray-400 cursor-pointer">
-                <TbLayoutDashboardFilled size={24} className="text-[#B7C8E1]" />
-                <span
-                  className={`ml-4 text-[#B7C8E1] md:block ${isOpen ? "block" : "hidden"}`}
-                >
-                  <Link to={"/dashboard"}>Dashboard</Link>
-                </span>
-              </li>
-            )}
+            {hasEstate &&
+              ["admin"].some((role) => user?.roles?.includes(role)) && (
+                <li className="flex items-center p-4 m-3 rounded-lg bg-gray-400 cursor-pointer">
+                  {/* <TbLayoutDashboardFilled size={24} className="text-[#B7C8E1]" /> */}
+                  <span
+                    className={`ml-4 text-[#B7C8E1] md:block ${isOpen ? "block" : "hidden"}`}
+                  >
+                    <Link to={"/dashboard"}>Admin Dashboard</Link>
+                  </span>
+                </li>
+              )}
+            {hasEstate &&
+              ["landlord"].some((role) => user?.roles?.includes(role)) && (
+                <li className="flex items-center p-4 m-3 rounded-lg cursor-pointer">
+                  <TbLayoutDashboardFilled
+                    size={24}
+                    className="text-[#B7C8E1]"
+                  />
+                  <span
+                    className={`ml-4 text-[#B7C8E1] md:block ${isOpen ? "block" : "hidden"}`}
+                  >
+                    <Link to={"/dashboard/landlord-dashboard"}>
+                      Landlord Dashboard
+                    </Link>
+                  </span>
+                </li>
+              )}
+            {hasEstate &&
+              ["tenant"].some((role) => user?.roles?.includes(role)) && (
+                <li className="flex items-center p-4 m-3 rounded-lg cursor-pointer">
+                  <TbLayoutDashboardFilled
+                    size={24}
+                    className="text-[#B7C8E1]"
+                  />
+                  <span
+                    className={`ml-4 text-[#B7C8E1] md:block ${isOpen ? "block" : "hidden"}`}
+                  >
+                    <Link to={"/dashboard/tenant-dashboard"}>
+                      Tenant Dashboard
+                    </Link>
+                  </span>
+                </li>
+              )}
+
             {/* Join Estate Link Started */}
             {!hasEstate && (
               <li className="items-center p-4 m-3 rounded-lg">

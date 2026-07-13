@@ -9,7 +9,8 @@ export const fetchTransactions = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
       const response = await transactionAPI.fetchTransactionsAPI(token);
-      return response.data; // assuming your API returns array of products
+      // console.log("API Response:", response.data);
+      return response.data;
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);
     }
@@ -28,19 +29,6 @@ export const fetchMyTransactions = createAsyncThunk(
     }
   },
 );
-//Fetch lease by Id
-// export const fetchLeaseById = createAsyncThunk(
-//   "transactions/fetchLeaseById",
-//   async (id, thunkAPI) => {
-//     try {
-//       const token = localStorage.getItem("token");
-//       const response = await leaseAPI.fetchLeaseByIdAPI(id, token);
-//       return response.data;
-//     } catch (err) {
-//       return thunkAPI.rejectWithValue(err.response?.data || err.message);
-//     }
-//   },
-// );
 
 // Fetch Landlord transactions
 export const fetchLandlordTransactions = createAsyncThunk(
@@ -49,27 +37,14 @@ export const fetchLandlordTransactions = createAsyncThunk(
     try {
       const token = localStorage.getItem("token");
       const response = await transactionAPI.fetchLandlordTransactionsAPI(token);
+      console.log("API Response:", response.data);
       return response.data; // assuming your API returns array of products
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);
     }
   },
 );
-// Fetch Lease by Id
-// Fetch account by landlord Id
-// export const fetchLeaseById = createAsyncThunk(
-//   "leases/fetchLeaseById",
-//   async (landlordId, thunkAPI) => {
-//     try {
-//       const token = localStorage.getItem("token");
-//       const response = await leaseAPI.fetchLeaseByIdAPI(landlordId, token);
 
-//       return response.data;
-//     } catch (err) {
-//       return thunkAPI.rejectWithValue(err.response?.data || err.message);
-//     }
-//   },
-// );
 // create estate logic
 export const initialize = createAsyncThunk(
   "transactions/initialize",
@@ -89,50 +64,7 @@ export const initialize = createAsyncThunk(
     }
   },
 );
-// update lease status
-// export const updateLease = createAsyncThunk(
-//   "transactions/updateLease",
-//   async ({ id, status }, thunkAPI) => {
-//     try {
-//       const token = localStorage.getItem("token");
-//       const response = await leaseAPI.updateLeaseAPI(id, status, token);
-//       return response.data;
-//     } catch (err) {
-//       return thunkAPI.rejectWithValue(err.response?.data || err.message);
-//     }
-//   },
-// );
-// // update lease agreement
-// export const updateLeaseAgreement = createAsyncThunk(
-//   "transactions/updateLeaseAgreement",
-//   async ({ id, payload }, thunkAPI) => {
-//     try {
-//       const token = localStorage.getItem("token");
-//       const response = await leaseAPI.updateLeaseAgreementAPI(
-//         id,
-//         payload,
-//         token,
-//       );
-//       return response.data;
-//     } catch (err) {
-//       return thunkAPI.rejectWithValue(err.response?.data || err.message);
-//     }
-//   },
-// );
 
-// // delete a lease
-// export const deleteLease = createAsyncThunk(
-//   "transactions/deleteLease",
-//   async (id, thunkAPI) => {
-//     try {
-//       const token = localStorage.getItem("token");
-//       await leaseAPI.deleteLeaseAPI(id, token);
-//       return id;
-//     } catch (err) {
-//       return thunkAPI.rejectWithValue(err.response?.data || err.message);
-//     }
-//   },
-// );
 // Slice
 const transactionSlice = createSlice({
   name: "transactions",
@@ -191,20 +123,7 @@ const transactionSlice = createSlice({
         state.TranStatus = "failed";
         state.error = action.payload;
       })
-      // fetch one lease
-      // .addCase(fetchLeaseById.pending, (state) => {
-      //   state.TranStatus = "loading";
-      //   state.error = null;
-      // })
-      // .addCase(fetchLeaseById.fulfilled, (state, action) => {
-      //   state.TranStatus = "succeeded";
-      //   state.currentLease = action.payload.data || action.payload;
-      // })
-      // .addCase(fetchLeaseById.rejected, (state, action) => {
-      //   state.TranStatus = "failed";
-      //   state.error = action.payload;
-      // })
-      // add Lease
+
       .addCase(initialize.pending, (state) => {
         state.TranStatus = "loading";
         state.error = null;

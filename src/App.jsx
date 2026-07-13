@@ -62,6 +62,9 @@ import DownloadLease from "./dashboards/DownloadLease";
 import PropertyTable from "./components/PropertyTable";
 import EditPropertyForm from "./forms/EditPropertyForm";
 import ViewAllTransactions from "./dashboards/ViewAllTransactions";
+import LandlordDashboard from "./components/LandlordDashboard";
+import LandlordTransactions from "./components/LandlordTransactions";
+import TenantDashboard from "./components/TenantDashboard";
 
 /**
  * ✅ GLOBAL PROVIDER
@@ -142,6 +145,12 @@ export default function App() {
           <Route path="download-lease/:id" element={<DownloadLease />} />
           <Route path="property-table" element={<PropertyTable />} />
           <Route path="edit-property/:id" element={<EditPropertyForm />} />
+          <Route path="landlord-dashboard" element={<LandlordDashboard />} />
+          <Route path="tenant-dashboard" element={<TenantDashboard />} />
+          <Route
+            path="landlord-transactions"
+            element={<LandlordTransactions />}
+          />
           <Route
             path="view-all-transactions"
             element={<ViewAllTransactions />}

@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchTransactions } from "../features/transaction/transactionSlice";
+import { fetchLandlordTransactions } from "../features/transaction/transactionSlice";
 
-const ViewAllTransactions = () => {
+const LandlordTransactions = () => {
   const dispatch = useDispatch();
-  const { transactions, TranStatus, error } = useSelector(
+  const { landlordTransactions, TranStatus, error } = useSelector(
     (state) => state.transactions,
   );
   useEffect(() => {
     if (TranStatus === "idle") {
-      dispatch(fetchTransactions());
+      dispatch(fetchLandlordTransactions());
     }
   }, [TranStatus, dispatch]);
-  console.log(transactions);
+  console.log(landlordTransactions);
   return (
     <div>
-      <p className="text-center text-2xl font-semibold">
-        View All Transactions
+      <p className="text-center text-2xl font-semibold my-5">
+        Tenant Rent Payments
       </p>
       <table className="min-w-full border border-gray-200 rounded-lg">
         <thead className="bg-[#9B9B9BCC] rounded-lg">
@@ -39,7 +39,7 @@ const ViewAllTransactions = () => {
           </tr>
         </thead>
         <tbody className="divide-y bg-[#F5F5F5] divide-gray-200">
-          {transactions?.map((transaction) => (
+          {landlordTransactions?.map((transaction) => (
             <tr className="hover:bg-gray-50">
               <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
                 <input type="checkbox" />
@@ -64,4 +64,4 @@ const ViewAllTransactions = () => {
   );
 };
 
-export default ViewAllTransactions;
+export default LandlordTransactions;
