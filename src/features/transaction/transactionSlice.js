@@ -159,7 +159,7 @@ const transactionSlice = createSlice({
       })
       .addCase(fetchTransactions.fulfilled, (state, action) => {
         state.TranStatus = "succeeded";
-        state.leases = action.payload.data || action.payload;
+        state.transactions = action.payload.data || action.payload;
       })
       .addCase(fetchTransactions.rejected, (state, action) => {
         state.TranStatus = "failed";
@@ -172,7 +172,7 @@ const transactionSlice = createSlice({
       })
       .addCase(fetchMyTransactions.fulfilled, (state, action) => {
         state.TranStatus = "succeeded";
-        state.myLease = action.payload.data || action.payload;
+        state.myTransactions = action.payload.data || action.payload;
       })
       .addCase(fetchMyTransactions.rejected, (state, action) => {
         state.TranStatus = "failed";
@@ -185,7 +185,7 @@ const transactionSlice = createSlice({
       })
       .addCase(fetchLandlordTransactions.fulfilled, (state, action) => {
         state.TranStatus = "succeeded";
-        state.landlordLeases = action.payload.data || action.payload;
+        state.landlordTransactions = action.payload.data || action.payload;
       })
       .addCase(fetchLandlordTransactions.rejected, (state, action) => {
         state.TranStatus = "failed";

@@ -61,6 +61,7 @@ import PayRent from "./dashboards/PayRent";
 import DownloadLease from "./dashboards/DownloadLease";
 import PropertyTable from "./components/PropertyTable";
 import EditPropertyForm from "./forms/EditPropertyForm";
+import ViewAllTransactions from "./dashboards/ViewAllTransactions";
 
 /**
  * ✅ GLOBAL PROVIDER
@@ -141,6 +142,10 @@ export default function App() {
           <Route path="download-lease/:id" element={<DownloadLease />} />
           <Route path="property-table" element={<PropertyTable />} />
           <Route path="edit-property/:id" element={<EditPropertyForm />} />
+          <Route
+            path="view-all-transactions"
+            element={<ViewAllTransactions />}
+          />
           <Route
             path="estate-member-approval"
             element={<EstateMemberApproval />}

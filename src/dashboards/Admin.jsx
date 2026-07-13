@@ -44,6 +44,14 @@ const Admin = () => {
           Create Estate
         </Link>
       </div>
+      <div className="mt-20">
+        <Link
+          to={"/dashboard/view-all-transactions"}
+          className="bg-[#1B2B3F] text-white p-5 rounded-lg"
+        >
+          View All Transactions
+        </Link>
+      </div>
     </div>
   );
 };

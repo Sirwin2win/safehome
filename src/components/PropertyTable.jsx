@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { fetchProperties } from "../features/properties/propertySlice";
+import {
+  deleteProperty,
+  fetchProperties,
+} from "../features/properties/propertySlice";
+import { FaEdit, FaRegTrashAlt } from "react-icons/fa";
+import { deleteProduct } from "../features/products/productSlice";
 
 const PropertyTable = () => {
   const dispatch = useDispatch();
@@ -14,10 +19,22 @@ const PropertyTable = () => {
     }
   }, [dispatch, propStatus]);
   console.log(properties);
+
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      dispatch(deleteProperty(id));
+    }
+  };
   return (
     <div>
       <p className="text-2xl font-bold text-center my-5">Property Table</p>
-      <table className="min-w-full border border-gray-200 rounded-lg">
+      <Link
+        to={"/dashboard/property-form"}
+        className="text-lg bg-[#00236F] text-white p-3 my-10 rounded-lg"
+      >
+        Add New
+      </Link>
+      <table className="min-w-full border border-gray-200 mt-5 rounded-lg">
         <thead className="bg-[#9B9B9BCC] rounded-lg">
           <tr className="rounded-lg">
             <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
@@ -59,9 +76,20 @@ const PropertyTable = () => {
                 {property.estate_name}
               </td>
 
-              <td className="px-6 py-4 text-sm text-blue-700">
-                <Link to={`/dashboard/edit-property/${property.id}`}>Edit</Link>{" "}
-                | <Link>Delete</Link>
+              <td className="px-6 py-4 text-sm">
+                <Link
+                  className="text-omaOrange me-5"
+                  to={`/dashboard/edit-property/${property.id}`}
+                >
+                  <FaEdit />
+                </Link>{" "}
+                |
+                <button
+                  onClick={() => handleDelete(property.id)}
+                  className="text-red-500 ms-5 mb-2"
+                >
+                  <FaRegTrashAlt />
+                </button>
               </td>
             </tr>
           ))}

@@ -64,46 +64,46 @@ const stats = [
   },
 ];
 
-const token = localStorage.getItem("token");
-
-let userId = null;
-
-if (token) {
-  try {
-    const decoded = jwtDecode(token);
-    userId = decoded.uuid;
-  } catch (error) {
-    console.error("Invalid token:", error);
-    localStorage.removeItem("token");
-  }
-}
-
-// dispatch for the actual user
-useEffect(() => {
-  if (userId) {
-    dispatch(getUserById(userId));
-  }
-}, [dispatch, userId]);
-// get auth info from the state
-const { user, status, error } = useSelector((state) => state.auth);
-
-const handleClick = async (id) => {
-  dispatch(markAsReadLocal(id));
-
-  try {
-    await axios.patch(
-      `https://api.safehomeproperties.com/notifications/${id}/read`,
-    );
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 const Landlords = () => {
   const { properties, propStatus, propError } = useSelector(
     (state) => state.properties,
   );
   const dispatch = useDispatch();
+
+  const token = localStorage.getItem("token");
+
+  let userId = null;
+
+  if (token) {
+    try {
+      const decoded = jwtDecode(token);
+      userId = decoded.uuid;
+    } catch (error) {
+      console.error("Invalid token:", error);
+      localStorage.removeItem("token");
+    }
+  }
+
+  // dispatch for the actual user
+  useEffect(() => {
+    if (userId) {
+      dispatch(getUserById(userId));
+    }
+  }, [dispatch, userId]);
+  // get auth info from the state
+  const { user, status, error } = useSelector((state) => state.auth);
+
+  const handleClick = async (id) => {
+    dispatch(markAsReadLocal(id));
+
+    try {
+      await axios.patch(
+        `https://api.safehomeproperties.com/notifications/${id}/read`,
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     if (propStatus === "idle") {
