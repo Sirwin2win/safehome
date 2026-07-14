@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegBell, FaUserPlus, FaPlus, FaTools } from "react-icons/fa";
 import { IoIosSearch, IoIosCheckmarkCircleOutline } from "react-icons/io";
 import {
@@ -17,6 +17,11 @@ import { GiSpanner } from "react-icons/gi";
 import { BsStopwatch } from "react-icons/bs";
 // import { MdOutlineHomeWork } from "react-icons/md";
 import yourProperty from "../assets/images/safehome_yourPropertyImage.png";
+import { fetchProfile } from "../features/profile/profileSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import TenantTransactions from "../components/TenantTransactions";
+import { fetchMyLeases } from "../features/lease/leaseSlice";
 
 const initialColumns = {
   todo: [
@@ -28,9 +33,27 @@ const initialColumns = {
 };
 
 const Tenant = () => {
+  const dispatch = useDispatch();
   const steps = ["Submitted", "Assigned", "Scheduled", "Completed"];
   const currentStep = 2; // 1-based index of current step
   const [columns, setColumns] = useState(initialColumns);
+  const { profile, profileStatus } = useSelector((state) => state.profile);
+  const { myLease, leStatus } = useSelector((state) => state.leases);
+  useEffect(() => {
+    if (profileStatus === "idle") {
+      dispatch(fetchProfile());
+    }
+  }, [profileStatus, dispatch]);
+  useEffect(() => {
+    if (leStatus === "idle") {
+      dispatch(fetchMyLeases());
+    }
+  }, [leStatus, dispatch]);
+  const startDate = new Date(myLease[0]?.start_date);
+  const endDate = new Date(myLease[0]?.end_date);
+
+  const daysBetween = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+  console.log(myLease);
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 md:px-6 lg:px-8 py-6">
@@ -58,13 +81,15 @@ const Tenant = () => {
             <FaRegBell className="text-2xl text-gray-700" />
 
             <div className="hidden sm:block border-l pl-4">
-              <p className="font-medium">Alex Resident</p>
+              <p className="font-medium">{profile?.name}</p>
 
-              <p className="text-sm text-gray-500">Unit 402B</p>
+              <p className="text-sm text-gray-500">
+                {myLease?.property_address}
+              </p>
             </div>
 
             <img
-              src={pix}
+              src={profile?.image}
               alt=""
               className="w-11 h-11 rounded-full object-cover"
             />
@@ -89,15 +114,21 @@ const Tenant = () => {
           {/* Buttons */}
 
           <div className="flex flex-col sm:flex-row gap-3">
-            <button className="bg-[#00236F] text-white rounded-lg px-5 py-3 flex items-center justify-center gap-2 font-semibold">
+            <Link
+              to={"/dashboard/lease-docs"}
+              className="bg-[#00236F] text-white rounded-lg px-5 py-3 flex items-center justify-center gap-2 font-semibold"
+            >
               <MdOutlinePayments />
               Make Payment
-            </button>
+            </Link>
 
-            <button className="border border-gray-300 bg-white rounded-lg px-5 py-3 flex items-center justify-center gap-2 font-semibold hover:bg-gray-50">
+            <Link
+              to={"/dashboard/mentenance"}
+              className="border border-gray-300 bg-white rounded-lg px-5 py-3 flex items-center justify-center gap-2 font-semibold hover:bg-gray-50"
+            >
               <FaTools />
               Report Issue
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -117,7 +148,7 @@ const Tenant = () => {
               Current Balance
             </p>
 
-            <h2 className="text-3xl font-bold mt-2">$0.00</h2>
+            <h2 className="text-3xl font-bold mt-2">₦0.00</h2>
           </div>
 
           {/* Card */}
@@ -133,7 +164,13 @@ const Tenant = () => {
               Next Due Date
             </p>
 
-            <h2 className="text-3xl font-bold mt-2">Oct 1st</h2>
+            <h2 className="text-lg font-bold mt-2">
+              {new Date(myLease[0]?.end_date).toLocaleDateString("en-GB", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
+            </h2>
           </div>
 
           {/* Card */}
@@ -157,7 +194,7 @@ const Tenant = () => {
 
             <p className="text-xs uppercase text-gray-500 mt-6">Lease Expiry</p>
 
-            <h2 className="text-3xl font-bold mt-2">240 Days</h2>
+            <h2 className="text-3xl font-bold mt-2">{daysBetween} Days</h2>
           </div>
         </div>
 
@@ -187,56 +224,20 @@ const Tenant = () => {
 
               {/* Progress */}
 
-              <div className="mt-10 overflow-x-auto">
-                <div className="flex items-center min-w-[650px]">
-                  {steps.map((step, idx) => {
-                    const completed = idx + 1 <= currentStep;
-
-                    return (
-                      <React.Fragment key={idx}>
-                        <div className="flex flex-col items-center">
-                          <div
-                            className={`w-10 h-10 rounded-full flex items-center justify-center font-semibold ${
-                              completed
-                                ? "bg-[#00236F] text-white"
-                                : "bg-gray-300 text-gray-600"
-                            }`}
-                          >
-                            {idx + 1}
-                          </div>
-
-                          <p className="mt-3 text-sm whitespace-nowrap">
-                            {step}
-                          </p>
-                        </div>
-
-                        {idx !== steps.length - 1 && (
-                          <div
-                            className={`flex-1 h-1 mx-2 ${
-                              idx + 1 < currentStep
-                                ? "bg-[#00236F]"
-                                : "bg-gray-300"
-                            }`}
-                          />
-                        )}
-                      </React.Fragment>
-                    );
-                  })}
-                </div>
-              </div>
+              <div className="mt-10 overflow-x-auto"></div>
 
               {/* Notification */}
 
               <div className="mt-10 rounded-lg bg-blue-50 border border-blue-100 p-5 flex gap-4">
                 <RiErrorWarningLine className="text-2xl text-blue-700 flex-shrink-0" />
 
-                <div>
+                {/* <div>
                   <h3 className="font-semibold">Maintenance Scheduled</h3>
 
                   <p className="text-gray-600 text-sm mt-1">
                     Tuesday morning with Marcus J. (Certified Plumber)
                   </p>
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -248,52 +249,11 @@ const Tenant = () => {
                   Recent Payments
                 </h2>
 
-                <button className="text-[#00236F] font-semibold hover:underline">
+                {/* <button className="text-[#00236F] font-semibold hover:underline">
                   View All
-                </button>
+                </button> */}
               </div>
-
-              <div className="overflow-x-auto">
-                <table className="min-w-full">
-                  <thead className="bg-gray-100">
-                    <tr>
-                      <th className="p-4 text-left text-sm text-gray-500">
-                        DATE
-                      </th>
-
-                      <th className="p-4 text-left text-sm text-gray-500">
-                        REFERENCE
-                      </th>
-
-                      <th className="p-4 text-left text-sm text-gray-500">
-                        AMOUNT
-                      </th>
-
-                      <th className="p-4 text-left text-sm text-gray-500">
-                        STATUS
-                      </th>
-                    </tr>
-                  </thead>
-
-                  <tbody>
-                    {[1, 2, 3].map((item) => (
-                      <tr key={item} className="border-b hover:bg-gray-50">
-                        <td className="p-4">Sep 01, 2023</td>
-
-                        <td className="p-4">Rent Unit 402B</td>
-
-                        <td className="p-4 font-semibold">$2,450.00</td>
-
-                        <td className="p-4">
-                          <span className="rounded-full bg-green-100 text-green-700 px-3 py-1 text-xs font-semibold">
-                            Paid
-                          </span>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+              <TenantTransactions />
             </div>
           </div>
 
@@ -307,7 +267,13 @@ const Tenant = () => {
               <h2 className="text-xl font-bold text-white">Lease Agreement</h2>
 
               <p className="text-blue-100 mt-2 text-sm leading-6">
-                Your current lease for Unit 402B is valid until May 1, 2024.
+                Your current lease for {myLease[0]?.property_address} is valid
+                until{" "}
+                {new Date(myLease[0]?.end_date).toLocaleDateString("en-GB", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
               </p>
 
               {/* ================= KANBAN ================= */}
@@ -316,32 +282,7 @@ const Tenant = () => {
                 <h3 className="text-xl font-bold text-[#00236F] mb-5">
                   Lease Progress
                 </h3>
-
-                <div className="overflow-x-auto">
-                  <div className="flex gap-4 min-w-[850px]">
-                    {Object.entries(columns).map(([columnId, cards]) => (
-                      <div
-                        key={columnId}
-                        className="bg-blue-200 rounded-lg p-4 w-64 flex-shrink-0"
-                      >
-                        <h4 className="font-bold capitalize text-[#00236F] mb-4">
-                          {columnId.replace(/([A-Z])/g, " $1")}
-                        </h4>
-
-                        <div className="space-y-3">
-                          {cards.map((card) => (
-                            <div
-                              key={card.id}
-                              className="bg-white rounded-lg shadow-sm p-3 hover:bg-blue-100 transition"
-                            >
-                              {card.title}
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <p>{myLease[0]?.status}</p>
               </div>
 
               <button
@@ -357,7 +298,7 @@ const Tenant = () => {
           transition
         "
               >
-                View Full Document
+                <Link to={"/dashboard/lease-docs"}>View Full Document</Link>
               </button>
             </div>
 
@@ -369,7 +310,7 @@ const Tenant = () => {
               </h2>
 
               <img
-                src={yourProperty}
+                src={`https://api.safehomeproperties.com/uploads/${myLease[0]?.property_image}`}
                 alt=""
                 className="mt-5 w-full h-52 object-cover rounded-lg"
               />
@@ -378,7 +319,7 @@ const Tenant = () => {
                 <p className="font-semibold text-[#1E3A8A]">Address</p>
 
                 <p className="text-gray-600 mt-1">
-                  1200 Highland Ave, Unit 402B, Seattle, WA
+                  {myLease[0]?.property_address}
                 </p>
               </div>
 

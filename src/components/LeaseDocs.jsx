@@ -55,7 +55,7 @@ const LeaseDocs = () => {
           </p>
         </div>
         <Link
-          to={"/dashboard/lease-sign-form"}
+          to={"/dashboard/lease-docs"}
           className="flex justify-evenly bg-[#223B7E] text-white px-2 pt-3 rounded-lg"
         >
           <FaFileUpload className="size-5" />
