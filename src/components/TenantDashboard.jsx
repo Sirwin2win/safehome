@@ -75,10 +75,13 @@ const TenantDashboard = () => {
           <p className="text-white text-3xl font-bold mt-2">₦0.00</p>
         </div>
 
-        <button className="flex items-center justify-center gap-2 bg-white text-[#223B7E] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition w-full sm:w-auto">
+        <Link
+          to={"/dashboard/lease-docs"}
+          className="flex items-center justify-center gap-2 bg-white text-[#223B7E] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition w-full sm:w-auto"
+        >
           <MdPayment className="text-2xl" />
           Make a Payment
-        </button>
+        </Link>
       </div>
 
       {/* Main Content */}
@@ -87,14 +90,17 @@ const TenantDashboard = () => {
         <h3 className="text-xl sm:text-2xl font-bold">Quick Actions</h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-6">
-          <button className="bg-white rounded-xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition">
+          <Link
+            to={"/dashboard/lease-docs"}
+            className="bg-white rounded-xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition"
+          >
             <MdPayment className="text-[#223B7E] text-4xl bg-gray-100 rounded-full p-2" />
 
             <div className="text-left">
               <p className="font-semibold">Make Payment</p>
               <p className="text-sm text-gray-500">Pay your rent online</p>
             </div>
-          </button>
+          </Link>
 
           <Link
             to={"/dashboard/mentenance"}

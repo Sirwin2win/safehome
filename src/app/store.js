@@ -16,6 +16,7 @@ import propertyReducer from "../features/properties/propertySlice";
 import mailReducer from "../features/mail/mailSlice";
 import transactionReducer from "../features/transaction/transactionSlice";
 import notificationReducer from "../features/notifications/notificationSlice";
+import profileReducer from "../features/profile/profileSlice";
 
 const store = configureStore({
   reducer: {
@@ -39,6 +40,7 @@ const store = configureStore({
     mails: mailReducer,
     transactions: transactionReducer,
     notifications: notificationReducer,
+    profile: profileReducer,
 
     //  carts:cartReducer
     // orders:orderReducer,

@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import NotificationBell from "./NotificationBell";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { fetchMyNotifications } from "../features/notifications/notificationSlice";
+import { fetchProfile } from "../features/profile/profileSlice";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -23,7 +25,21 @@ const Dashboard = () => {
   }
 
   const { user } = useSelector((state) => state.auth);
+  const { profile, profileError, profileStatus } = useSelector(
+    (state) => state.profile,
+  );
 
+  console.log({
+    profile,
+    profileStatus,
+    profileError,
+  });
+  useEffect(() => {
+    dispatch(fetchProfile());
+  }, [dispatch]);
+  console.log(profile);
+
+  // fetch user
   useEffect(() => {
     if (userId) {
       dispatch(getUserById(userId));
@@ -41,7 +57,15 @@ const Dashboard = () => {
       console.error(error);
     }
   };
-
+  const { myNotice, noticeStatus } = useSelector(
+    (state) => state.notifications,
+  );
+  useEffect(() => {
+    if (noticeStatus === "idle") {
+      dispatch(fetchMyNotifications());
+    }
+  }, [dispatch, noticeStatus]);
+  console.log(myNotice);
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-6 sm:px-6 lg:px-10">
       {/* Header */}
@@ -55,7 +79,7 @@ const Dashboard = () => {
           <NotificationBell onClick={handleClick} />
 
           <img
-            src={admin}
+            src={profile?.image}
             alt="Admin"
             className="w-12 h-12 rounded-full object-cover"
           />
@@ -74,11 +98,37 @@ const Dashboard = () => {
 
           <p className="text-white text-3xl font-bold mt-2">₦0.00</p>
         </div>
-
-        <button className="flex items-center justify-center gap-2 bg-white text-[#223B7E] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition w-full sm:w-auto">
+        {["tenant"].some((role) => user?.roles?.includes(role)) && (
+          <Link
+            to={"/dashboard/lease-docs"}
+            className="flex items-center justify-center gap-2 bg-white text-[#223B7E] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition w-full sm:w-auto"
+          >
+            <MdPayment className="text-2xl" />
+            Make Payments
+          </Link>
+        )}
+        {["landlord"].some((role) => user?.roles?.includes(role)) && (
+          <Link
+            to={"/dashboard/lease-docs"}
+            className="flex items-center justify-center gap-2 bg-white text-[#223B7E] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition w-full sm:w-auto"
+          >
+            <MdPayment className="text-2xl" />
+            My Rents
+          </Link>
+        )}
+        {["admin"].some((role) => user?.roles?.includes(role)) && (
+          <Link
+            to={"/dashboard/view-all-transactions"}
+            className="flex items-center justify-center gap-2 bg-white text-[#223B7E] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition w-full sm:w-auto"
+          >
+            <MdPayment className="text-2xl" />
+            All Payments
+          </Link>
+        )}
+        {/* <button className="flex items-center justify-center gap-2 bg-white text-[#223B7E] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition w-full sm:w-auto">
           <MdPayment className="text-2xl" />
           Make a Payment
-        </button>
+        </button> */}
       </div>
 
       {/* Main Content */}
@@ -87,15 +137,49 @@ const Dashboard = () => {
         <h3 className="text-xl sm:text-2xl font-bold">Quick Actions</h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-6">
-          <button className="bg-white rounded-xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition">
-            <MdPayment className="text-[#223B7E] text-4xl bg-gray-100 rounded-full p-2" />
+          {["tenant"].some((role) => user?.roles?.includes(role)) && (
+            <Link
+              to={"/dashboard/lease-docs"}
+              className="bg-white rounded-xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition"
+            >
+              <MdPayment className="text-[#223B7E] text-4xl bg-gray-100 rounded-full p-2" />
 
-            <div className="text-left">
-              <p className="font-semibold">Make Payment</p>
-              <p className="text-sm text-gray-500">Pay your rent online</p>
-            </div>
-          </button>
+              <div className="text-left">
+                <p className="font-semibold">Lease Status</p>
+                <p className="text-sm text-gray-500">
+                  Track leases & get a pdf
+                </p>
+              </div>
+            </Link>
+          )}
+          {["landlord"].some((role) => user?.roles?.includes(role)) && (
+            <Link
+              to={"/dashboard/lease-docs"}
+              className="bg-white rounded-xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition"
+            >
+              <MdPayment className="text-[#223B7E] text-4xl bg-gray-100 rounded-full p-2" />
 
+              <div className="text-left">
+                <p className="font-semibold">My Rents</p>
+                <p className="text-sm text-gray-500">
+                  Properties rent histories
+                </p>
+              </div>
+            </Link>
+          )}
+          {["admin"].some((role) => user?.roles?.includes(role)) && (
+            <Link
+              to={"/dashboard/view-all-transactions"}
+              className="bg-white rounded-xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition"
+            >
+              <MdPayment className="text-[#223B7E] text-4xl bg-gray-100 rounded-full p-2" />
+
+              <div className="text-left">
+                <p className="font-semibold">All Payments</p>
+                <p className="text-sm text-gray-500">Pay your rent online</p>
+              </div>
+            </Link>
+          )}
           <Link
             to={"/dashboard/mentenance"}
             className="bg-white rounded-xl p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition"
@@ -130,25 +214,31 @@ const Dashboard = () => {
             </h3>
 
             {/* Activity Card */}
-            <div className="bg-white rounded-xl shadow-sm p-5 mb-5">
-              <div className="flex flex-col sm:flex-row sm:justify-between gap-4">
-                <div className="flex items-start gap-3">
-                  <FaArrowDown className="bg-green-100 text-green-600 text-5xl rounded-full p-3" />
+            {myNotice?.map((notice) => (
+              <div className="bg-white rounded-xl shadow-sm p-5 mb-5">
+                <div className="flex flex-col sm:flex-row sm:justify-between gap-4">
+                  <div className="flex items-start gap-3">
+                    <FaArrowDown className="bg-green-100 text-green-600 text-5xl rounded-full p-3" />
 
-                  <div>
-                    <p className="font-semibold text-lg">
-                      Rent Payment Received
-                    </p>
+                    <div>
+                      <p className="font-semibold text-lg">{notice.message}</p>
 
-                    <p className="text-gray-500">June 1, 2025</p>
+                      <p className="text-gray-500"> {notice.title}</p>
+                    </div>
                   </div>
+
+                  <p className="text-green-600 font-bold text-lg">
+                    {new Date(notice.createdAt).toLocaleDateString("en-GB", {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                    })}
+                  </p>
                 </div>
-
-                <p className="text-green-600 font-bold text-lg">-₦1,240.00</p>
               </div>
-            </div>
+            ))}
 
-            {/* Activity Card */}
+            {/* Activity Card
             <div className="bg-white rounded-xl shadow-sm p-5">
               <div className="flex items-start gap-3">
                 <GiSpanner className="bg-orange-100 text-orange-500 text-5xl rounded-full p-3" />
@@ -161,7 +251,7 @@ const Dashboard = () => {
                   <p className="text-gray-500">May 1, 2025 — Leaky Faucet</p>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* Autopay */}

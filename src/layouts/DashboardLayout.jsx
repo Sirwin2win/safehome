@@ -75,12 +75,10 @@ const DashboardLayout = () => {
     dispatch(logout());
     navigate("/login");
   };
-
   let hasEstate;
   if (user) {
     hasEstate = (user.estate_memberships?.length || 0) > 0;
   }
-
   return (
     <div className="flex">
       <div
@@ -106,21 +104,20 @@ const DashboardLayout = () => {
             {isOpen ? <IoCloseSharp size={24} /> : <FaBars size={24} />}
           </button>
         </div>
-
         <nav className="mt-4">
           <ul>
-            {hasEstate &&
-              ["admin"].some((role) => user?.roles?.includes(role)) && (
-                <li className="flex items-center p-4 m-3 rounded-lg bg-gray-400 cursor-pointer">
-                  {/* <TbLayoutDashboardFilled size={24} className="text-[#B7C8E1]" /> */}
-                  <span
-                    className={`ml-4 text-[#B7C8E1] md:block ${isOpen ? "block" : "hidden"}`}
-                  >
-                    <Link to={"/dashboard"}>Admin Dashboard</Link>
-                  </span>
-                </li>
-              )}
-            {hasEstate &&
+            {hasEstate && (
+              // ["admin"].some((role) => user?.roles?.includes(role)) &&
+              <li className="flex items-center p-4 m-3 rounded-lg bg-gray-400 cursor-pointer">
+                {/* <TbLayoutDashboardFilled size={24} className="text-[#B7C8E1]" /> */}
+                <span
+                  className={`ml-4 text-[#B7C8E1] md:block ${isOpen ? "block" : "hidden"}`}
+                >
+                  <Link to={"/dashboard"}>Dashboard</Link>
+                </span>
+              </li>
+            )}
+            {/* {hasEstate &&
               ["landlord"].some((role) => user?.roles?.includes(role)) && (
                 <li className="flex items-center p-4 m-3 rounded-lg cursor-pointer">
                   <TbLayoutDashboardFilled
@@ -151,8 +148,7 @@ const DashboardLayout = () => {
                     </Link>
                   </span>
                 </li>
-              )}
-
+              )} */}
             {/* Join Estate Link Started */}
             {!hasEstate && (
               <li className="items-center p-4 m-3 rounded-lg">
@@ -188,7 +184,6 @@ const DashboardLayout = () => {
                   </span>
                 </li>
               )}
-
             <li className="flex items-center p-4 m-3 rounded-lg cursor-pointer">
               <MdOutlineRealEstateAgent size={24} className="text-[#B7C8E1]" />
               {/* <FaUserAlt size={24} /> */}
@@ -198,7 +193,6 @@ const DashboardLayout = () => {
                 <Link to={"estates"}>Estates</Link>
               </span>
             </li>
-
             {hasEstate &&
               ["tenant", "admin"].some((role) =>
                 user?.roles?.includes(role),
@@ -347,14 +341,6 @@ const DashboardLayout = () => {
                   </span>
                 </li>
               )}
-            {/* {user.role == 'admin' &&
-        <li className='flex items-center p-4 hover:bg-gray-700 cursor-pointer'>
-        <FaUserEdit size={24}/>
-        <span className={`ml-4 md:block ${isOpen?"block":"hidden"}`}>
-        <Link to={'role'}>User Roles</Link>
-         </span>  
-      </li> */}
-            {/* } */}
             {hasEstate && (
               <li className="flex items-center p-4 m-3 text-[#B7C8E1] cursor-pointer">
                 <FaCog size={24} />

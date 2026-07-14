@@ -1,7 +1,32 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
+const API_BASE = "https://api.safehomeproperties.com/api/notifications";
+
+// Fetch My transactions(tenant)
+export const fetchMyNotifications = createAsyncThunk(
+  "notifications/fetchMyNotifications",
+  async (_, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await axios.get(`${API_BASE}/my-notice`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  },
+);
 const initialState = {
   items: [],
+  myNotice: [],
+  noticeStatus: "idle",
+  error: null,
 };
 
 const notificationSlice = createSlice({
@@ -45,6 +70,22 @@ const notificationSlice = createSlice({
     clearNotifications: (state) => {
       state.items = [];
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      // fetch all myNotice
+      .addCase(fetchMyNotifications.pending, (state) => {
+        state.noticeStatus = "loading";
+        state.error = null;
+      })
+      .addCase(fetchMyNotifications.fulfilled, (state, action) => {
+        state.noticeStatus = "succeeded";
+        state.myNotice = action.payload.data || action.payload;
+      })
+      .addCase(fetchMyNotifications.rejected, (state, action) => {
+        state.noticeStatus = "failed";
+        state.error = action.payload;
+      });
   },
 });
 
