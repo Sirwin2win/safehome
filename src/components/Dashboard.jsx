@@ -28,7 +28,7 @@ const Dashboard = () => {
   const { profile, profileError, profileStatus } = useSelector(
     (state) => state.profile,
   );
-
+  console.log(user);
   console.log({
     profile,
     profileStatus,

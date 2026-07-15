@@ -75,9 +75,13 @@ const DashboardLayout = () => {
     dispatch(logout());
     navigate("/login");
   };
-  let hasEstate;
+  let hasEstate = false;
+
   if (user) {
-    hasEstate = (user.estate_memberships?.length || 0) > 0;
+    hasEstate =
+      user.estate_memberships?.some(
+        (membership) => membership.status === "APPROVED",
+      ) ?? false;
   }
   return (
     <div className="flex">
