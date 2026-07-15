@@ -246,7 +246,7 @@ const propertySlice = createSlice({
       })
       .addCase(fetchMyProperties.fulfilled, (state, action) => {
         state.propStatus = "succeeded";
-        state.properties = action.payload.data;
+        state.myProperties = action.payload.data;
       })
       .addCase(fetchMyProperties.rejected, (state, action) => {
         state.propStatus = "failed";
