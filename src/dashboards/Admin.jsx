@@ -46,6 +46,14 @@ const Admin = () => {
       </div>
       <div className="mt-20">
         <Link
+          to={"/dashboard/subscription-form"}
+          className="bg-[#1B2B3F] text-white p-5 rounded-lg"
+        >
+          Create Subscriptions
+        </Link>
+      </div>
+      <div className="mt-20">
+        <Link
           to={"/dashboard/view-all-transactions"}
           className="bg-[#1B2B3F] text-white p-5 rounded-lg"
         >

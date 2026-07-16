@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaRegBell,
   FaUserPlus,
@@ -26,8 +26,20 @@ import { AiOutlineExclamationCircle } from "react-icons/ai";
 import pix from "../assets/images/safehome_profile.jpg";
 import skyline from "../assets/images/safehome_skyline.jpg";
 import news1 from "../assets/images/safehome_news.jpg";
+import { fetchProfile } from "../features/profile/profileSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Homeowner = () => {
+  const dispatch = useDispatch();
+  const { profile, profileStatus, profileError } = useSelector(
+    (state) => state.profile,
+  );
+
+  useEffect(() => {
+    if (profileStatus === "idle") {
+      dispatch(fetchProfile());
+    }
+  }, [dispatch, profileStatus]);
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -60,7 +72,7 @@ const Homeowner = () => {
               </button>
 
               <img
-                src={pix}
+                src={profile?.image}
                 alt=""
                 className="w-10 h-10 rounded-full object-cover"
               />
@@ -73,12 +85,10 @@ const Homeowner = () => {
         <div className="mt-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
           <div>
             <h1 className="text-3xl font-bold text-[#00236F]">
-              Welcome Home, Alexander
+              Welcome Home, {profile?.name}
             </h1>
 
-            <p className="text-gray-500 mt-2">
-              Your estate summary for Oakwood Luxury Villas.
-            </p>
+            <p className="text-gray-500 mt-2">Your estate property summary.</p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3">
