@@ -17,6 +17,7 @@ import mailReducer from "../features/mail/mailSlice";
 import transactionReducer from "../features/transaction/transactionSlice";
 import notificationReducer from "../features/notifications/notificationSlice";
 import profileReducer from "../features/profile/profileSlice";
+import issueReducer from "../features/issue/issueSlice";
 
 const store = configureStore({
   reducer: {
@@ -41,6 +42,7 @@ const store = configureStore({
     transactions: transactionReducer,
     notifications: notificationReducer,
     profile: profileReducer,
+    issues: issueReducer,
 
     //  carts:cartReducer
     // orders:orderReducer,
