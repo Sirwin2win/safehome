@@ -28,18 +28,26 @@ import skyline from "../assets/images/safehome_skyline.jpg";
 import news1 from "../assets/images/safehome_news.jpg";
 import { fetchProfile } from "../features/profile/profileSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { fetchMyIssues } from "../features/issue/issueSlice";
+import { formatDistanceToNow } from "date-fns";
 
 const Homeowner = () => {
   const dispatch = useDispatch();
   const { profile, profileStatus, profileError } = useSelector(
     (state) => state.profile,
   );
+  const { myIssues, IStatus, IError } = useSelector((state) => state.issues);
 
   useEffect(() => {
     if (profileStatus === "idle") {
       dispatch(fetchProfile());
     }
   }, [dispatch, profileStatus]);
+
+  useEffect(() => {
+    dispatch(fetchMyIssues());
+  }, [dispatch]);
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -97,10 +105,13 @@ const Homeowner = () => {
               Pay Service Charge
             </button>
 
-            <button className="border border-gray-300 bg-white rounded-lg px-5 py-3 flex items-center justify-center gap-2 font-semibold hover:bg-gray-50">
+            <Link
+              to={"/dashboard/issue"}
+              className="border border-gray-300 bg-white rounded-lg px-5 py-3 flex items-center justify-center gap-2 font-semibold hover:bg-gray-50"
+            >
               <MdWarningAmber />
               Report Estate Issue
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -395,29 +406,36 @@ const Homeowner = () => {
                   </div>
 
                   <div className="flex-1 rounded-lg bg-gray-50 p-4">
-                    <div className="flex flex-col sm:flex-row sm:justify-between gap-2">
-                      <h3 className="font-semibold">Street Light Fault</h3>
+                    {myIssues?.map((issue) => (
+                      <div>
+                        <div className="flex flex-col sm:flex-row sm:justify-between gap-2">
+                          <h3 className="font-semibold">{issue.issue_type}</h3>
 
-                      <span className="self-start rounded-full bg-blue-100 text-blue-700 px-3 py-1 text-xs font-semibold">
-                        In Review
-                      </span>
-                    </div>
+                          <span className="self-start rounded-full bg-blue-100 text-blue-700 px-3 py-1 text-xs font-semibold">
+                            In Review
+                          </span>
+                        </div>
 
-                    <p className="text-sm text-gray-600 mt-3">
-                      Unit 12 frontage lighting sensor is causing intermittent
-                      flickering.
-                    </p>
+                        <p className="text-sm text-gray-600 mt-3">
+                          {issue.description}
+                        </p>
 
-                    <div className="flex flex-col sm:flex-row sm:justify-between text-xs text-gray-500 mt-4 gap-2">
-                      <span>ID: #TK-8892</span>
+                        <div className="flex flex-col sm:flex-row sm:justify-between text-xs text-gray-500 mt-4 gap-2">
+                          <span>ID: #TK-8892</span>
 
-                      <span>2 Days Ago</span>
-                    </div>
+                          <span>
+                            {formatDistanceToNow(new Date(issue.created_at), {
+                              addSuffix: true,
+                            })}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
                 {/* Item */}
-
+                {/* 
                 <div className="flex gap-4">
                   <div className="flex flex-col items-center">
                     <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
@@ -445,7 +463,7 @@ const Homeowner = () => {
                       <span>Resolved Sep 28</span>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
 
               {/* Support */}

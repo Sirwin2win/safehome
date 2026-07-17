@@ -46,6 +46,14 @@ const Admin = () => {
       </div>
       <div className="mt-20">
         <Link
+          to={"/dashboard/all-properties"}
+          className="bg-[#1B2B3F] text-white p-5 rounded-lg"
+        >
+          Update Property Status
+        </Link>
+      </div>
+      <div className="mt-20">
+        <Link
           to={"/dashboard/subscription-form"}
           className="bg-[#1B2B3F] text-white p-5 rounded-lg"
         >

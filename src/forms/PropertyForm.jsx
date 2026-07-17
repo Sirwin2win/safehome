@@ -23,7 +23,7 @@ const PropertyForm = () => {
     description: "",
     address: "",
     rent_amount: "",
-    service_charge: "",
+    service_charge: 5000,
     bedrooms: "",
     bathrooms: "",
   });
@@ -211,6 +211,7 @@ const PropertyForm = () => {
               value={data.service_charge}
               onChange={handleChange}
               className="border p-2 w-full rounded"
+              readOnly
             />
 
             {/* Bathrooms */}

@@ -39,16 +39,20 @@ const DashboardLayout = () => {
   const dispatch = useDispatch();
   let userId = null;
 
-  if (token) {
-    // Decode token
-    const decoded = jwtDecode(token);
+  try {
+    if (token) {
+      // Decode token
+      const decoded = jwtDecode(token);
 
-    // console.log(decoded);
+      // console.log(decoded);
 
-    // Access user id
-    userId = decoded.uuid;
+      // Access user id
+      userId = decoded.uuid;
 
-    // console.log("User uuid:", userId);
+      // console.log("User uuid:", userId);
+    }
+  } catch (error) {
+    console.log(error.message);
   }
 
   // get auth info from the state

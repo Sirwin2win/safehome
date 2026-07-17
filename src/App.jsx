@@ -66,6 +66,8 @@ import LandlordDashboard from "./components/LandlordDashboard";
 import LandlordTransactions from "./components/LandlordTransactions";
 import TenantDashboard from "./components/TenantDashboard";
 import AllSubscriptionForm from "./forms/AllSubscriptionForm";
+import IssueForm from "./forms/IssueForm";
+import AllProperties from "./dashboards/AllProperties";
 
 /**
  * ✅ GLOBAL PROVIDER
@@ -149,6 +151,8 @@ export default function App() {
           <Route path="landlord-dashboard" element={<LandlordDashboard />} />
           <Route path="tenant-dashboard" element={<TenantDashboard />} />
           <Route path="subscription-form" element={<AllSubscriptionForm />} />
+          <Route path="issue" element={<IssueForm />} />
+          <Route path="all-properties" element={<AllProperties />} />
           <Route
             path="landlord-transactions"
             element={<LandlordTransactions />}

@@ -21,7 +21,7 @@ export const fetchMyIssues = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const token = localStorage.getItem("token");
-      const response = await issuesAPI.fetchMyIssuesAPI(token);
+      const response = await issueAPI.fetchMyIssueAPI(token);
       return response.data; // assuming your API returns array of products
     } catch (err) {
       return thunkAPI.rejectWithValue(err.response?.data || err.message);
