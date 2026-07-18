@@ -119,6 +119,7 @@ const PropertyForm = () => {
             {/* User Select */}
             <div>
               <select
+                disabled={status === "loading"}
                 value={selectedUserId}
                 onChange={(e) => {
                   setSelectedUserId(e.target.value);

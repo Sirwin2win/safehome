@@ -68,6 +68,9 @@ import TenantDashboard from "./components/TenantDashboard";
 import AllSubscriptionForm from "./forms/AllSubscriptionForm";
 import IssueForm from "./forms/IssueForm";
 import AllProperties from "./dashboards/AllProperties";
+import HomeownerCorner from "./dashboards/HomeownerCorner";
+import UpdateHomeownerProperty from "./dashboards/UpdateHomeownerProperty";
+import ServiceCharge from "./dashboards/ServiceCharge";
 
 /**
  * ✅ GLOBAL PROVIDER
@@ -153,6 +156,12 @@ export default function App() {
           <Route path="subscription-form" element={<AllSubscriptionForm />} />
           <Route path="issue" element={<IssueForm />} />
           <Route path="all-properties" element={<AllProperties />} />
+          <Route path="homeowner-corner" element={<HomeownerCorner />} />
+          <Route path="service-charge/:id" element={<ServiceCharge />} />
+          <Route
+            path="update-owner-property"
+            element={<UpdateHomeownerProperty />}
+          />
           <Route
             path="landlord-transactions"
             element={<LandlordTransactions />}

@@ -1,37 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { IoLocationOutline, IoWaterOutline } from "react-icons/io5";
-import { IoMdArrowRoundBack } from "react-icons/io";
-import { FaBed } from "react-icons/fa";
-import { PiRectangleDashedLight } from "react-icons/pi";
-import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchProperties,
+  fetchMyProperties,
   updateProperty,
 } from "../features/properties/propertySlice";
+import { useDispatch, useSelector } from "react-redux";
+import { IoMdArrowRoundBack } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
-const AllProperties = () => {
-  //initializations
+const UpdateHomeownerProperty = () => {
   const dispatch = useDispatch();
-  const { properties, propStatus, propError } = useSelector(
-    (state) => state.properties,
-  );
+  const navigate = useNavigate();
+  const { myProperties, propStatus } = useSelector((state) => state.properties);
 
   useEffect(() => {
     if (propStatus === "idle") {
-      dispatch(fetchProperties());
+      dispatch(fetchMyProperties());
     }
-  }, [propStatus, dispatch]);
-
-  // RETURNS SHOULD COME AFTER HOOKS
-
-  if (propStatus === "loading") {
-    return <p>Loading properties...</p>;
-  }
-
-  if (propStatus === "failed") {
-    return <p>Error: {propError}</p>;
-  }
+  }, [dispatch, propStatus]);
+  console.log(myProperties);
   // Back function
   const back = () => {
     navigate(-1);
@@ -49,7 +35,6 @@ const AllProperties = () => {
       );
     }
   };
-  console.log(properties);
   return (
     <div>
       {/* Back Buttom */}
@@ -94,7 +79,7 @@ const AllProperties = () => {
           </tr>
         </thead>
         <tbody className="divide-y bg-[#F5F5F5] divide-gray-200">
-          {properties?.map((property) => (
+          {myProperties?.map((property) => (
             <tr className="hover:bg-gray-50 key={property.id}">
               <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
                 <input type="checkbox" />
@@ -153,4 +138,4 @@ const AllProperties = () => {
   );
 };
 
-export default AllProperties;
+export default UpdateHomeownerProperty;

@@ -31,6 +31,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchMyIssues } from "../features/issue/issueSlice";
 import { formatDistanceToNow } from "date-fns";
+import { fetchMyProperties } from "../features/properties/propertySlice";
 
 const Homeowner = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const Homeowner = () => {
     (state) => state.profile,
   );
   const { myIssues, IStatus, IError } = useSelector((state) => state.issues);
+  const { myProperties, propStatus } = useSelector((state) => state.properties);
 
   useEffect(() => {
     if (profileStatus === "idle") {
@@ -46,8 +48,15 @@ const Homeowner = () => {
   }, [dispatch, profileStatus]);
 
   useEffect(() => {
+    if (propStatus === "idle") {
+      dispatch(fetchMyProperties());
+    }
+  }, [dispatch, propStatus]);
+
+  useEffect(() => {
     dispatch(fetchMyIssues());
   }, [dispatch]);
+  console.log(myProperties);
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -90,26 +99,33 @@ const Homeowner = () => {
 
         {/* ================= HEADER ================= */}
 
-        <div className="mt-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-          <div>
-            <h1 className="text-3xl font-bold text-[#00236F]">
+        <div className="mt-6 sm:mt-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 sm:gap-6">
+          <div className="min-w-0">
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#00236F] break-words">
               Welcome Home, {profile?.name}
             </h1>
 
-            <p className="text-gray-500 mt-2">Your estate property summary.</p>
+            <p className="text-gray-500 mt-2 text-sm sm:text-base">
+              Your estate property summary.
+            </p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3">
-            <button className="bg-[#00236F] text-white rounded-lg px-5 py-3 flex items-center justify-center gap-2 font-semibold">
-              <MdOutlineAccountBalanceWallet />
-              Pay Service Charge
+          <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+            <button
+              className="w-full sm:w-auto bg-[#00236F] text-white rounded-lg px-5 py-3 
+      flex items-center justify-center gap-2 font-semibold text-sm sm:text-base"
+            >
+              <MdOutlineAccountBalanceWallet className="text-lg" />
+              Pay Service Below
             </button>
 
             <Link
-              to={"/dashboard/issue"}
-              className="border border-gray-300 bg-white rounded-lg px-5 py-3 flex items-center justify-center gap-2 font-semibold hover:bg-gray-50"
+              to="/dashboard/issue"
+              className="w-full sm:w-auto border border-gray-300 bg-white rounded-lg px-5 py-3 
+      flex items-center justify-center gap-2 font-semibold hover:bg-gray-50 
+      text-sm sm:text-base"
             >
-              <MdWarningAmber />
+              <MdWarningAmber className="text-lg" />
               Report Estate Issue
             </Link>
           </div>
@@ -117,81 +133,68 @@ const Homeowner = () => {
 
         {/* ================= DASHBOARD CARDS ================= */}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mt-8">
-          {/* Card */}
-
-          <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-            <div className="flex justify-between items-start">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mt-8">
+          {/* Outstanding Charges */}
+          <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 sm:p-6">
+            <div className="flex justify-between items-start gap-3">
               <div>
                 <p className="text-xs uppercase text-gray-500">
                   Outstanding Charges
                 </p>
 
-                <h2 className="text-3xl font-bold text-red-700 mt-3">$150</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold text-red-700 mt-2 sm:mt-3">
+                  ₦150
+                </h2>
               </div>
 
-              <MdOutlinePayments className="w-10 h-10 rounded-lg bg-red-100 p-2 text-red-700" />
+              <MdOutlinePayments className="w-8 h-8 sm:w-10 sm:h-10 shrink-0 rounded-lg bg-red-100 p-2 text-red-700" />
             </div>
 
-            <p className="text-sm text-gray-500 mt-6">Due immediately</p>
+            <p className="text-sm text-gray-500 mt-4 sm:mt-6">
+              Due immediately
+            </p>
           </div>
 
-          {/* Card */}
-
-          <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-            <div className="flex justify-between items-start">
+          {/* Reported Issues */}
+          <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 sm:p-6">
+            <div className="flex justify-between items-start gap-3">
               <div>
                 <p className="text-xs uppercase text-gray-500">
                   Reported Issues
                 </p>
 
-                <h2 className="text-3xl font-bold mt-3">1</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold mt-2 sm:mt-3">
+                  1
+                </h2>
               </div>
 
-              <FaTools className="w-10 h-10 rounded-lg bg-orange-100 p-2 text-orange-600" />
+              <FaTools className="w-8 h-8 sm:w-10 sm:h-10 shrink-0 rounded-lg bg-orange-100 p-2 text-orange-600" />
             </div>
 
-            <p className="text-sm text-gray-500 mt-6">
+            <p className="text-sm text-gray-500 mt-4 sm:mt-6">
               Active ticket in progress
             </p>
           </div>
 
-          {/* Card */}
-
-          <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-xs uppercase text-gray-500">
-                  Community Updates
-                </p>
-
-                <h2 className="text-3xl font-bold mt-3">5</h2>
-              </div>
-
-              <TbBellRinging className="w-10 h-10 rounded-lg bg-blue-100 p-2 text-blue-700" />
-            </div>
-
-            <p className="text-sm text-gray-500 mt-6">
-              New announcements this week
-            </p>
-          </div>
-
-          {/* Card */}
-
-          <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-            <div className="flex justify-between items-start">
+          {/* Property Count */}
+          <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 sm:p-6">
+            <div className="flex justify-between items-start gap-3">
               <div>
                 <p className="text-xs uppercase text-gray-500">
                   Property Count
                 </p>
 
-                <h2 className="text-3xl font-bold mt-3">3</h2>
+                <h2 className="text-2xl sm:text-3xl font-bold mt-2 sm:mt-3">
+                  {myProperties.length}
+                </h2>
               </div>
 
-              <FaLayerGroup className="w-10 h-10 rounded-lg bg-blue-100 p-2 text-blue-700" />
+              <FaLayerGroup className="w-8 h-8 sm:w-10 sm:h-10 shrink-0 rounded-lg bg-blue-100 p-2 text-blue-700" />
             </div>
 
-            <p className="text-sm text-gray-500 mt-6">Registered properties</p>
+            <p className="text-sm text-gray-500 mt-4 sm:mt-6">
+              Registered properties
+            </p>
           </div>
         </div>
 
@@ -202,7 +205,7 @@ const Homeowner = () => {
           {/* ================= LEFT COLUMN ================= */}
 
           <div className="xl:col-span-2 space-y-8">
-            {/* ================= ESTATE ANNOUNCEMENTS ================= */}
+            {/* ================= HOMEOWNER PROPERTIES ================= */}
 
             <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 bg-gray-100 px-6 py-5 border-b">
@@ -210,7 +213,7 @@ const Homeowner = () => {
                   <MdOutlineAnnouncement className="text-2xl text-[#00236F]" />
 
                   <h2 className="text-lg font-bold text-[#00236F]">
-                    Estate Announcements
+                    My Properties
                   </h2>
                 </div>
 
@@ -218,74 +221,57 @@ const Homeowner = () => {
                   View All
                 </button>
               </div>
-
-              {/* Announcement */}
-
-              <div className="p-6 border-b">
-                <div className="flex flex-col md:flex-row gap-5">
-                  <img
-                    src={news1}
-                    alt=""
-                    className="w-full md:w-48 h-40 md:h-28 object-cover rounded-lg"
-                  />
-
-                  <div className="flex-1">
-                    <div className="flex flex-col sm:flex-row sm:justify-between gap-2">
-                      <h3 className="font-bold text-[#191C1E]">
-                        Main Gate Maintenance Schedule
-                      </h3>
-
-                      <span className="self-start bg-gray-200 text-gray-700 text-xs px-3 py-1 rounded-full">
-                        Estate News
-                      </span>
-                    </div>
-
-                    <p className="text-sm text-gray-600 mt-4 leading-6">
-                      Please be advised that the bi-annual maintenance for the
-                      automated gate system will take place this Thursday from
-                      10:00 AM to 2:00 PM.
-                    </p>
-
-                    <p className="text-xs text-gray-500 mt-4">
-                      Posted 2 hours ago by Management
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Announcement */}
-
-              <div className="p-6">
-                <div className="flex flex-col md:flex-row gap-5">
-                  <img
-                    src={news1}
-                    alt=""
-                    className="w-full md:w-48 h-40 md:h-28 object-cover rounded-lg"
-                  />
-
-                  <div className="flex-1">
-                    <div className="flex flex-col sm:flex-row sm:justify-between gap-2">
-                      <h3 className="font-bold text-[#191C1E]">
-                        Annual Residents Social Gala
-                      </h3>
-
-                      <span className="self-start bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full">
-                        Community Event
-                      </span>
-                    </div>
-
-                    <p className="text-sm text-gray-600 mt-4 leading-6">
-                      We are excited to invite all residents to the Oakwood
-                      Annual Social. Tickets are available at the clubhouse
-                      reception desk.
-                    </p>
-
-                    <p className="text-xs text-gray-500 mt-4">
-                      Posted yesterday by Residents Association
-                    </p>
-                  </div>
-                </div>
-              </div>
+              <table className="min-w-full border border-gray-200 rounded-lg">
+                <thead className="bg-[#9B9B9BCC] rounded-lg">
+                  <tr className="rounded-lg">
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                      <input type="checkbox" />
+                    </th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                      TYPE
+                    </th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                      ADDRESS
+                    </th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                      ESTATE
+                    </th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                      STATUS
+                    </th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                      SERVICE CHARGE
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y bg-[#F5F5F5] divide-gray-200">
+                  {myProperties?.map((property) => (
+                    <tr className="hover:bg-gray-50">
+                      <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                        <input type="checkbox" />
+                      </th>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {property.type}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {property.address}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {property.estate_name}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {property.status}
+                      </td>
+                      <td className="px-6 py-4 text-lg font-bold text-red-700">
+                        {/* {property.status} */}
+                        <Link to={`/dashboard/service-charge/${property.id}`}>
+                          Pay
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
 
             {/* ================= SERVICE CHARGE HISTORY ================= */}
@@ -433,51 +419,16 @@ const Homeowner = () => {
                     ))}
                   </div>
                 </div>
-
                 {/* Item */}
-                {/* 
-                <div className="flex gap-4">
-                  <div className="flex flex-col items-center">
-                    <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center">
-                      <AiOutlineExclamationCircle className="text-green-700 text-xl" />
-                    </div>
-                  </div>
-
-                  <div className="flex-1 rounded-lg border p-4">
-                    <div className="flex flex-col sm:flex-row sm:justify-between gap-2">
-                      <h3 className="font-semibold">Water Pressure Drop</h3>
-
-                      <span className="self-start rounded-full bg-gray-200 text-gray-700 px-3 py-1 text-xs font-semibold">
-                        Resolved
-                      </span>
-                    </div>
-
-                    <p className="text-sm text-gray-600 mt-3">
-                      Pressure restored after scheduled pump station
-                      maintenance.
-                    </p>
-
-                    <div className="flex flex-col sm:flex-row sm:justify-between text-xs text-gray-500 mt-4 gap-2">
-                      <span>ID: #TK-8810</span>
-
-                      <span>Resolved Sep 28</span>
-                    </div>
-                  </div>
-                </div> */}
               </div>
-
               {/* Support */}
-
               <div className="border-t p-6 text-center">
                 <MdOutlineSupportAgent className="mx-auto text-5xl text-[#00236F]/20" />
-
                 <h3 className="font-semibold mt-4">Need urgent assistance?</h3>
-
                 <p className="text-sm text-gray-500 mt-2">
                   Our estate support team is available to help you with
                   emergencies and service requests.
                 </p>
-
                 <button
                   className="
                   mt-6
