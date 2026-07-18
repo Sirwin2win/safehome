@@ -35,6 +35,9 @@ const UpdateHomeownerProperty = () => {
       );
     }
   };
+  if (propStatus === "loading") {
+    return <p>Loading...</p>;
+  }
   return (
     <div>
       {/* Back Buttom */}

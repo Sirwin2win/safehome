@@ -115,8 +115,8 @@ const Homeowner = () => {
               className="w-full sm:w-auto bg-[#00236F] text-white rounded-lg px-5 py-3 
       flex items-center justify-center gap-2 font-semibold text-sm sm:text-base"
             >
-              <MdOutlineAccountBalanceWallet className="text-lg" />
-              Pay Service Below
+              <MdOutlineAccountBalanceWallet className="text-xs" />
+              Pay Service Charge Below
             </button>
 
             <Link
@@ -164,7 +164,7 @@ const Homeowner = () => {
                 </p>
 
                 <h2 className="text-2xl sm:text-3xl font-bold mt-2 sm:mt-3">
-                  1
+                  {myIssues?.length}
                 </h2>
               </div>
 

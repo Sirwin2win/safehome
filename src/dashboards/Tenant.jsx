@@ -115,7 +115,7 @@ const Tenant = () => {
 
           <div className="flex flex-col sm:flex-row gap-3">
             <Link
-              to={"/dashboard/lease-docs"}
+              to={`/dashboard/service-charge/${myLease[0]?.property_id}`}
               className="bg-[#00236F] text-white rounded-lg px-5 py-3 flex items-center justify-center gap-2 font-semibold"
             >
               <MdOutlinePayments />
