@@ -32,6 +32,7 @@ import { Link } from "react-router-dom";
 import { fetchMyIssues } from "../features/issue/issueSlice";
 import { formatDistanceToNow } from "date-fns";
 import { fetchMyProperties } from "../features/properties/propertySlice";
+import { fetchMyServiceCharges } from "../features/serviceCharge/serviceChargeSlice";
 
 const Homeowner = () => {
   const dispatch = useDispatch();
@@ -57,6 +58,12 @@ const Homeowner = () => {
     dispatch(fetchMyIssues());
   }, [dispatch]);
   console.log(myProperties);
+  const { myserviceCharges, SCStatus } = useSelector(
+    (state) => state.serviceCharges,
+  );
+  useEffect(() => {
+    dispatch(fetchMyServiceCharges());
+  }, [dispatch]);
   return (
     <div className="min-h-screen bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -293,11 +300,11 @@ const Homeowner = () => {
                   <thead className="bg-gray-50">
                     <tr>
                       <th className="px-6 py-4 text-left text-sm text-gray-500">
-                        REFERENCE
+                        ESTATE NAME
                       </th>
 
                       <th className="px-6 py-4 text-left text-sm text-gray-500">
-                        DATE
+                        ADDRESS
                       </th>
 
                       <th className="px-6 py-4 text-left text-sm text-gray-500">
@@ -309,51 +316,39 @@ const Homeowner = () => {
                       </th>
 
                       <th className="px-6 py-4 text-left text-sm text-gray-500">
-                        ACTION
+                        DATE
                       </th>
                     </tr>
                   </thead>
 
                   <tbody>
-                    <tr className="border-t hover:bg-gray-50">
-                      <td className="px-6 py-4">INV-2023-09</td>
+                    {myserviceCharges?.map((charge) => (
+                      <tr className="border-t hover:bg-gray-50" key={charge.id}>
+                        <td className="px-6 py-4">{charge.estate_name}</td>
 
-                      <td className="px-6 py-4">Sep 01, 2023</td>
+                        <td className="px-6 py-4">{charge.property_address}</td>
 
-                      <td className="px-6 py-4 font-semibold">$150.00</td>
+                        <td className="px-6 py-4 font-semibold">
+                          {charge.amount}
+                        </td>
 
-                      <td className="px-6 py-4">
-                        <span className="bg-green-100 text-green-700 rounded-full px-3 py-1 text-xs font-semibold">
-                          Paid
-                        </span>
-                      </td>
+                        <td className="px-6 py-4">
+                          <span className="bg-green-100 text-green-700 rounded-full px-3 py-1 text-xs font-semibold">
+                            {charge.status}
+                          </span>
+                        </td>
 
-                      <td className="px-6 py-4">
-                        <button className="text-[#00236F] hover:text-blue-700">
-                          <MdOutlineFileDownload className="text-xl" />
-                        </button>
-                      </td>
-                    </tr>
-
-                    <tr className="border-t hover:bg-gray-50">
-                      <td className="px-6 py-4">INV-2023-10</td>
-
-                      <td className="px-6 py-4">Oct 01, 2023</td>
-
-                      <td className="px-6 py-4 font-semibold">$150.00</td>
-
-                      <td className="px-6 py-4">
-                        <span className="bg-yellow-100 text-yellow-700 rounded-full px-3 py-1 text-xs font-semibold">
-                          Pending
-                        </span>
-                      </td>
-
-                      <td className="px-6 py-4">
-                        <button className="text-[#00236F] hover:text-blue-700">
-                          <MdOutlinePayment className="text-xl" />
-                        </button>
-                      </td>
-                    </tr>
+                        <td className="px-6 py-4">
+                          <button className="text-[#00236F] hover:text-blue-700">
+                            {new Intl.DateTimeFormat("en-GB", {
+                              day: "numeric",
+                              month: "long",
+                              year: "numeric",
+                            }).format(new Date(charge.created_at))}
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>

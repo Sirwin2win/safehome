@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchProperties } from "../features/properties/propertySlice";
 
 const PropertyListingPage = () => {
-  //initializations
+  //initialization
   const dispatch = useDispatch();
   const { properties, propStatus, propError } = useSelector(
     (state) => state.properties,
