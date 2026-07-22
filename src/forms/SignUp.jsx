@@ -54,7 +54,7 @@ const SignUp = () => {
         <img src={regImg} alt="" className="rounded-lg h-400 w-150 mt-50" />
         <div className="flex absolute bottom-220 ms-10">
           <img src={logo} alt="" className="size-10" />
-          <p className="text-2xl font-bold ms-2 text-white">SafeHomes</p>
+          <p className="text-2xl font-bold ms-2 text-white">SafeHome</p>
         </div>
         <div>
           <p className="absolute bottom-130 text-4xl font-bold text-white px-25">
@@ -69,7 +69,7 @@ const SignUp = () => {
       {/* Right hand side with a form */}
       <div className="shadow-xl p-6 md:w-130 bg-white mt-15 md:-ms-80 z-20 rounded-r-lg">
         <form onSubmit={handleSubmit}>
-          <p className="text-2xl font-bold w-full mt-10">Join SafeHomes</p>
+          <p className="text-2xl font-bold w-full mt-10">Join SafeHome</p>
           <p className="pt-2 text-gray-600">
             Select your role to get started in our Abuja ecosystem.
           </p>

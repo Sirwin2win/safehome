@@ -1,15 +1,15 @@
-import React from 'react'
-import ListingCard from '../components/ListingCard'
-import Map from '../components/Map'
+import React from "react";
+import ListingCard from "../components/ListingCard";
+import Map from "../components/Map";
 import { BiSearch } from "react-icons/bi";
-import RentBuyTab from '../components/RentBuyTab';
-
+import RentBuyTab from "../components/RentBuyTab";
+import PropertyListingPage from "../components/PropertyListingPage";
 
 const Listings = () => {
   return (
-    <div className='md:flex justify-evenly'>
+    <div className="md:flex justify-evenly">
       {/* Mobile only area started */}
-      
+
       {/* Mobile only area ended */}
       {/* Lef Div Started */}
       <div>
@@ -17,19 +17,22 @@ const Listings = () => {
       </div>
       {/* Left Div Ended */}
       {/* Right Div Started */}
-        <div className=''>
-          <div className='relative'>
-          <input type="search" placeholder='City,neighborhood or city'
-           className='w-full rounded-full bg-gray-100 p-3 mt-5 mb-8' />
-           <BiSearch className='absolute bottom-12 md:left-180 left-80'/>
-
-          </div>
-        <Map />
-        <ListingCard />
+      <div className="">
+        <div className="relative">
+          <input
+            type="search"
+            placeholder="City,neighborhood or city"
+            className="w-full rounded-full bg-gray-100 p-3 mt-5 mb-8"
+          />
+          <BiSearch className="absolute bottom-12 md:left-180 left-80" />
         </div>
-        {/* Right Div Ended */}
+        <Map />
+        {/* <ListingCard /> */}
+        <PropertyListingPage />
+      </div>
+      {/* Right Div Ended */}
     </div>
-  )
-}
+  );
+};
 
-export default Listings
+export default Listings;
