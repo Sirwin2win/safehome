@@ -71,6 +71,7 @@ import AllProperties from "./dashboards/AllProperties";
 import HomeownerCorner from "./dashboards/HomeownerCorner";
 import UpdateHomeownerProperty from "./dashboards/UpdateHomeownerProperty";
 import ServiceCharge from "./dashboards/ServiceCharge";
+// import AssignManagers from "./dashboards/AssignManagers";
 
 /**
  * ✅ GLOBAL PROVIDER
@@ -158,6 +159,7 @@ export default function App() {
           <Route path="all-properties" element={<AllProperties />} />
           <Route path="homeowner-corner" element={<HomeownerCorner />} />
           <Route path="service-charge/:id" element={<ServiceCharge />} />
+          {/* <Route path="assign-managers" element={<AssignManagers />} /> */}
           <Route
             path="update-owner-property"
             element={<UpdateHomeownerProperty />}

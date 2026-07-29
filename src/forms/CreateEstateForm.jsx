@@ -64,6 +64,10 @@ const CreateEstateForm = () => {
         <IoMdArrowRoundBack className="size-7" />{" "}
         <span className="ms-2 font-bold">Back</span>
       </button>
+      <p className="text-center">
+        Create estate using the form below. To Assign Managers, click the pencil
+        icon on the table below
+      </p>
       <div className="min-h-screen bg-white flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10">
@@ -75,6 +79,7 @@ const CreateEstateForm = () => {
               </p>
             </div>
             {/* Form  */}
+
             <form className="space-y-6" onSubmit={handleSubmit}>
               {error && <p className="text-red-500">{error.message}</p>}
               {status === "succeeded" && (

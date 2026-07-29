@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchEstate, updateEstate } from "../features/estate/estateSlice";
+import { getUsers } from "../features/auth/authSlice";
 import logo from "../assets/images/logo.jpg";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useNavigate, useParams } from "react-router-dom";
@@ -8,35 +9,43 @@ import { useNavigate, useParams } from "react-router-dom";
 const EditEstateForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { estates, currentEstate, status, error } = useSelector(
+  const { id } = useParams();
+
+  const { currentEstate, status, error } = useSelector(
     (state) => state.estates,
   );
-  const { id } = useParams();
-  //   console.log(id);
+
+  const { users } = useSelector((state) => state.auth);
+
   const [formData, setFormData] = useState({
     name: "",
     address: "",
+    estate_manager: "",
   });
 
-  // Dispatching fetch request
+  // Fetch estate and users
   useEffect(() => {
     if (id) {
       dispatch(fetchEstate(id));
-      // setRes(currentProduct)
     }
+
+    dispatch(getUsers());
   }, [dispatch, id]);
 
+  // Populate form when estate is loaded
   useEffect(() => {
     if (currentEstate) {
       setFormData({
         name: currentEstate.name || "",
         address: currentEstate.address || "",
+        estate_manager: currentEstate.estate_manager || "",
       });
     }
   }, [currentEstate]);
 
   const onChange = (e) => {
     const { name, value } = e.target;
+
     setFormData((prev) => ({
       ...prev,
       [name]: value,
@@ -45,12 +54,15 @@ const EditEstateForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
 
-    dispatch(updateEstate({ id: id, formData }));
+    dispatch(
+      updateEstate({
+        id,
+        formData,
+      }),
+    );
   };
 
-  // Back function
   const back = () => {
     navigate(-1);
   };
@@ -59,72 +71,106 @@ const EditEstateForm = () => {
     <div>
       <button
         onClick={back}
-        className="flex justify-between bg-[#1B2B3F] text-white p-3 rounded-lg"
+        className="flex items-center bg-[#1B2B3F] text-white p-3 rounded-lg"
       >
-        {" "}
-        <IoMdArrowRoundBack className="size-7" />{" "}
-        <span className="ms-2 font-bold">Back</span>
+        <IoMdArrowRoundBack className="size-6" />
+        <span className="ml-2 font-bold">Back</span>
       </button>
+
       <div className="min-h-screen bg-white flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <div className="bg-white py-8 px-4 shadow-lg sm:rounded-lg sm:px-10">
             {/* Header */}
             <div className="text-center mb-8">
-              <img src={logo} alt="" className="my-5 mx-auto size-20" />
+              <img
+                src={logo}
+                alt="Logo"
+                className="my-5 mx-auto h-20 w-20 object-cover"
+              />
+
               <p className="mt-2 text-sm sm:text-base text-gray-600">
-                Fill up the form to create an estate
+                Update estate information
               </p>
             </div>
-            {/* Form  */}
+
             <form className="space-y-6" onSubmit={handleSubmit}>
-              {error && <p className="text-red-500">{error.message}</p>}
-              {status === "succeeded" && (
-                <p className="text-green-500">Estate created successfully!</p>
+              {error && (
+                <p className="text-red-500 text-sm">{error.message || error}</p>
               )}
+
+              {/* Estate Name */}
               <div>
                 <label
+                  htmlFor="name"
                   className="block text-sm font-medium text-gray-700"
-                  htmlFor="estate"
                 >
                   Estate Name
                 </label>
+
                 <input
                   type="text"
-                  id="estate"
-                  onChange={onChange}
-                  value={formData.name}
+                  id="name"
                   name="name"
-                  className="mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-blue-500"
+                  value={formData.name}
+                  onChange={onChange}
+                  className="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                   required
                 />
               </div>
+
+              {/* Estate Manager */}
               <div>
                 <label
+                  htmlFor="estate_manager"
                   className="block text-sm font-medium text-gray-700"
+                >
+                  Estate Manager
+                </label>
+
+                <select
+                  id="estate_manager"
+                  name="estate_manager"
+                  value={formData.estate_manager}
+                  onChange={onChange}
+                  className="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                >
+                  <option value="">Select Estate Manager</option>
+
+                  {users &&
+                    users.map((user) => (
+                      <option key={user.id} value={user.id}>
+                        {user.name} ({user.email})
+                      </option>
+                    ))}
+                </select>
+              </div>
+
+              {/* Address */}
+              <div>
+                <label
                   htmlFor="address"
+                  className="block text-sm font-medium text-gray-700"
                 >
                   Estate Address
                 </label>
+
                 <input
                   type="text"
                   id="address"
-                  onChange={onChange}
-                  value={formData.address}
                   name="address"
-                  className="mt-1 block w-full px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-blue-500"
+                  value={formData.address}
+                  onChange={onChange}
+                  className="mt-1 block w-full px-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                   required
                 />
               </div>
+
               <button
+                type="submit"
                 disabled={status === "loading"}
-                className="w-full flex justify-center py-2 px-4 sm:py-3 border border-transparent rounded-lg shadow-sm text-sm sm:text-base font-medium text-white bg-[#223B7E] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                className="w-full flex justify-center py-3 px-4 rounded-lg text-white bg-[#223B7E] hover:bg-[#1b2f65] disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <span>
-                  {" "}
-                  {status === "loading"
-                    ? "Creating Estate..."
-                    : "Create Estate"}
-                </span>
+                {status === "loading" ? "Updating Estate..." : "Update Estate"}
               </button>
             </form>
           </div>
