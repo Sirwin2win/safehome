@@ -17,7 +17,7 @@ const EstateManagerCorner = () => {
       </div>
       <div className="mb-20">
         <Link
-          to={"/dashboard/landlord-transactions"}
+          to={"/dashboard/approve-estate-maintenance"}
           className="bg-[#00236F] text-white font-semibold rounded-lg p-3"
         >
           Aprove Maintenance Request
@@ -25,7 +25,7 @@ const EstateManagerCorner = () => {
       </div>
       <div className="mb-20">
         <Link
-          to={"/dashboard/landlord-transactions"}
+          to={"/dashboard/estate-properties"}
           className="bg-[#00236F] text-white font-semibold rounded-lg p-3"
         >
           Update Property Status

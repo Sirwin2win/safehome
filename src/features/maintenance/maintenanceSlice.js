@@ -107,6 +107,7 @@ const maintenanceSlice = createSlice({
   initialState: {
     maintenance: [],
     myMaintenance: [],
+    myEstateMaintenance: [],
     currentMaintenance: null, // for editing / viewing one
     mainStatus: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
@@ -142,6 +143,19 @@ const maintenanceSlice = createSlice({
         state.myMaintenance = action.payload.data || action.payload;
       })
       .addCase(fetchMyMaintenance.rejected, (state, action) => {
+        state.mainStatus = "failed";
+        state.error = action.payload;
+      })
+      // fetch all myEstateMaintenance for estate Managers
+      .addCase(fetchMyEstateMaintenance.pending, (state) => {
+        state.mainStatus = "loading";
+        state.error = null;
+      })
+      .addCase(fetchMyEstateMaintenance.fulfilled, (state, action) => {
+        state.mainStatus = "succeeded";
+        state.myEstateMaintenance = action.payload.data || action.payload;
+      })
+      .addCase(fetchMyEstateMaintenance.rejected, (state, action) => {
         state.mainStatus = "failed";
         state.error = action.payload;
       })

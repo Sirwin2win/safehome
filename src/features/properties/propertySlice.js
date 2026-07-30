@@ -76,6 +76,34 @@ export const fetchMyProperties = createAsyncThunk(
   },
 );
 
+// Fetch My Properties
+export const fetchMyEstateProperties = createAsyncThunk(
+  "properties/fetchMyEstateProperties",
+  async (_, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+      const { filters } = thunkAPI.getState().properties;
+
+      const cleanFilters = Object.fromEntries(
+        Object.entries(filters).filter(
+          ([_, value]) => value !== "" && value !== null && value !== undefined,
+        ),
+      );
+
+      const response = await propertyAPI.fetchMyEstatePropertiesAPI(
+        cleanFilters,
+        token,
+      );
+
+      return response.data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(
+        err.response?.data?.message || err.message,
+      );
+    }
+  },
+);
+
 export const fetchProperty = createAsyncThunk(
   "properties/fetchProperty",
   async (id, thunkAPI) => {
@@ -150,6 +178,7 @@ const propertySlice = createSlice({
     propError: null,
 
     myProperties: [],
+    myEstateProperties: [],
 
     total: 0,
     totalPages: 0,
@@ -249,6 +278,19 @@ const propertySlice = createSlice({
         state.myProperties = action.payload.data;
       })
       .addCase(fetchMyProperties.rejected, (state, action) => {
+        state.propStatus = "failed";
+        state.propError = action.payload;
+      })
+      // fetch all my estate products for estateManagers
+      .addCase(fetchMyEstateProperties.pending, (state) => {
+        state.propStatus = "loading";
+        state.propError = null;
+      })
+      .addCase(fetchMyEstateProperties.fulfilled, (state, action) => {
+        state.propStatus = "succeeded";
+        state.myEstateProperties = action.payload.data;
+      })
+      .addCase(fetchMyEstateProperties.rejected, (state, action) => {
         state.propStatus = "failed";
         state.propError = action.payload;
       })

@@ -13,6 +13,7 @@ import {
 const AllProperties = () => {
   //initializations
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { properties, propStatus, propError } = useSelector(
     (state) => state.properties,
   );

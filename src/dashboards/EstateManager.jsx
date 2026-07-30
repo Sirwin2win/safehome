@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegBell } from "react-icons/fa";
 import { IoIosSearch, IoIosCheckmarkCircleOutline } from "react-icons/io";
 import { MdWarningAmber } from "react-icons/md";
@@ -6,10 +6,24 @@ import { GiSpanner } from "react-icons/gi";
 import { PiUsersBold } from "react-icons/pi";
 import { AiOutlineSound, AiOutlineDollar } from "react-icons/ai";
 import { TbDots, TbClipboardText } from "react-icons/tb";
-
 import pix from "../assets/images/safehome_profile.jpg";
+import { fetchMyEstateMaintenance } from "../features/maintenance/maintenanceSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const EstateManager = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { myEstateMaintenance, mainStatus } = useSelector(
+    (state) => state.maintenance,
+  );
+  // dispatch to store
+  useEffect(() => {
+    if (mainStatus === "idle") {
+      dispatch(fetchMyEstateMaintenance());
+    }
+  }, [dispatch, mainStatus]);
+
   return (
     <div className="min-h-screen w-full bg-gray-100 overflow-x-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
@@ -167,27 +181,204 @@ const EstateManager = () => {
           </div>
 
           <div className="w-full overflow-x-auto">
-            <table className="w-full min-w-[600px] text-sm">
-              <thead className="bg-gray-50 text-gray-500">
-                <tr>
-                  <th className="p-4 text-left">TASK</th>
-                  <th className="p-4 text-left">ASSIGNED</th>
-                  <th className="p-4 text-left">PRIORITY</th>
-                  <th className="p-4 text-left">STATUS</th>
-                  <th className="p-4 text-left">DUE</th>
-                </tr>
-              </thead>
+            {/* Desktop Table */}
+            <div className="hidden md:block overflow-x-auto my-10">
+              <table className="min-w-full border border-gray-200 rounded-lg overflow-hidden">
+                <thead className="bg-gray-100">
+                  <tr>
+                    {/* <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                   REQUEST ID
+                 </th> */}
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                      DATE
+                    </th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                      CATEGORY
+                    </th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                      TENANT NAME
+                    </th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                      ESTATE NAME
+                    </th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                      HOUSE ADDRESS
+                    </th>
+                    {/* <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                   STATUS
+                 </th> */}
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                      STATUS
+                    </th>
+                    {/* <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                      RESOLVE
+                    </th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                      IN PROGRESS
+                    </th>
+                    <th className="px-6 py-3 text-left text-sm font-semibold text-gray-600">
+                      DELETE
+                    </th> */}
+                  </tr>
+                </thead>
 
-              <tbody>
-                <tr className="border-t hover:bg-gray-50">
-                  <td className="p-4">Repair Gate</td>
-                  <td className="p-4">John Peters</td>
-                  <td className="p-4 text-red-600">High</td>
-                  <td className="p-4 text-yellow-600">In Progress</td>
-                  <td className="p-4">Today</td>
-                </tr>
-              </tbody>
-            </table>
+                <tbody className="divide-y divide-gray-200">
+                  {myEstateMaintenance?.map((maint) => (
+                    <tr key={maint.id} className="hover:bg-gray-50">
+                      {/* <td className="px-6 py-4 text-sm text-gray-700">{maint.id}</td> */}
+
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {new Date(maint.created_at).toLocaleDateString(
+                          "en-US",
+                          {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          },
+                        )}
+                      </td>
+
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {maint.category}
+                      </td>
+
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {maint.name}
+                      </td>
+
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {maint.estate_name}
+                      </td>
+
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {maint.address}
+                      </td>
+
+                      {/* <td className="px-6 py-4">
+                     <span className="inline-block rounded-full bg-[#FFE1CC] px-5 py-2 text-sm text-[#FF6700]">
+                       {maint.status}
+                     </span>
+                   </td> */}
+                      {/* Status Badge */}
+                      <td className="px-4 py-3 text-center">
+                        <span
+                          className={`inline-flex rounded-full px-3 py-1 text-xs font-semibold ${
+                            maint.status === "IN PROGRESS"
+                              ? "bg-green-100 text-green-700"
+                              : maint.status === "RESOLVED"
+                                ? "bg-red-100 text-red-700"
+                                : "bg-yellow-100 text-yellow-700"
+                          }`}
+                        >
+                          {maint.status || "Pending"}
+                        </span>
+                      </td>
+                      {/* 
+                      <td className="px-4 py-3 text-center">
+                        <button
+                          onClick={() =>
+                            handleUpdateStatus(maint.id, "RESOLVED")
+                          }
+                          className="rounded-md bg-green-600 px-3 py-2 text-sm font-medium text-white transition hover:bg-green-700"
+                        >
+                          Resolve
+                        </button>
+                      </td> */}
+
+                      {/* <td className="px-4 py-3 text-center">
+                        <button
+                          onClick={() =>
+                            handleUpdateStatus(maint.id, "IN_PROGRESS")
+                          }
+                          className="rounded-md bg-amber-500 px-3 py-2 text-sm font-medium text-white transition hover:bg-amber-600"
+                        >
+                          In Progress
+                        </button>
+                      </td> */}
+
+                      {/* <td className="px-4 py-3 text-center">
+                        <button
+                          onClick={() => handleDelete(maint.id)}
+                          className="rounded-md bg-red-600 px-3 py-2 text-sm font-medium text-white transition hover:bg-red-700"
+                        >
+                          Delete
+                        </button>
+                      </td> */}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile Cards */}
+            <div className="space-y-4 md:hidden my-5">
+              {myEstateMaintenance?.map((maint) => (
+                <div
+                  key={maint.id}
+                  className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm"
+                >
+                  <div className="flex justify-between">
+                    <span className="text-xs font-semibold text-gray-500">
+                      REQUEST ID
+                    </span>
+                    <span className="text-sm text-gray-800">{maint.id}</span>
+                  </div>
+
+                  <div className="mt-3 flex justify-between">
+                    <span className="text-xs font-semibold text-gray-500">
+                      DATE
+                    </span>
+                    <span className="text-sm text-gray-800">
+                      {new Date(maint.created_at).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                      })}
+                    </span>
+                  </div>
+
+                  <div className="mt-3 flex justify-between">
+                    <span className="text-xs font-semibold text-gray-500">
+                      CATEGORY
+                    </span>
+                    <span className="text-sm text-gray-800">
+                      {maint.category}
+                    </span>
+                  </div>
+
+                  <div className="mt-3 flex justify-between">
+                    <span className="text-xs font-semibold text-gray-500">
+                      TENANT NAME
+                    </span>
+                    <span className="text-sm text-gray-800">{maint.name}</span>
+                  </div>
+
+                  <div className="mt-3 flex justify-between">
+                    <span className="text-xs font-semibold text-gray-500">
+                      ESTATE NAME
+                    </span>
+                    <span className="text-sm text-gray-800">
+                      {maint.estate_name}
+                    </span>
+                  </div>
+
+                  <div className="mt-3 flex justify-between">
+                    <span className="text-xs font-semibold text-gray-500">
+                      HOUSE ADDRESS
+                    </span>
+                    <span className="text-sm text-gray-800">
+                      {maint.address}
+                    </span>
+                  </div>
+
+                  <div className="mt-4">
+                    <span className="inline-block rounded-full bg-[#FFE1CC] px-5 py-2 text-sm text-[#FF6700]">
+                      {maint.status}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

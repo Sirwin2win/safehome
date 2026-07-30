@@ -29,6 +29,14 @@ export const fetchMyPropertiesAPI = (filters = {}, token) =>
       Authorization: `Bearer ${token}`,
     },
   });
+// FetchMyEstateProperties
+export const fetchMyEstatePropertiesAPI = (filters = {}, token) =>
+  axios.get(`${API_BASE}/estateManager-properties`, {
+    params: filters,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 export const updatePropertyAPI = (id, formData, token) => {
   // console.log("API:", { id, formData });
 
