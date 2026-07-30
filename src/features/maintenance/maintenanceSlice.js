@@ -28,6 +28,19 @@ export const fetchMyMaintenance = createAsyncThunk(
     }
   },
 );
+// Fetch My Estate
+export const fetchMyEstateMaintenance = createAsyncThunk(
+  "maintenance/fetchMyEstateMaintenance",
+  async (_, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await maintenanceAPI.fetchMyEstateMaintenanceAPI(token);
+      return response.data; // assuming your API returns array of products
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  },
+);
 // fetch Maintenance
 export const fetchMaintenance = createAsyncThunk(
   "maintenance/fetchMaintenance",

@@ -14,6 +14,19 @@ export const fetchEstateMembers = createAsyncThunk(
     }
   },
 );
+// My Estate Members
+export const fetchMyEstateMembers = createAsyncThunk(
+  "estateMembers/fetchMyEstateMembers",
+  async (_, thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await estateMemberAPI.fetchMyEstateMembersAPI(token);
+      return response.data; // assuming your API returns array of products
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.response?.data || err.message);
+    }
+  },
+);
 export const fetchEstateMember = createAsyncThunk(
   "estateMembers/fetchEstateMember",
   async (id, thunkAPI) => {
@@ -81,6 +94,7 @@ const estateMemberSlice = createSlice({
     currentEstateMember: null, // for editing / viewing one
     emStatus: "idle", // 'idle' | 'loading' | 'succeeded' | 'failed'
     error: null,
+    myEstateMembers: [],
   },
   reducers: {
     // optional non-async actions
@@ -100,6 +114,19 @@ const estateMemberSlice = createSlice({
         state.estateMembers = action.payload.data || action.payload;
       })
       .addCase(fetchEstateMembers.rejected, (state, action) => {
+        state.emStatus = "failed";
+        state.error = action.payload;
+      })
+      // fetch all my estates memebers
+      .addCase(fetchMyEstateMembers.pending, (state) => {
+        state.emStatus = "loading";
+        state.error = null;
+      })
+      .addCase(fetchMyEstateMembers.fulfilled, (state, action) => {
+        state.emStatus = "succeeded";
+        state.myEstateMembers = action.payload.data || action.payload;
+      })
+      .addCase(fetchMyEstateMembers.rejected, (state, action) => {
         state.emStatus = "failed";
         state.error = action.payload;
       })

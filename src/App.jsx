@@ -71,6 +71,8 @@ import AllProperties from "./dashboards/AllProperties";
 import HomeownerCorner from "./dashboards/HomeownerCorner";
 import UpdateHomeownerProperty from "./dashboards/UpdateHomeownerProperty";
 import ServiceCharge from "./dashboards/ServiceCharge";
+import MyEstateMemberApproval from "./dashboards/MyEstateMemberApproval";
+import EstateManagerCorner from "./dashboards/EstateManagerCorner";
 // import AssignManagers from "./dashboards/AssignManagers";
 
 /**
@@ -159,7 +161,14 @@ export default function App() {
           <Route path="all-properties" element={<AllProperties />} />
           <Route path="homeowner-corner" element={<HomeownerCorner />} />
           <Route path="service-charge/:id" element={<ServiceCharge />} />
-          {/* <Route path="assign-managers" element={<AssignManagers />} /> */}
+          <Route
+            path="my-estate-member-approval"
+            element={<MyEstateMemberApproval />}
+          />
+          <Route
+            path="estate-manager-corner"
+            element={<EstateManagerCorner />}
+          />
           <Route
             path="update-owner-property"
             element={<UpdateHomeownerProperty />}

@@ -18,6 +18,13 @@ export const fetchMyMaintenanceAPI = (token) =>
       Authorization: `Bearer ${token}`,
     },
   });
+// Get My Estate maintenance
+export const fetchMyEstateMaintenanceAPI = (token) =>
+  axios.get(`${API_BASE}/my-estate-maintenance`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 export const createMaintenanceAPI = (form, token) =>
   axios.post(API_BASE, form, {
     headers: {

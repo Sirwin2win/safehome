@@ -13,7 +13,7 @@ export const createEstateAPI = (estate, token) =>
     },
   });
 export const updateEstateAPI = (id, formData, token) =>
-  axios.put(`${API_BASE}/${id}`, formData, {
+  axios.patch(`${API_BASE}/${id}`, formData, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

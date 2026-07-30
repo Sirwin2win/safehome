@@ -4,7 +4,15 @@ import axios from "axios";
 
 const API_BASE = "https://api.safehomeproperties.com/api/estateMembers";
 
-export const fetchEstateMembersAPI = (token) => axios.get(API_BASE, {
+export const fetchEstateMembersAPI = (token) =>
+  axios.get(API_BASE, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+export const fetchMyEstateMembersAPI = (token) =>
+  axios.get(`${API_BASE}/estate-members`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -27,7 +35,7 @@ export const updateEstateMemberAPI = (id, status, token) => {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-    }
+    },
   );
 };
 export const deleteEstateMemberAPI = (id, token) =>
