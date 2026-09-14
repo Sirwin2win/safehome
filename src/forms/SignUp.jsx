@@ -9,11 +9,12 @@ import { FaRegEyeSlash, FaRegEye, FaArrowRight } from "react-icons/fa";
 import { GoHome } from "react-icons/go";
 import { RiMapPinUserLine } from "react-icons/ri";
 import { TbUserStar } from "react-icons/tb";
+import { p } from "framer-motion/client";
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const nagivate = useNavigate();
-  const { status, error } = useSelector((state) => state.auth);
+  const { registerStatus, error } = useSelector((state) => state.auth);
 
   const [form, setForm] = useState({
     name: "",
@@ -36,7 +37,7 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
-    if (status === "succeeded") {
+    if (registerStatus === "succeeded") {
       setForm({
         name: "",
         phone: "",
@@ -44,9 +45,9 @@ const SignUp = () => {
         password: "",
         role: "",
       });
-      nagivate("/login");
+      // nagivate("/login");
     }
-  }, [status]);
+  }, [registerStatus]);
   return (
     <div className="md:flex justify-evenly">
       {/* Left hand sise with an image */}
@@ -250,10 +251,17 @@ const SignUp = () => {
               </Link>
             </p>
           </div>
-
+          {registerStatus === "succeeded" && (
+            <p className="text-green-500">
+              Account created successsfully,{" "}
+              <Link className="text-red-500" to={"/login"}>
+                Login
+              </Link>
+            </p>
+          )}
           <button className="flex justify-center h-10 bg-[#FD761A] w-full rounded-lg my-10 py-2">
             <span className="text-white me-5 font-bold">
-              {status === "loading"
+              {registerStatus === "loading"
                 ? "creating your account..."
                 : "Complete Registration"}
             </span>

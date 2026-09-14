@@ -45,38 +45,53 @@ const LeaseDocs = () => {
   }, [dispatch, userId]);
 
   return (
-    <div>
-      {/* First Div */}
-      <div className="flex justify-between">
-        <div>
-          <p className="text-2xl font-bold">Lease Documents</p>
-          <p className="text-gray-500">
+    <div className="w-full min-w-0">
+      {/* ================= HEADER ================= */}
+      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div className="min-w-0">
+          <p className="text-xl font-bold sm:text-2xl">Lease Documents</p>
+
+          <p className="mt-1 text-sm text-gray-500 sm:text-base">
             Review, manage and sign your important lease and documents here.
           </p>
         </div>
+
         <Link
-          to={"/dashboard/lease-docs"}
-          className="flex justify-evenly bg-[#223B7E] text-white px-2 pt-3 rounded-lg"
+          to="/dashboard/lease-docs"
+          className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#223B7E] px-4 py-3 text-sm text-white sm:w-auto"
         >
-          <FaFileUpload className="size-5" />
-          <p className="ms-2">Sign Lease Document</p>
+          <FaFileUpload className="size-5 shrink-0" />
+
+          <span>Sign Lease Document</span>
         </Link>
       </div>
-      {/* Second Div */}
-      <div className="flex justify-between my-5">
-        <div className="relative w-full">
+
+      {/* ================= SEARCH + FILTER ================= */}
+      <div className="my-5 flex w-full flex-col gap-3 sm:flex-row">
+        {/* Search */}
+        <div className="relative min-w-0 flex-1">
           <input
             type="search"
-            className="w-full h-15 bg-[#F5F5F5] placeholder:text-[#999999] placeholder:py-5 placeholder:ps-15"
-            placeholder="search by name, property or document"
+            className="h-14 w-full rounded-lg bg-[#F5F5F5] pl-12 pr-4 text-sm outline-none placeholder:text-[#999999] focus:ring-2 focus:ring-[#223B7E]"
+            placeholder="Search by name, property or document"
           />
-          <FaSearch className="absolute bottom-5 left-5 size-5 text-gray-500" />
+
+          <FaSearch className="absolute left-4 top-1/2 size-5 -translate-y-1/2 text-gray-500" />
         </div>
-        <select name="" id="" className="h-15 w-80 border border-1 ms-40">
-          <option value="">status:All</option>
+
+        {/* Status */}
+        <select
+          name="status"
+          id="status"
+          className="h-14 w-full rounded-lg border border-gray-300 bg-white px-4 text-sm outline-none focus:ring-2 focus:ring-[#223B7E] sm:w-52 md:w-64"
+        >
+          <option value="">Status: All</option>
+          <option value="LEASE-READY">Lease Ready</option>
+          <option value="LEASE-SIGNED">Lease Signed</option>
         </select>
       </div>
-      {/* Table */}
+
+      {/* ================= TABLE ================= */}
       {user?.roles?.includes("landlord") ? (
         <LandlordLeaseTable />
       ) : user?.roles?.includes("tenant") ? (
@@ -84,7 +99,9 @@ const LeaseDocs = () => {
       ) : user?.roles?.includes("admin") ? (
         <LeaseDocsTable />
       ) : (
-        "You're not eligible for leases"
+        <p className="py-10 text-center text-gray-500">
+          You're not eligible for leases
+        </p>
       )}
     </div>
   );

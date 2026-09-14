@@ -70,10 +70,6 @@ const Home = () => {
   if (propStatus === "loading") {
     return <p>Loading properties...</p>;
   }
-
-  if (propStatus === "failed") {
-    return <p>Error: {propError}</p>;
-  }
   return (
     <div>
       {/* HomeAnimation Started */}
@@ -233,25 +229,6 @@ const Home = () => {
         </div>
 
         {/* MOBILE SEARCH */}
-
-        {/* <div className="hidden md:block bg-[#EF6700C9] rounded-lg mx-15 my-10">
-          <div className="flex justify-center p-2">
-            <IoSearchOutline className="text-white size-5" />
-
-            <input
-              type="search"
-              value={filters.search}
-              onChange={(e) => handleFilterChange("search", e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  applyFilters();
-                }
-              }}
-              className="w-40 placeholder:ps-10 placeholder:text-xl placeholder:text-white"
-              placeholder="search"
-            />
-          </div>
-        </div> */}
         {/* Buy/Rent Mobile */}
         <div className="md:hidden mt-6 px-4">
           <div className="flex gap-4 mb-4">
@@ -380,8 +357,8 @@ const Home = () => {
       {/* HomeAnimation Ended */}
       {/* <HomeAnimation /> */}
 
-      <button className="flex justify-evenly bg-[#223B7E99] hidden md:block p-2 rounded-full mx-auto my-10 font-[600]">
-        <BsStars className="me-2 size-8" /> Discover our key features
+      <button className="flex justify-evenly bg-[#223B7E99] hidden md:block p-5 rounded-full mx-auto my-10 font-[600]">
+        <BsStars className="me-2 size-5" /> Discover our key features
       </button>
       <div className="mb-5 hidden md:block">
         <p className="text-center font-bold text-2xl my-5">

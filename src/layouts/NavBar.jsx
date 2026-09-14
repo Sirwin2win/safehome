@@ -56,6 +56,11 @@ const NavBar = () => {
         {/* Get Started Button */}
         <Link to="/signup">
           <button className="bg-omaOrange text-white h-10 w-50 rounded-lg hidden md:block">
+            Register
+          </button>
+        </Link>
+        <Link to="/login">
+          <button className="bg-omaOrange text-white h-10 w-50 -ms-40 rounded-lg hidden md:block">
             Login
           </button>
         </Link>
@@ -130,6 +135,16 @@ const NavBar = () => {
             <Link to="/signup">
               <button
                 className="bg-omaOrange text-white text-2xl h-10 w-50 rounded-lg md:hidden"
+                onClick={() => setIsOpen(false)}
+              >
+                Register
+              </button>
+            </Link>
+          </li>
+          <li className="-ms-15">
+            <Link to="/login">
+              <button
+                className="bg-omaOrange text-white text-2xl h-10 w-50 mt-10 rounded-lg md:hidden"
                 onClick={() => setIsOpen(false)}
               >
                 Login

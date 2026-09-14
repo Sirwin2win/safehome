@@ -4,6 +4,7 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import { login } from "../features/auth/authSlice";
 import bot from "../assets/vectors/safe_home_properties_loginBot.png";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { FaRegEyeSlash, FaRegEye, FaArrowRight } from "react-icons/fa";
 import { PiWalletBold } from "react-icons/pi";
 import { BsTools } from "react-icons/bs";
 import { GiFamilyHouse } from "react-icons/gi";
@@ -14,22 +15,21 @@ const Login = () => {
   const location = useLocation();
 
   const auth = useSelector((state) => state.auth);
-  const { user, status } = auth;
+  const { user, loginStatus } = auth;
 
   const from = location.state?.from?.pathname || "/dashboard";
-
   useEffect(() => {
-    if (status === "succeeded") {
+    if (user && loginStatus !== "loading") {
       navigate(from, { replace: true });
     }
-  }, [status, navigate, from]);
+  }, [user, loginStatus, navigate, from]);
 
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
-
-  console.log(user);
+  const [showPassword, setShowPassword] = useState(false);
+  // console.log(user);
 
   const handleChange = (e) =>
     setForm({
@@ -74,31 +74,46 @@ const Login = () => {
               />
             </div>
 
-            <div className="mb-5">
+            <div className="relative">
+              <label htmlFor="password" className="font-[600]">
+                Password
+              </label>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
-                placeholder="Enter your password"
-                value={form.password}
                 onChange={handleChange}
-                required
-                className="w-full rounded-lg border border-gray-300 p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-[#223B7E]"
+                className="bg-gray-100 h-10 rounded-lg border border-gray-300 w-full"
+                placeholder="************"
               />
-            </div>
 
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-3 top-12 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              >
+                {showPassword ? (
+                  <FaRegEyeSlash size={18} className="mb-5 md:mb-0" />
+                ) : (
+                  <FaRegEye size={18} className="mb-5 md:mb-0" />
+                )}
+              </button>
+            </div>
             <div className="flex justify-end mb-6">
-              <Link to="#" className="text-sm text-blue-600 hover:underline">
+              <Link
+                to="/forgot-password"
+                className="text-sm text-blue-600 hover:underline"
+              >
                 Forgot your password?
               </Link>
             </div>
 
             <button
               type="submit"
-              disabled={auth.status === "loading"}
+              disabled={auth.loginStatus === "loading"}
               className="w-full bg-[#223B7EC9] hover:bg-[#1c3169] transition duration-300 text-white rounded-lg py-3 flex items-center justify-center gap-3 disabled:opacity-70"
             >
               <span>
-                {auth.status === "loading"
+                {auth.loginStatus === "loading"
                   ? "Logging you in..."
                   : "Continue with Email"}
               </span>
@@ -134,8 +149,8 @@ const Login = () => {
               <h3 className="text-lg font-semibold mb-2">Make Payments</h3>
 
               <p className="text-gray-100 text-sm sm:text-base leading-relaxed">
-                Pay online, track payment status, and view your payment history
-                with ease.
+                Pay online, track payment loginStatus, and view your payment
+                history with ease.
               </p>
             </div>
           </div>

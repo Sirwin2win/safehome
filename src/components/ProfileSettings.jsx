@@ -162,35 +162,50 @@ const ProfileSettings = () => {
   };
 
   return (
-    <div className="mx-5">
-      <p className="text-3xl font-bold">Settings</p>
-      <div className="flex justify-between">
-        <p className="text-[#999999]">
-          Manage your account settings and preferences
-        </p>
-        <div className="flex justify-evenly">
-          <MdLogout className="text-red-500 size-5 mt-1" />
-          <p className="text-red-500 ms-2">Logout</p>
+    <div className="mx-3 w-full max-w-full overflow-hidden sm:mx-5">
+      {/* ================= HEADER ================= */}
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-[1fr_auto] md:items-center">
+        <div>
+          <p className="text-2xl font-bold sm:text-3xl">Settings</p>
+
+          <p className="text-sm text-[#999999] sm:text-base">
+            Manage your account settings and preferences
+          </p>
         </div>
+
+        <button
+          type="button"
+          className="flex w-fit items-center gap-2 text-red-500"
+        >
+          <MdLogout className="size-5" />
+          <span>Logout</span>
+        </button>
       </div>
-      <p className="text-3xl font-bold mt-5">Profile</p>
-      <p className="text-[#999999]">
-        Click on the profile picture below to select an image
-      </p>
-      {/* Profile Photo  <LuPencilLine className="mt-10 size-7" /> */}
+
+      {/* ================= PROFILE TITLE ================= */}
+      <div className="mt-6">
+        <p className="text-2xl font-bold sm:text-3xl">Profile</p>
+
+        <p className="text-sm text-[#999999] sm:text-base">
+          Click on the profile picture below to select an image
+        </p>
+      </div>
+
+      {/* ================= PROFILE PHOTO ================= */}
       <form
         onSubmit={handlePhotoSubmit}
-        className="bg-[#F5F5F5] flex justify-between p-3 my-5"
+        className="my-5 grid grid-cols-1 gap-5 rounded-lg bg-[#F5F5F5] p-4 sm:p-5 md:grid-cols-[1fr_auto] md:items-center"
       >
-        <div className="flex items-center gap-4">
-          <label className="cursor-pointer relative">
+        {/* User */}
+        <div className="grid grid-cols-[auto_1fr] items-center gap-4 min-w-0">
+          <label className="relative block w-16 cursor-pointer">
             <img
               src={pix}
               alt={user?.name || "User"}
-              className="w-16 h-16 rounded-full object-cover border"
+              className="h-16 w-16 rounded-full border object-cover"
             />
 
-            <div className="absolute inset-0 rounded-full bg-black/40 opacity-0 hover:opacity-100 flex items-center justify-center text-white text-xs">
+            <div className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 text-xs text-white opacity-0 hover:opacity-100">
               Change
             </div>
 
@@ -202,17 +217,21 @@ const ProfileSettings = () => {
             />
           </label>
 
-          <div>
-            <p className="text-xl font-bold">{user?.name}</p>
-            <p className="text-gray-500">{user?.email}</p>
+          <div className="min-w-0">
+            <p className="truncate text-lg font-bold sm:text-xl">
+              {user?.name}
+            </p>
+
+            <p className="truncate text-sm text-gray-500">{user?.email}</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
+        {/* Photo Actions */}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 md:flex">
           <button
             type="button"
             onClick={handleDeletePhoto}
-            className="bg-[#D2D2D2] px-5 py-2 rounded-lg font-bold"
+            className="w-full rounded-lg bg-[#D2D2D2] px-5 py-3 font-bold sm:w-auto"
           >
             Remove Photo
           </button>
@@ -220,110 +239,105 @@ const ProfileSettings = () => {
           <button
             type="submit"
             disabled={profileStatus === "loading"}
-            className="bg-[#223B7E] text-white px-5 py-2 rounded-lg disabled:opacity-50"
+            className="w-full rounded-lg bg-[#223B7E] px-5 py-3 text-white disabled:opacity-50 sm:w-auto"
           >
             {profileStatus === "loading" ? "Uploading..." : "Submit Photo"}
           </button>
         </div>
       </form>
-      {/* Bio form */}
-      {/* FORM */}
+
+      {/* ================= PROFILE FORM ================= */}
       <form onSubmit={handleSubmit}>
         <p className="text-green-500">
           {updateStatus === "succeeded" && "Record updated successfully!"}
         </p>
+
         {/* PROFILE SECTION */}
-        <div className="bg-[#F5F5F5] px-5 py-10">
-          <div className="flex justify-between">
-            {/* NAME */}
-            <div className="w-full">
-              <label className="block my-3">Full Name</label>
+        <div className="mt-4 grid grid-cols-1 gap-5 rounded-lg bg-[#F5F5F5] px-4 py-6 sm:px-5 sm:py-8 md:grid-cols-2">
+          {/* NAME */}
+          <div className="min-w-0">
+            <label className="my-3 block">Full Name</label>
 
-              <input
-                type="text"
-                name="name"
-                value={forms.name}
-                onChange={onChange}
-                className="border border-gray-300 h-15 w-full rounded-lg ps-5"
-              />
-            </div>
-
-            {/* ROLE */}
-            <div className="w-full ms-10">
-              <label className="block my-3">Role</label>
-
-              <input
-                type="text"
-                value={user?.role || ""}
-                readOnly
-                className="border border-gray-300 h-15 w-full rounded-lg ps-5 bg-[#D9D9D9]"
-              />
-            </div>
+            <input
+              type="text"
+              name="name"
+              value={forms.name}
+              onChange={onChange}
+              className="h-14 w-full rounded-lg border border-gray-300 px-4 outline-none focus:ring-2 focus:ring-[#223B7E]"
+            />
           </div>
 
-          <div className="flex justify-between mt-5">
-            {/* EMAIL */}
-            <div className="w-full">
-              <label className="block my-3">Email Address</label>
+          {/* ROLE */}
+          <div className="min-w-0">
+            <label className="my-3 block">Role</label>
 
-              <input
-                type="text"
-                value={user?.email || ""}
-                readOnly
-                className="border border-gray-300 h-15 w-full rounded-lg ps-5 bg-[#D9D9D9]"
-              />
-            </div>
+            <input
+              type="text"
+              value={user?.role || ""}
+              readOnly
+              className="h-14 w-full rounded-lg border border-gray-300 bg-[#D9D9D9] px-4 outline-none"
+            />
+          </div>
 
-            {/* PHONE */}
-            <div className="w-full ms-10">
-              <label className="block my-3">Phone Number</label>
+          {/* EMAIL */}
+          <div className="min-w-0">
+            <label className="my-3 block">Email Address</label>
 
-              <input
-                type="text"
-                name="phone"
-                value={forms.phone}
-                onChange={onChange}
-                className="border border-gray-300 h-15 w-full rounded-lg ps-5"
-              />
-            </div>
+            <input
+              type="text"
+              value={user?.email || ""}
+              readOnly
+              className="h-14 w-full rounded-lg border border-gray-300 bg-[#D9D9D9] px-4 outline-none"
+            />
+          </div>
+
+          {/* PHONE */}
+          <div className="min-w-0">
+            <label className="my-3 block">Phone Number</label>
+
+            <input
+              type="text"
+              name="phone"
+              value={forms.phone}
+              onChange={onChange}
+              className="h-14 w-full rounded-lg border border-gray-300 px-4 outline-none focus:ring-2 focus:ring-[#223B7E]"
+            />
           </div>
         </div>
 
-        {/* PASSWORD SECTION */}
-        <div className="bg-[#F5F5F5] px-5 py-10 mt-5">
-          <div className="flex justify-between">
-            {/* CURRENT PASSWORD */}
-            <div className="w-full">
-              <label className="block my-3">Current Password</label>
+        {/* ================= PASSWORD SECTION ================= */}
+        <div className="mt-5 grid grid-cols-1 gap-5 rounded-lg bg-[#F5F5F5] px-4 py-6 sm:px-5 sm:py-8 md:grid-cols-2">
+          {/* CURRENT PASSWORD */}
+          <div className="min-w-0">
+            <label className="my-3 block">Current Password</label>
 
-              <input
-                type="password"
-                name="currentPassword"
-                value={forms.currentPassword}
-                onChange={onChange}
-                placeholder="Enter Current Password"
-                className="border border-gray-300 h-15 w-full rounded-lg ps-5"
-              />
-            </div>
+            <input
+              type="password"
+              name="currentPassword"
+              value={forms.currentPassword}
+              onChange={onChange}
+              placeholder="Enter Current Password"
+              className="h-14 w-full rounded-lg border border-gray-300 px-4 outline-none focus:ring-2 focus:ring-[#223B7E]"
+            />
+          </div>
 
-            {/* NEW PASSWORD */}
-            <div className="w-full ms-10">
-              <label className="block my-3">New Password</label>
+          {/* NEW PASSWORD */}
+          <div className="min-w-0">
+            <label className="my-3 block">New Password</label>
 
-              <input
-                type="password"
-                name="newPassword"
-                value={forms.newPassword}
-                onChange={onChange}
-                placeholder="Enter New Password"
-                className="border border-gray-300 h-15 w-full rounded-lg ps-5"
-              />
-            </div>
+            <input
+              type="password"
+              name="newPassword"
+              value={forms.newPassword}
+              onChange={onChange}
+              placeholder="Enter New Password"
+              className="h-14 w-full rounded-lg border border-gray-300 px-4 outline-none focus:ring-2 focus:ring-[#223B7E]"
+            />
           </div>
 
           {/* CONFIRM PASSWORD */}
-          <div className="mt-5">
-            <label className="block my-3">Confirm New Password</label>
+          <div className="min-w-0 md:col-span-2">
+            <label className="my-3 block">Confirm New Password</label>
 
             <input
               type="password"
@@ -331,91 +345,42 @@ const ProfileSettings = () => {
               value={forms.confirmPassword}
               onChange={onChange}
               placeholder="Confirm New Password"
-              className="border border-gray-300 h-15 w-full rounded-lg ps-5"
+              className="h-14 w-full rounded-lg border border-gray-300 px-4 outline-none focus:ring-2 focus:ring-[#223B7E]"
             />
           </div>
 
-          {/* BUTTON */}
-          <button
-            type="submit"
-            className="bg-[#223B7E] text-white px-10 py-3 font-bold rounded-lg mt-10"
-          >
-            <span>
+          {/* SAVE */}
+          <div className="md:col-span-2">
+            <button
+              type="submit"
+              className="w-full rounded-lg bg-[#223B7E] px-8 py-3 font-bold text-white sm:w-auto"
+            >
               {updateStatus === "loading" ? "Saving..." : "Save Changes"}
-            </span>
-          </button>
+            </button>
+          </div>
         </div>
       </form>
-      {/* Password Change form ended */}
-      {/* Notification started */}
-      <p className="text-2xl font-bold mt-5">Notification</p>
-      <p className="text-[#999999]">Manage how and when you receive alerts</p>
 
-      <div className="bg-[#F5F5F5] flex justify-between p-5 mt-5+">
-        <div>
-          <p className="text-xl font-bold">All Notifications</p>
-          <p className="text-[#999999]">
+      {/* ================= NOTIFICATION ================= */}
+      <div className="mt-6">
+        <p className="text-2xl font-bold">Notification</p>
+
+        <p className="text-sm text-[#999999] sm:text-base">
+          Manage how and when you receive alerts
+        </p>
+      </div>
+
+      <div className="mt-5 grid grid-cols-[1fr_auto] items-center gap-4 rounded-lg bg-[#F5F5F5] p-4 sm:p-5">
+        <div className="min-w-0">
+          <p className="text-lg font-bold sm:text-xl">All Notifications</p>
+
+          <p className="text-sm text-[#999999]">
             Enable or Disable notifications with a single switch
           </p>
         </div>
-        <MdToggleOn className="text-[#223B7E] size-10" />
+
+        <MdToggleOn className="size-9 shrink-0 text-[#223B7E] sm:size-10" />
       </div>
-      {/* Notification ended */}
-      {/* Notification Categories started */}
-      {/* <p className='text-2xl font-bold mt-5'>Notification Categories</p>
-              <div className='bg-[#F5F5F5] flex justify-between p-5 mt-5'>
-                <div className='flex justify-evenly'>
-                <MdPayments  className='text-[#223B7E] size-10 bg-[#223B7E4D] p-2 mt-2'/>
-                <div className='ms-5'>
-                  <p className='text-xl font-bold'>Payments</p>
-                  <p className='text-[#999999]'>Reminder for upcoming rent, payment confirmations and overdue alerts</p>
-                </div>
-                </div>
-                  <MdToggleOn  className='text-[#223B7E] size-10'/>
-              </div> */}
-      {/* <div className='bg-[#F5F5F5] flex justify-between p-5 mt-5'>
-                <div className='flex justify-evenly'>
-                <MdPayments  className='text-[#223B7E] size-10 bg-[#223B7E4D] p-2 mt-2'/>
-                <div className='ms-5'>
-                  <p className='text-xl font-bold'>Lease & Documents</p>
-                  <p className='text-[#999999]'>Alerts for lease renewal, new documents shared and signature requests.</p>
-                </div>
-                </div>
-                  <MdToggleOn  className='text-[#223B7E] size-10'/>
-              </div> */}
-      {/* <div className='bg-[#F5F5F5] flex justify-between p-5 mt-5'>
-                <div className='flex justify-evenly'>
-                <MdPayments  className='text-[#223B7E] size-10 bg-[#223B7E4D] p-2 mt-2'/>
-                <div className='ms-5'>
-                  <p className='text-xl font-bold'>Maintenance</p>
-                  <p className='text-[#999999]'>Updates on service requests and completion notices.</p>
-                </div>
-                </div>
-                  <MdToggleOn  className='text-[#223B7E] size-10'/>
-              </div> */}
-      {/* <div className='bg-[#F5F5F5] flex justify-between p-5 mt-5'>
-                <div className='flex justify-evenly'>
-                <MdPayments  className='text-[#223B7E] size-10 bg-[#223B7E4D] p-2 mt-2'/>
-                <div className='ms-5'>
-                  <p className='text-xl font-bold'>Community Announcements</p>
-                  <p className='text-[#999999]'>General updates and announcements from the management.</p>
-                </div>
-                </div>
-                  <MdToggleOn  className='text-[#223B7E] size-10'/>
-              </div> */}
-      {/* Notification Categories ended */}
-      {/* Privacy Settings started */}
-      {/* <p className='text-2xl font-bold mt-5'>Privacy Settings</p>
-              <p className='text-[#999999]'>Manage your data sharing, account settings and more</p> */}
-      {/*               
-              <div className='bg-[#F5F5F5] flex justify-between p-5 mt-5'>
-                <div>
-                  <p className='text-xl font-bold'>Personalized Content</p>
-                  <p className='text-[#999999]'>Enable or Disable notifications with a single switch</p>
-                </div>
-                  <MdToggleOn  className='text-[#223B7E] size-10'/>
-              </div> */}
-      {/* Privacy Settings ended */}
     </div>
   );
 };

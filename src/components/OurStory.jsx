@@ -22,7 +22,7 @@ const OurStory = () => {
           everyday stress of property oversight.
         </p>
       </div>
-      <img src={members2} alt="" className="px-5" />
+      <img src={members2} alt="" className="mx-70 w-200 rounded-xl" />
       {/* Our Story Ended */}
     </div>
   );

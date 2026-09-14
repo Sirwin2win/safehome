@@ -75,10 +75,16 @@ const DashboardLayout = () => {
   const navigate = useNavigate();
 
   // Handle logout
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate("/login");
+  const handleLogout = async () => {
+    try {
+      await dispatch(logout()).unwrap();
+      navigate("/login");
+    } catch (error) {
+      // Depending on your logout strategy, you can still navigate.
+      navigate("/login");
+    }
   };
+
   let hasEstate = false;
 
   if (user) {
@@ -125,38 +131,7 @@ const DashboardLayout = () => {
                 </span>
               </li>
             )}
-            {/* {hasEstate &&
-              ["landlord"].some((role) => user?.roles?.includes(role)) && (
-                <li className="flex items-center p-4 m-3 rounded-lg cursor-pointer">
-                  <TbLayoutDashboardFilled
-                    size={24}
-                    className="text-[#B7C8E1]"
-                  />
-                  <span
-                    className={`ml-4 text-[#B7C8E1] md:block ${isOpen ? "block" : "hidden"}`}
-                  >
-                    <Link to={"/dashboard/landlord-dashboard"}>
-                      Landlord Dashboard
-                    </Link>
-                  </span>
-                </li>
-              )}
-            {hasEstate &&
-              ["tenant"].some((role) => user?.roles?.includes(role)) && (
-                <li className="flex items-center p-4 m-3 rounded-lg cursor-pointer">
-                  <TbLayoutDashboardFilled
-                    size={24}
-                    className="text-[#B7C8E1]"
-                  />
-                  <span
-                    className={`ml-4 text-[#B7C8E1] md:block ${isOpen ? "block" : "hidden"}`}
-                  >
-                    <Link to={"/dashboard/tenant-dashboard"}>
-                      Tenant Dashboard
-                    </Link>
-                  </span>
-                </li>
-              )} */}
+
             {/* Join Estate Link Started */}
             {!hasEstate && (
               <li className="items-center p-4 m-3 rounded-lg">
@@ -340,20 +315,7 @@ const DashboardLayout = () => {
                   </span>
                 </li>
               )}
-            {/* {hasEstate && */}
-            {/* ["tenant", "admin"].some((role) => */}
-            {/* user?.roles?.includes(role), */}
-            {/* ) && ( */}
-            {/* <li className="flex items-center p-4 m-3 text-[#B7C8E1] cursor-pointer"> */}
-            {/* <FaSyncAlt size={24} /> */}
-            {/* <FaUserAlt size={24} /> */}
-            {/* <span
-                    className={`ml-4 md:block ${isOpen ? "block" : "hidden"}`}
-                  >
-                    <Link to={"set-autoplay"}>Set autopay</Link>
-                  </span> */}
-            {/* </li> */}
-            {/* )} */}
+
             {hasEstate &&
               ["tenant", "admin"].some((role) =>
                 user?.roles?.includes(role),
@@ -412,19 +374,17 @@ const DashboardLayout = () => {
                 </span>
               </li>
             )}
-            {hasEstate && (
-              <li
-                className="flex items-center p-4 m-3 text-[#B7C8E1] cursor-pointer"
-                onClick={handleLogout}
-              >
-                <FaSignOutAlt size={24} />
-                <span
-                  className={`ml-4 md:block ${isOpen ? "block" : "hidden"}`}
-                >
-                  Logout
-                </span>
-              </li>
-            )}
+            {/* {hasEstate && ( */}
+            <li
+              className="flex items-center p-4 m-3 text-[#B7C8E1] cursor-pointer"
+              onClick={handleLogout}
+            >
+              <FaSignOutAlt size={24} />
+              <span className={`ml-4 md:block ${isOpen ? "block" : "hidden"}`}>
+                Logout
+              </span>
+            </li>
+            {/* )} */}
           </ul>
         </nav>
       </div>

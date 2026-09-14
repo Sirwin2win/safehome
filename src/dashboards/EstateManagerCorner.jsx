@@ -3,30 +3,29 @@ import { Link } from "react-router-dom";
 
 const EstateManagerCorner = () => {
   return (
-    <div>
-      <p className="my-10 text-center font-bold text-lg  text-[#00236F]">
+    <div className="w-full">
+      <p className="my-6 sm:my-8 md:my-10 text-center font-bold text-lg sm:text-xl text-[#00236F]">
         EstateManager Corner
       </p>
-      <div className="mb-20">
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
         <Link
-          to={"/dashboard/my-estate-member-approval"}
-          className="bg-[#00236F] text-white font-semibold rounded-lg p-3"
+          to="/dashboard/my-estate-member-approval"
+          className="w-full bg-[#00236F] text-white font-semibold rounded-lg p-4 text-sm sm:text-base text-center break-words hover:bg-[#00358f] transition"
         >
           Approve Estate Membership Request
         </Link>
-      </div>
-      <div className="mb-20">
+
         <Link
-          to={"/dashboard/approve-estate-maintenance"}
-          className="bg-[#00236F] text-white font-semibold rounded-lg p-3"
+          to="/dashboard/approve-estate-maintenance"
+          className="w-full bg-[#00236F] text-white font-semibold rounded-lg p-4 text-sm sm:text-base text-center break-words hover:bg-[#00358f] transition"
         >
-          Aprove Maintenance Request
+          Approve Maintenance Request
         </Link>
-      </div>
-      <div className="mb-20">
+
         <Link
-          to={"/dashboard/estate-properties"}
-          className="bg-[#00236F] text-white font-semibold rounded-lg p-3"
+          to="/dashboard/estate-properties"
+          className="w-full bg-[#00236F] text-white font-semibold rounded-lg p-4 text-sm sm:text-base text-center break-words hover:bg-[#00358f] transition"
         >
           Update Property Status
         </Link>

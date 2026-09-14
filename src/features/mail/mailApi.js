@@ -1,11 +1,18 @@
 // src/features/products/productAPI.js
 
-import axios from 'axios';
+import axios from "axios";
 
-const API_BASE = 'https://api.safehomeproperties.com/send-email';
+const API_BASE = "https://api.safehomeproperties.com/";
 
+export const createMailAPI = (formData) =>
+  axios.post(`${API_BASE}send-email`, formData);
+export const resetMailAPI = (email) =>
+  axios.post(`${API_BASE}api/auth/forgot-password`, {
+    email,
+  });
 
-export const createMailAPI = (mail) => axios.post(API_BASE, mail);
-export const resetMailAPI = (mail) => axios.post('https://api.safehomeproperties.com/api/auth/forgot-password', mail);
-export const updateMailAPI = (mail) => axios.put('https://api.safehomeproperties.com/api/auth/update-password', mail);
-
+export const resetPasswordAPI = ({ token, password }) =>
+  axios.post(`${API_BASE}api/auth/reset-password`, {
+    token,
+    password,
+  });

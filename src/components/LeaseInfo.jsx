@@ -24,34 +24,47 @@ const LeaseInfo = () => {
   const startDate = new Date(myLease[0]?.start_date);
   const endDate = new Date(myLease[0]?.end_date);
   return (
-    <div className="mx-5">
-      {/* Lease information Div */}
-      <div className="flex justify-between">
-        <div>
-          <p className="text-2xl">Lease Information</p>
-          <p className="text-[#999999]">{myLease[0]?.property_address}</p>
+    <div className="mx-3 w-full max-w-full overflow-hidden sm:mx-5">
+      {/* ================= LEASE INFORMATION HEADER ================= */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-[1fr_auto] md:items-center">
+        <div className="min-w-0">
+          <p className="text-xl font-semibold sm:text-2xl">Lease Information</p>
+
+          <p className="break-words text-sm text-[#999999] sm:text-base">
+            {myLease[0]?.property_address}
+          </p>
         </div>
+
         <Link
-          to={"/dashboard/lease-docs"}
-          className="flex justify-center bg-[#223B7E] rounded-lg px-3 pt-4"
+          to="/dashboard/lease-docs"
+          className="grid w-full grid-cols-[auto_1fr] items-center justify-center gap-2 rounded-lg bg-[#223B7E] px-4 py-3 text-center sm:w-fit"
         >
-          <TbFileDownloadFilled className="text-white size-5" />
-          <p className="text-white ms-2">Download Full Lease(PDF)</p>
+          <TbFileDownloadFilled className="size-5 text-white" />
+
+          <span className="text-sm text-white sm:text-base">
+            Download Full Lease (PDF)
+          </span>
         </Link>
       </div>
-      {/* Two Splitted Divs */}
-      <div className="flex justify-between mt-10">
-        {/* Left Div */}
-        <div className="">
-          <div className="bg-[#F5F5F5] p-5 rounded-lg">
-            <p className="text-lg font-bold my-5">Lease Term</p>
-            <div className="flex justify-evenly">
-              <div className="flex justify-evenly">
-                <LuCalendarCheck className="bg-[#223B7E4D] text-[#223B7E] size-10 p-1" />
-                <div className="ms-2">
-                  <p className="text-[#999999]">Lease Start Date</p>
-                  <p className="font-bold">
-                    {" "}
+
+      {/* ================= MAIN CONTENT ================= */}
+      <div className="mt-6 grid w-full grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_360px] lg:mt-10">
+        {/* ================= LEFT CONTENT ================= */}
+        <div className="grid min-w-0 grid-cols-1 gap-6">
+          {/* ================= LEASE TERM ================= */}
+          <div className="w-full rounded-lg bg-[#F5F5F5] p-4 sm:p-5">
+            <p className="my-4 text-lg font-bold sm:my-5">Lease Term</p>
+
+            {/* Dates */}
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              {/* Start Date */}
+              <div className="grid grid-cols-[auto_1fr] items-center gap-3 min-w-0">
+                <LuCalendarCheck className="size-10 shrink-0 bg-[#223B7E4D] p-1 text-[#223B7E]" />
+
+                <div className="min-w-0">
+                  <p className="text-sm text-[#999999]">Lease Start Date</p>
+
+                  <p className="break-words font-bold">
                     {new Date(startDate).toLocaleDateString("en-GB", {
                       day: "numeric",
                       month: "long",
@@ -60,12 +73,15 @@ const LeaseInfo = () => {
                   </p>
                 </div>
               </div>
-              <div className="flex justify-evenly ms-20">
-                <LuCalendarX className="bg-[#223B7E4D] text-[#223B7E] size-10 p-1" />
-                <div className="ms-2">
-                  <p className="text-[#999999]">Lease End Date</p>
-                  <p className="font-bold">
-                    {" "}
+
+              {/* End Date */}
+              <div className="grid grid-cols-[auto_1fr] items-center gap-3 min-w-0">
+                <LuCalendarX className="size-10 shrink-0 bg-[#223B7E4D] p-1 text-[#223B7E]" />
+
+                <div className="min-w-0">
+                  <p className="text-sm text-[#999999]">Lease End Date</p>
+
+                  <p className="break-words font-bold">
                     {new Date(endDate).toLocaleDateString("en-GB", {
                       day: "numeric",
                       month: "long",
@@ -75,90 +91,107 @@ const LeaseInfo = () => {
                 </div>
               </div>
             </div>
+
             {/* Time Remaining */}
-            <p className="text-[#999999] mt-10">Time Remaining</p>
-            {/* Progree Bar Started */}
-            <div className="w-full bg-gray-200 rounded-full h-3 mt-5">
+            <p className="mt-8 text-sm text-[#999999]">Time Remaining</p>
+
+            {/* Progress Bar */}
+            <div className="mt-4 h-3 w-full overflow-hidden rounded-full bg-gray-200">
               <div
-                className="bg-[#223B7E] h-3 rounded-full"
+                className="h-3 rounded-full bg-[#223B7E]"
                 style={{ width: "40%" }}
-              ></div>
+              />
             </div>
-            {/* Progree Bar Ended */}
-            {/* <p className="text-[#999999] text-end my-5">7 Months Remaining</p> */}
-          </div>
-          {/* Financials Div */}
-          <div className="bg-[#F5F5F5] p-5 rounded-lg mt-10">
-            <p className="text-lg font-bold my-5">Financials</p>
-            <div className="flex justify-evenly">
-              <div className="flex justify-evenly">
-                <TbCurrencyDollar className="bg-[#223B7E4D] text-[#223B7E] size-10 p-1 -ms-5" />
-                <div className="ms-2">
-                  <p className="text-[#999999]">Yearly Rent</p>
-                  <p className="font-bold">₦{myLease[0].rent_amount}</p>
-                </div>
-              </div>
-              <div className="flex justify-evenly ms-20">
-                <FaCalendarAlt className="bg-[#223B7E4D] text-[#223B7E] size-10 p-1" />
-                <div className="ms-2">
-                  <p className="text-[#999999]">Rent Due Date</p>
-                  <p className="font-bold">31st of Every Year</p>
-                </div>
-              </div>
-            </div>
-            {/* <div className="flex justify-evenly my-5">
-              <div className="flex justify-evenly">
-                <TbPigFilled className="bg-[#223B7E4D] text-[#223B7E] size-10 p-1" />
-                <div className="ms-2">
-                  <p className="text-[#999999]">Security Deposit</p>
-                  <p className="font-bold">$200.00</p>
-                </div>
-              </div>
-              <div className="flex justify-evenly ms-20">
-                <LuCalendarX className="bg-[#223B7E4D] text-[#223B7E] size-10 p-1" />
-                <div className="ms-2">
-                  <p className="text-[#999999]">Deposit Status</p>
-                  <div className="flex justify-center">
-                    <p className="font-bold text-[#00A725]">Held in Escrow </p>
-                    <IoMdCheckmark className="bg-[#00A725] text-white rounded-full size-3 ms-2 mt-2" />
-                  </div>
-                </div>
-              </div>
-            </div> */}
-          </div>
-        </div>
-        {/* Right Div  => Property Manager*/}
-        <div className="bg-[#F5F5F5] px-10 rounded-lg">
-          <p className="text-3xl mt-10 font-[500]">Property Manager</p>
-          {/* Photo Div */}
-          <div className="flex justify-evenly my-10">
-            <img src={eze} alt="" className="size-20 rounded-full" />
-            <div className="ms-5">
-              <p className="text-xl font-[500]">Eze Patrick</p>
-              <p className="text-[#999999] mt-3">Estate Management</p>
-            </div>
-          </div>
-          {/* Contact */}
-          <div className="flex justify-evenly">
-            <MdLocalPhone />
-            <p>+234 704 100 5315</p>
-          </div>
-          {/* Mail */}
-          <div className="flex justify-evenly my-10">
-            <IoMdMail />
-            <p>sales@safehomeproperties.com</p>
           </div>
 
-          {/* Contact Property Manager Button */}
-          <button className="bg-[#FF6700C9] text-[#223B7E] px-5 font-bold w-full py-3 rounded-lg">
+          {/* ================= FINANCIALS ================= */}
+          <div className="w-full rounded-lg bg-[#F5F5F5] p-4 sm:p-5">
+            <p className="my-4 text-lg font-bold sm:my-5">Financials</p>
+
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              {/* Yearly Rent */}
+              <div className="grid grid-cols-[auto_1fr] items-center gap-3 min-w-0">
+                <TbCurrencyDollar className="size-10 shrink-0 bg-[#223B7E4D] p-1 text-[#223B7E]" />
+
+                <div className="min-w-0">
+                  <p className="text-sm text-[#999999]">Yearly Rent</p>
+
+                  <p className="break-words font-bold">
+                    ₦{myLease[0]?.rent_amount}
+                  </p>
+                </div>
+              </div>
+
+              {/* Rent Due Date */}
+              <div className="grid grid-cols-[auto_1fr] items-center gap-3 min-w-0">
+                <FaCalendarAlt className="size-10 shrink-0 bg-[#223B7E4D] p-1 text-[#223B7E]" />
+
+                <div className="min-w-0">
+                  <p className="text-sm text-[#999999]">Rent Due Date</p>
+
+                  <p className="break-words font-bold">31st of Every Year</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ================= PROPERTY MANAGER ================= */}
+        <div className="w-full rounded-lg bg-[#F5F5F5] p-5 sm:px-8 lg:px-10">
+          <p className="mt-3 text-2xl font-medium sm:mt-5 sm:text-3xl">
+            Property Manager
+          </p>
+
+          {/* Manager */}
+          <div className="my-6 grid grid-cols-[auto_1fr] items-center gap-4 sm:my-10">
+            <img
+              src={eze}
+              alt="Property Manager"
+              className="size-16 rounded-full object-cover sm:size-20"
+            />
+
+            <div className="min-w-0">
+              <p className="truncate text-lg font-medium sm:text-xl">
+                Eze Patrick
+              </p>
+
+              <p className="mt-2 text-sm text-[#999999] sm:mt-3">
+                Estate Management
+              </p>
+            </div>
+          </div>
+
+          {/* Contact */}
+          <div className="grid grid-cols-[auto_1fr] items-center gap-3">
+            <MdLocalPhone className="shrink-0" />
+
+            <p className="break-all text-sm sm:text-base">+234 704 100 5315</p>
+          </div>
+
+          {/* Email */}
+          <div className="my-6 grid grid-cols-[auto_1fr] items-center gap-3 sm:my-10">
+            <IoMdMail className="shrink-0" />
+
+            <p className="break-all text-sm sm:text-base">
+              sales@safehomeproperties.com
+            </p>
+          </div>
+
+          {/* Contact Button */}
+          <button
+            type="button"
+            className="w-full rounded-lg bg-[#FF6700C9] px-5 py-3 font-bold text-[#223B7E]"
+          >
             Contact Property Manager
           </button>
         </div>
       </div>
-      {/* Special Terms and Clauses */}
-      <div className="bg-[#F1F1F1CC] flex justify-between my-10 px-5 py-5 rounded-lg">
-        <p>Special Terms & Clauses</p>
-        <FaChevronUp />
+
+      {/* ================= SPECIAL TERMS ================= */}
+      <div className="my-6 grid grid-cols-[1fr_auto] items-center gap-4 rounded-lg bg-[#F1F1F1CC] px-4 py-4 sm:my-10 sm:px-5">
+        <p className="min-w-0 break-words">Special Terms &amp; Clauses</p>
+
+        <FaChevronUp className="shrink-0" />
       </div>
     </div>
   );

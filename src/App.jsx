@@ -75,6 +75,8 @@ import MyEstateMemberApproval from "./dashboards/MyEstateMemberApproval";
 import EstateManagerCorner from "./dashboards/EstateManagerCorner";
 import ApproveEstateMaintenance from "./dashboards/ApproveEstateMaintenance";
 import EstateProperties from "./dashboards/EstateProperties";
+import ForgotPasswordForm from "./forms/ForgotPasswordForm";
+import ResetPasswordForm from "./forms/ResetPasswordForm";
 // import AssignManagers from "./dashboards/AssignManagers";
 
 /**
@@ -118,6 +120,8 @@ export default function App() {
           <Route path="edit/:id" element={<EditProduct />} />
           <Route path="detail/:id" element={<PropertyDetailPage />} />
           <Route path="procard" element={<PropertyCard />} />
+          <Route path="forgot-password" element={<ForgotPasswordForm />} />
+          <Route path="reset-password" element={<ResetPasswordForm />} />
         </Route>
 
         {/* DASHBOARD ROUTES */}

@@ -100,13 +100,8 @@ export const login = createAsyncThunk(
         password,
       });
 
-      // Store token (and possibly user info) in localStorage
-      localStorage.setItem("token", res.data.token);
-      // localStorage.setItem("me", res.data.me);
-
-      return res.data; // Should contain: { user, token }
+      return res.data;
     } catch (err) {
-      // Better safe fallback error message
       return thunkAPI.rejectWithValue(
         err.response?.data || {
           message: "Something went wrong. Please try again.",
@@ -117,10 +112,25 @@ export const login = createAsyncThunk(
 );
 
 // 🔓 Logout
-export const logout = createAsyncThunk("auth/logout", async () => {
-  localStorage.removeItem("token");
-  return null;
-});
+export const logout = createAsyncThunk(
+  "auth/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      await api.post("/logout", null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("me");
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || "Logout failed");
+    }
+  },
+);
 
 // Get Single User
 export const getUserById = createAsyncThunk(
@@ -149,6 +159,8 @@ const authSlice = createSlice({
     user,
     users: [],
     status: "idle",
+    loginStatus: "idle",
+    registerStatus: "idle",
     error: null,
     initialized: false,
     updateStatus: "idle",
@@ -156,21 +168,15 @@ const authSlice = createSlice({
     me: null,
   },
   reducers: {
-    // setCredentials: (state, action) => {
-    //   if (
-    //     state.token === action.payload.token &&
-    //     JSON.stringify(state.user) === JSON.stringify(action.payload.user)
-    //   ) {
-    //     return; // 🔒 Avoid unnecessary update
-    //   }
-    //   state.token = action.payload.token;
-    //   state.user = action.payload.user;
-    // }
-    // setCredentials: (state, action) => {
-    //   state.user = action.payload.user;
-    //   state.token = action.payload.token;
-    //   state.initialized = true;
-    // },
+    clearAuthAfterPasswordReset: (state) => {
+      state.user = null;
+      state.me = null;
+      state.error = null;
+      state.loginStatus = "idle";
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("me");
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -206,51 +212,55 @@ const authSlice = createSlice({
       })
       // Register
       .addCase(register.pending, (state) => {
-        state.status = "loading";
+        state.registerStatus = "loading";
         state.error = null;
       })
       .addCase(register.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.registerStatus = "succeeded";
         state.msg = action.payload.message;
         // state.token = action.payload.token;
       })
       .addCase(register.rejected, (state, action) => {
-        state.status = "failed";
+        state.registerStatus = "failed";
         state.error = action.payload?.message || "Registration failed";
       })
       // Login
       .addCase(login.pending, (state) => {
-        state.status = "loading";
+        state.loginStatus = "loading";
         state.error = null;
       })
+
       .addCase(login.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        // state.user = action.payload.user
-        // state.token = action.payload.token
-        const { token } = action.payload;
-        try {
-          const decoded = jwtDecode(token);
-          state.user = {
-            id: decoded.id,
-            uuid: decoded.uuid,
-            role: decoded.role,
-            token,
-          };
-          localStorage.setItem("token", token);
-          localStorage.setItem("me", action.payload.user);
-        } catch (err) {
-          console.error("Token decode failed:", err);
-        }
+        state.loginStatus = "succeeded";
+
+        const { user, token } = action.payload;
+
+        state.user = user;
+
+        localStorage.setItem("token", token);
+        localStorage.setItem("me", JSON.stringify(user));
       })
+
       .addCase(login.rejected, (state, action) => {
-        state.status = "failed";
+        state.loginStatus = "failed";
         state.error = action.payload?.message || "Login failed";
       })
+
       // Logout
       .addCase(logout.fulfilled, (state) => {
         state.user = null;
-        state.token = null;
+        state.me = null;
+        state.loginStatus = "idle";
         state.status = "idle";
+        state.error = null;
+      })
+      .addCase(logout.rejected, (state) => {
+        // Still log the user out locally
+        state.user = null;
+        state.me = null;
+        state.loginStatus = "idle";
+        state.status = "idle";
+        state.error = null;
       })
 
       // Get User By Id
@@ -291,5 +301,6 @@ const authSlice = createSlice({
       });
   },
 });
-export const { setCredentials } = authSlice.actions;
+// export const { setCredentials } = authSlice.actions;
+export const { clearAuthAfterPasswordReset } = authSlice.actions;
 export default authSlice.reducer;

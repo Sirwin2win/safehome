@@ -4,6 +4,7 @@ import logo from "../assets/images/logo.jpg";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { getUsers } from "../features/auth/authSlice";
 import { addProperty } from "../features/properties/propertySlice";
+import { p } from "framer-motion/client";
 
 const PropertyForm = () => {
   const dispatch = useDispatch();
@@ -101,6 +102,10 @@ const PropertyForm = () => {
       console.log(pair[0], pair[1]);
     }
   };
+
+  if (status === "loading") {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className="min-h-screen bg-white flex flex-col justify-center py-12 sm:px-6 lg:px-8">
