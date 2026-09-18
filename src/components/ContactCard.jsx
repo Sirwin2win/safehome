@@ -1,9 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { TfiEmail } from "react-icons/tfi";
 import { MdOutlinePhone } from "react-icons/md";
 import { IoLocationOutline } from "react-icons/io5";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const ContactCard = () => {
+  const dispatch = useDispatch();
+  const { status, error } = useSelector((state) => state.mails);
+  const [formData, setFormData] = useState({
+    name: "",
+    organization: "default",
+    email: "",
+    number: "default",
+    country: "default",
+    contactOption: "tour",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleCountryChange = (val) => {
+    setFormData({
+      ...formData,
+      country: val,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    dispatch(addMail(formData));
+    // console.log(formData);
+  };
+  useEffect(() => {
+    if (status === "succeeded") {
+      setFormData({
+        name: "",
+        organization: "",
+        email: "",
+        number: "",
+        country: "",
+        contactOption: "tour",
+        message: "",
+      });
+    }
+  }, [status]);
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:-mt-5">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
@@ -77,30 +124,45 @@ const ContactCard = () => {
         <div className="bg-[#F4F4F4] rounded-2xl shadow-sm p-6 sm:p-8">
           <h3 className="text-2xl font-bold mb-6">Let's Find Your Property</h3>
 
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={handleSubmit}>
+            {status === "succeeded" && (
+              <p className="text-green-500">Your email has been received!</p>
+            )}
             <input
               type="text"
-              placeholder="Name"
+              name="name"
+              placeholder="Full Name"
+              onChange={handleChange}
+              value={formData.name}
               className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-[#223B7E]"
             />
 
             <input
-              type="email"
-              placeholder="Email"
+              type="text"
+              name="email"
+              placeholder="Email Address"
+              onChange={handleChange}
+              value={formData.email}
               className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:ring-2 focus:ring-[#223B7E]"
             />
 
             <textarea
               rows={6}
-              placeholder="Message"
+              name="message"
+              id="message"
+              placeholder="Type your message here"
+              onChange={handleChange}
+              value={formData.message}
               className="w-full rounded-lg border border-gray-300 px-4 py-3 resize-none outline-none focus:ring-2 focus:ring-[#223B7E]"
             />
-
             <button
               type="submit"
               className="w-full rounded-full bg-[#223B7EC9] py-3 text-white font-semibold hover:bg-[#223B7E] transition"
             >
-              Send Message
+              <span>
+                {" "}
+                {status === "loading" ? "Sending mail..." : "Send Email"}
+              </span>
             </button>
           </form>
         </div>

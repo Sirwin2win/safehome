@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/images/safehome-logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addNewsletter } from "../features/newsletter/newsletterSlice";
 
 const Footer = () => {
+  // initializations
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [form, setForm] = useState({
+    name: "",
+  });
+  const { sendStatus, newsletters } = useSelector((state) => state.newsletters);
+  const handleChange = (e) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(addNewsletter(form));
+  };
+  useEffect(() => {
+    if (sendStatus === "succeeded") {
+      setFormData({
+        name: "",
+      });
+    }
+  }, [status]);
   return (
     <footer className="relative bg-[#F1F1F1CC] px-4 sm:px-6 lg:px-10 pt-10 overflow-hidden">
       {/* Logo + Tagline */}
@@ -63,10 +86,15 @@ const Footer = () => {
             Sign up to receive the newsletter to your inbox
           </p>
 
-          <form className="mt-6 flex flex-col sm:flex-row gap-3">
+          <form
+            className="mt-6 flex flex-col sm:flex-row gap-3"
+            onSubmit={handleSubmit}
+          >
             <input
               type="email"
               placeholder="Enter your email"
+              name="name"
+              onChange={handleChange}
               className="w-full rounded-lg border border-gray-400 px-3 py-2 outline-none focus:ring-2 focus:ring-[#223B7E]"
             />
 
@@ -74,7 +102,13 @@ const Footer = () => {
               type="submit"
               className="bg-[#223B7EC9] text-white px-5 py-2 rounded-lg hover:bg-[#223B7E] transition"
             >
-              Sign Up
+              {sendStatus === "loading" ? (
+                "Sending mail..."
+              ) : sendStatus === "idle" ? (
+                "Send"
+              ) : (
+                <p className="text-green-500">Mail sent!</p>
+              )}
             </button>
           </form>
         </div>
